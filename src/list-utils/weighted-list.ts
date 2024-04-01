@@ -14,8 +14,8 @@ type InputEntry<T> = {
  */
 export class WeightedList<T> {
   private entries: Entry<T>[] = [];
-  private totalWeight: number = 0.0;
-  length: number = 0;
+  private totalWeight = 0.0;
+  length = 0;
 
   // Option to merge with an existing List
   constructor(list?: WeightedList<T>) {

@@ -7,7 +7,7 @@ import { GenericFunction } from '../common-types/common-types';
  * @param immediate - If true, the function will be called immediately.
  * @returns A debounced function.
  */
-export function debounce<T, R>(wait: number, fn: GenericFunction<T, R>, immediate: boolean = false) {
+export function debounce<T, R>(wait: number, fn: GenericFunction<T, R>, immediate = false) {
   let timeoutId: NodeJS.Timeout | null;
 
   return function (this: T, ...args: [arg: T]) {

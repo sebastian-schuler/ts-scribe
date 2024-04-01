@@ -11,7 +11,13 @@
   ],
   "rules": {
     "no-console": 1,
-    "semi-style": ["error", "last"],
-    "semi": [2, "always"]
+    "semi-style": [
+      "error",
+      "last"
+    ],
+    "semi": [
+      2,
+      "always"
+    ]
   }
 }
