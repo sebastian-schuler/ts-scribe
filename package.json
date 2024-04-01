@@ -34,12 +34,6 @@
   ],
   "author": "Sebastian Schuler <contact@sebastian-schuler.com> (https://www.sebastian-schuler.com)",
   "license": "MIT",
-  "funding": [
-    {
-      "type": "individual",
-      "url": "https://www.paypal.me/sesc0043"
-    }
-  ],
   "bugs": {
     "url": "https://github.com/sebastian-schuler/ts-scribe/issues"
   },
