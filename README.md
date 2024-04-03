@@ -21,6 +21,15 @@ npm install ts-scribe
 - `isNumber`: Checks if any value is a number or can be parsed into a number.
 - `clamp`: Clamps a number between a minimum and maximum value.
 
+### String Functions
+
+- `toCamelCase`: Converts a string to camelCase.
+- `toKebabCase`: Converts a string to kebab-case.
+- `toSnakeCase`: Converts a string to snake_case.
+- `toDotCase`: Converts a string to dot.case.
+- `toPascalCase`: Converts a string to PascalCase.
+- `toHeaderCase`: Converts a string to Header Case.
+
 ### Promise Functions
 
 - `debounced`: Debounces a promise.

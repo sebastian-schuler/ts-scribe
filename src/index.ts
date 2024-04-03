@@ -7,6 +7,14 @@ export { deepClone } from './object-utils/deepClone/deepClone';
 export { isNumber } from './number-utils/is-number';
 export { clamp } from './number-utils/clamp';
 
+// String Utils
+export { toCamelCase } from './string-utils/to-camel-case';
+export { toKebabCase } from './string-utils/to-kebab-case';
+export { toSnakeCase } from './string-utils/to-snake-case';
+export { toDotCase } from './string-utils/to-dot-case';
+export { toPascalCase } from './string-utils/to-pascal-case';
+export { toHeaderCase } from './string-utils/to-header-case';
+
 // Promise Utils
 export { debounce } from './promise-utils/debounced';
 export { Maybe } from './promise-utils/maybe';
