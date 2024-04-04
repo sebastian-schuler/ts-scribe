@@ -8,7 +8,7 @@
  * @returns An array containing the value.
  */
 export const toArray = <TValue>(
-  value: TValue
+  value: TValue,
 ): (TValue extends ArrayLike<infer TElement> | Iterable<infer TElement> ? TElement : TValue)[] => {
   if (value === null || value === undefined) return [];
   return typeof value === 'object' &&

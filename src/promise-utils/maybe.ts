@@ -35,7 +35,7 @@ type MaybeBase<TValue> = {
    * returns false. Otherwise, return the current monad.
    */
   filter<TNext extends TValue = TValue>(
-    predicate: ((value: Mandatory<TValue>) => boolean) | ((value: TValue) => value is TNext)
+    predicate: ((value: Mandatory<TValue>) => boolean) | ((value: TValue) => value is TNext),
   ): Maybe<TNext>;
   /**
    * Get the next monad if the current monad is `ok`. Otherwise, return the
@@ -129,7 +129,7 @@ const createEmpty = (error: NonNullish | null): MaybeNotOk<never> => {
  * @returns A monad instance.
  */
 const maybe = <TValue>(
-  init: Maybe<TValue> | TValue | (() => Maybe<TValue> | Nullish | TValue) | null | undefined
+  init: Maybe<TValue> | TValue | (() => Maybe<TValue> | Nullish | TValue) | null | undefined,
 ): Maybe<TValue> => {
   try {
     const value = typeof init === 'function' ? (init as () => Maybe<TValue> | Nullish | TValue)() : init;

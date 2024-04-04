@@ -39,20 +39,20 @@ type TypeOfString = 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 's
 type TypeOfType<TString> = TString extends 'string'
   ? string
   : TString extends 'number'
-  ? number
-  : TString extends 'boolean'
-  ? boolean
-  : TString extends 'object'
-  ? object
-  : TString extends 'function'
-  ? Function
-  : TString extends 'bigint'
-  ? bigint
-  : TString extends 'symbol'
-  ? symbol
-  : TString extends 'undefined'
-  ? undefined
-  : unknown;
+    ? number
+    : TString extends 'boolean'
+      ? boolean
+      : TString extends 'object'
+        ? object
+        : TString extends 'function'
+          ? Function
+          : TString extends 'bigint'
+            ? bigint
+            : TString extends 'symbol'
+              ? symbol
+              : TString extends 'undefined'
+                ? undefined
+                : unknown;
 
 /**
  * Convert a union type (`|`) to an intersection type (`&`).

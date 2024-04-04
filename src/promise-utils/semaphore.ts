@@ -102,7 +102,7 @@ export class Semaphore {
           new Lock(() => {
             this.#available += 1;
             this.#next();
-          })
+          }),
         );
       });
 
