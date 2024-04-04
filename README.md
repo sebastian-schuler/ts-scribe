@@ -48,6 +48,7 @@ Use the `ArrayUtils` class for these functions.
 - `intersection`: Returns the intersection of two arrays.
 - `pluck`: Extracts a list of property values from an array of objects.
 - `groupBy`: Groups an array of objects by a specified key.
+- `uniqueBy`: Returns an array of unique objects based on a specified key.
 
 ### List Classes
 

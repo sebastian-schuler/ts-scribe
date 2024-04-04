@@ -1,10 +1,11 @@
-import { powerset } from './powerset';
-import { pluck } from './pluck';
-import { toArray } from './to-array';
 import { chunk } from './chunk';
 import { difference } from './difference';
-import { intersection } from './intersection';
 import { groupBy } from './group-by';
+import { intersection } from './intersection';
+import { pluck } from './pluck';
+import { powerset } from './powerset';
+import { toArray } from './to-array';
+import { uniqueBy } from './unique-by';
 
 export const ArrayUtils = {
   toArray,
@@ -14,4 +15,5 @@ export const ArrayUtils = {
   intersection,
   pluck,
   groupBy,
+  uniqueBy,
 };
