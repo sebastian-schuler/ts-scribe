@@ -1,4 +1,3 @@
-import { describe, expect, it } from '@jest/globals';
 import { toArray } from '../to-array';
 
 describe('toArray', () => {

@@ -39,11 +39,15 @@ npm install ts-scribe
 
 ### Array Functions
 
+Use the `ArrayUtils` class for these functions.
+
 - `toArray`: Converts almost anything into an array.
-- `arrPowerset`: Returns the powerset of an array.
-- `arrChunk`: Splits an array into chunks of a specified size.
-- `arrayDifference`: Returns the difference between two arrays.
-- `arrayIntersection`: Returns the intersection of two arrays.
+- `powerset`: Returns the powerset of an array.
+- `chunk`: Splits an array into chunks of a specified size.
+- `difference`: Returns the difference between two arrays.
+- `intersection`: Returns the intersection of two arrays.
+- `pluck`: Extracts a list of property values from an array of objects.
+- `groupBy`: Groups an array of objects by a specified key.
 
 ### List Classes
 

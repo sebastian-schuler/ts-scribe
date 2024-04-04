@@ -1,5 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
-import { arrDifference } from '../arr-difference';
+import { difference } from '../difference';
 
 describe('arrDifference function', () => {
   it('should return elements that are present in the first array but not in the other arrays', () => {
@@ -8,7 +7,7 @@ describe('arrDifference function', () => {
     const arr3 = [4, 5];
     const expectedOutput = [1, 3];
 
-    const result = arrDifference(arr1, arr2, arr3);
+    const result = difference(arr1, arr2, arr3);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -17,7 +16,7 @@ describe('arrDifference function', () => {
     const arr2: number[] = [];
     const expectedOutput: number[] = [];
 
-    const result = arrDifference(arr1, arr2);
+    const result = difference(arr1, arr2);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -25,7 +24,7 @@ describe('arrDifference function', () => {
     const arr1: number[] = [];
     const expectedOutput: number[] = [];
 
-    const result = arrDifference(arr1);
+    const result = difference(arr1);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -34,7 +33,7 @@ describe('arrDifference function', () => {
     const arr2: number[] = [];
     const expectedOutput = [1, 2, 3];
 
-    const result = arrDifference(arr1, arr2);
+    const result = difference(arr1, arr2);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -43,7 +42,7 @@ describe('arrDifference function', () => {
     const arr2 = [1, 2, 3];
     const expectedOutput: number[] = [];
 
-    const result = arrDifference(arr1, arr2);
+    const result = difference(arr1, arr2);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -53,7 +52,7 @@ describe('arrDifference function', () => {
     const arr3 = ['banana'];
     const expectedOutput = ['apple', 'orange'];
 
-    const result = arrDifference(arr1, arr2, arr3);
+    const result = difference(arr1, arr2, arr3);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -63,7 +62,7 @@ describe('arrDifference function', () => {
     const arr3 = [3, 4];
     const expectedOutput: number[] = [];
 
-    const result = arrDifference(arr1, arr2, arr3);
+    const result = difference(arr1, arr2, arr3);
     expect(result).toEqual(expectedOutput);
   });
 });

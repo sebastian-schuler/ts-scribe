@@ -1,5 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
-import { arrChunk } from '../arr-chunk';
+import { chunk } from '../chunk';
 
 describe('arrChunk function', () => {
   it('should chunk the array into subarrays of specified size', () => {
@@ -7,7 +6,7 @@ describe('arrChunk function', () => {
     const size = 2;
     const expectedOutput = [[1, 2], [3, 4], [5]];
 
-    const result = arrChunk(inputArray, size);
+    const result = chunk(inputArray, size);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -16,7 +15,7 @@ describe('arrChunk function', () => {
     const size = 2;
     const expectedOutput: number[][] = [];
 
-    const result = arrChunk(inputArray, size);
+    const result = chunk(inputArray, size);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -25,7 +24,7 @@ describe('arrChunk function', () => {
     const size = 5;
     const expectedOutput = [[1, 2, 3]];
 
-    const result = arrChunk(inputArray, size);
+    const result = chunk(inputArray, size);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -34,7 +33,7 @@ describe('arrChunk function', () => {
     const size = 3;
     const expectedOutput = [[1, 2, 3]];
 
-    const result = arrChunk(inputArray, size);
+    const result = chunk(inputArray, size);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -43,7 +42,7 @@ describe('arrChunk function', () => {
     const size = 1;
     const expectedOutput = [[1], [2], [3]];
 
-    const result = arrChunk(inputArray, size);
+    const result = chunk(inputArray, size);
     expect(result).toEqual(expectedOutput);
   });
 });

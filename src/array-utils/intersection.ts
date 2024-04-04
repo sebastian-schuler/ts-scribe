@@ -6,7 +6,7 @@ import { deepEquals } from '../object-utils/deepEquals';
  * @param arrays - The arrays to find the intersection of
  * @returns An array containing elements that are present in all arrays
  */
-const intersection = <T>(deep = false, ...arrays: T[][]): Array<T> => {
+const intersectionInternal = <T>(deep = false, ...arrays: T[][]): Array<T> => {
   if (arrays.length === 0 || arrays.some((arr) => arr.length === 0)) {
     return [];
   }
@@ -34,5 +34,5 @@ const intersection = <T>(deep = false, ...arrays: T[][]): Array<T> => {
   return result;
 };
 
-export const arrIntersection = <T>(...arrays: T[][]): Array<T> => intersection(false, ...arrays);
-export const arrIntersectionDeep = <T>(...arrays: T[][]): Array<T> => intersection(true, ...arrays);
+export const intersection = <T>(...arrays: T[][]): Array<T> => intersectionInternal(false, ...arrays);
+export const intersectionDeep = <T>(...arrays: T[][]): Array<T> => intersectionInternal(true, ...arrays);

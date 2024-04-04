@@ -22,11 +22,7 @@ export { RetryHandler, RetryOptions, onRetryDefault, retry } from './promise-uti
 export { Semaphore } from './promise-utils/semaphore';
 
 // Array Utils
-export { toArray } from './array-utils/to-array';
-export { arrPowerset } from './array-utils/arr-powerset';
-export { arrChunk } from './array-utils/arr-chunk';
-export { arrDifference } from './array-utils/arr-difference';
-export { arrIntersection } from './array-utils/arr-intersection';
+export { ArrayUtils } from './array-utils';
 
 // List Utils
 export { WeightedList } from './list-utils/weighted-list';
