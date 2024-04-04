@@ -8,6 +8,7 @@ export { deepEquals } from './object-utils/deep-equals';
 export { deepMerge } from './object-utils/deep-merge';
 export { deepClone } from './object-utils/deepClone/deepClone';
 export { parseBoolean } from './object-utils/parse-boolean';
+export { parseNumber } from './object-utils/parse-number';
 
 // Number Utils
 export { clamp } from './number-utils/clamp';
