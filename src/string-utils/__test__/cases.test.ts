@@ -1,9 +1,9 @@
-import { toCamelCase } from './to-camel-case';
-import { toDotCase } from './to-dot-case';
-import { toHeaderCase } from './to-header-case';
-import { toKebabCase } from './to-kebab-case';
-import { toPascalCase } from './to-pascal-case';
-import { toSnakeCase } from './to-snake-case';
+import { toCamelCase } from '../to-camel-case';
+import { toDotCase } from '../to-dot-case';
+import { toHeaderCase } from '../to-header-case';
+import { toKebabCase } from '../to-kebab-case';
+import { toPascalCase } from '../to-pascal-case';
+import { toSnakeCase } from '../to-snake-case';
 
 describe('String conversion functions', () => {
   describe('toCamelCase function', () => {

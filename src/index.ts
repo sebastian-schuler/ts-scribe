@@ -1,13 +1,15 @@
 // Object Utils
-export { deepEquals } from './object-utils/deepEquals';
-export { deepmerge } from './object-utils/deepmerge';
+export { deepEquals } from './object-utils/deep-equals';
+export { deepMerge } from './object-utils/deep-merge';
 export { deepClone } from './object-utils/deepClone/deepClone';
+export { parseBoolean } from './object-utils/parse-boolean';
 
 // Number Utils
 export { isNumber } from './number-utils/is-number';
 export { clamp } from './number-utils/clamp';
 
 // String Utils
+export { isString } from './string-utils/is-string';
 export { toCamelCase } from './string-utils/to-camel-case';
 export { toKebabCase } from './string-utils/to-kebab-case';
 export { toSnakeCase } from './string-utils/to-snake-case';
@@ -23,6 +25,9 @@ export { Semaphore } from './promise-utils/semaphore';
 
 // Array Utils
 export { ArrayUtils } from './array-utils';
+
+// Random Utils
+export { RandomUtils } from './random-utils';
 
 // List Utils
 export { WeightedList } from './list-utils/weighted-list';

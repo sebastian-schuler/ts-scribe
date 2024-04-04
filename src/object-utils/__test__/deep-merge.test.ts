@@ -1,6 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { deepmerge } from '../deepmerge';
-
+import { deepMerge } from '../deep-merge';
 describe('deepmerge', () => {
   it('should merge multiple objects deeply', () => {
     const obj1 = {
@@ -26,7 +25,7 @@ describe('deepmerge', () => {
       },
     };
 
-    const result = deepmerge(obj1, obj2, obj3);
+    const result = deepMerge(obj1, obj2, obj3);
 
     expect(result).toEqual({
       a: 1,
@@ -60,7 +59,7 @@ describe('deepmerge', () => {
     const obj1Copy = { ...obj1 };
     const obj2Copy = { ...obj2 };
 
-    deepmerge(obj1, obj2);
+    deepMerge(obj1, obj2);
 
     expect(obj1).toEqual(obj1Copy);
     expect(obj2).toEqual(obj2Copy);

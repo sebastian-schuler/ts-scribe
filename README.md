@@ -10,19 +10,21 @@ npm install ts-scribe
 
 ## Functions
 
-### Object Functions
+### Object Utilities
 
 - `deepEquals`: Deeply compares two objects or arrays.
 - `deepMerge`: Deep merges multiple objects and gives accurate types.
 - `deepClone`: Deep clones an object. It's a faster and more accurate alternative to `JSON.parse(JSON.stringify(obj))`. (A type-safe wrapper for `rfdc`)
+- `parseBoolean`: Parses a different kinds of values into a boolean.
 
-### Number Functions
+### Number Utilities
 
 - `isNumber`: Checks if any value is a number or can be parsed into a number.
 - `clamp`: Clamps a number between a minimum and maximum value.
 
-### String Functions
+### String Utilities
 
+- `isString`: Typeguard: Checks if any value is a string.
 - `toCamelCase`: Converts a string to camelCase.
 - `toKebabCase`: Converts a string to kebab-case.
 - `toSnakeCase`: Converts a string to snake_case.
@@ -30,16 +32,16 @@ npm install ts-scribe
 - `toPascalCase`: Converts a string to PascalCase.
 - `toHeaderCase`: Converts a string to Header Case.
 
-### Promise Functions
+### Promise Utilities
 
 - `debounced`: Debounces a promise.
 - `maybe`: A Maybe monad is an immutable wrapper which allows you to defer handling of null/undefined values and errors until you want to capture the result of an operation. It's an alternative to frequent nullish checks and try/catch blocks.
 - `retry`: Retries a promise a specified number of times.
 - `semaphore`: Limits the number of promises that can be executed concurrently.
 
-### Array Functions
+### Array Utilities
 
-Use the `ArrayUtils` class for these functions.
+Use the `ArrayUtils` object for these functions.
 
 - `toArray`: Converts almost anything into an array.
 - `powerset`: Returns the powerset of an array.
@@ -50,7 +52,16 @@ Use the `ArrayUtils` class for these functions.
 - `groupBy`: Groups an array of objects by a specified key.
 - `uniqueBy`: Returns an array of unique objects based on a specified key.
 
-### List Classes
+### Random Utilities
+
+Use the `ArrayUtils` class for these functions.
+
+- `string`: Generates a random string. You can specify the length and character set.
+- `number`: Generates a random number. You can specify the minimum and maximum values.
+- `boolean`: Generates a random boolean. You can specify the probability of getting `true`.
+- `sample`: Returns random elements from an array. You can specify the number of elements to return.
+
+### List Utilities
 
 - `WeightedList`: A weighted list is a list where each element has a weight associated with it. The probability of an element being selected is proportional to its weight.
 - `SortedList`: A sorted list is a list that maintains its elements in sorted order. It's useful for maintaining a list of elements that need to be sorted frequently.

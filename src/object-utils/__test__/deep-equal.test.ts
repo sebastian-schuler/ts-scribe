@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { deepEquals } from '../deepEquals';
+import { deepEquals } from '../deep-equals';
 
 describe('deepEquals', () => {
   it('should return true for equal primitive values', () => {

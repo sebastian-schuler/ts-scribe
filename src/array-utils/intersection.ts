@@ -1,5 +1,5 @@
 import { Nestable } from '../common-types/common-types';
-import { deepEquals } from '../object-utils/deepEquals';
+import { deepEquals } from '../object-utils/deep-equals';
 
 /**
  * Find the intersection of multiple arrays
