@@ -10,6 +10,12 @@ npm install ts-scribe
 
 ## Functions
 
+### Typeguards
+
+- `isNumber`: Checks if any value is a number or can be parsed into a number.
+- `isString`: Checks if any value is a string.
+- `isDefined`: Checks if a value is defined and not null / undefined / NaN.
+
 ### Object Utilities
 
 - `deepEquals`: Deeply compares two objects or arrays.
@@ -19,7 +25,6 @@ npm install ts-scribe
 
 ### Number Utilities
 
-- `isNumber`: Checks if any value is a number or can be parsed into a number.
 - `clamp`: Clamps a number between a minimum and maximum value.
 
 ### String Utilities

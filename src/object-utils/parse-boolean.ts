@@ -1,4 +1,4 @@
-import { isString } from '../string-utils/is-string';
+import { isString } from '../typeguards/is-string';
 
 /**
  * Parse a value into a boolean

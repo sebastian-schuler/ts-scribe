@@ -3,7 +3,7 @@
  * @param value - The value to check.
  * @returns Returns `true` if the value is a number, else `false`.
  */
-export const isNumber = (value: unknown): boolean => {
+export const isNumber = (value: unknown): value is number => {
   if (typeof value === 'number' && !isNaN(value) && isFinite(value)) return true;
   if (typeof value === 'string') {
     const parsed = parseFloat(value);
