@@ -4,7 +4,7 @@ import { GenericFunction } from '../common-types/common-types';
  * Debounce function to limit the number of times a function is called in a given time frame.
  * @param wait - Time in milliseconds to wait before calling the function.
  * @param fn - Function to be called.
- * @param immediate - If true, the function will be called immediately.
+ * @param immediate - If true, the function will be called immediately (default: false)
  * @returns A debounced function.
  */
 export function debounce<T, R>(wait: number, fn: GenericFunction<T, R>, immediate = false) {

@@ -1,7 +1,7 @@
 /**
  * Returns a random sample of elements from an array
  * @param arr - The array to sample from
- * @param size - The number of elements to sample
+ * @param size - The number of elements to sample (default: 1)
  * @returns The random sample of elements
  */
 export const randomSample = <T>(arr: T[], size: number = 1): T[] => {

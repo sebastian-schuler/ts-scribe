@@ -3,7 +3,7 @@
  * @param str - The string to convert.
  * @returns The kebab-case string.
  */
-export function toKebabCase(str: string = ''): string {
+export function toKebabCase(str: string | undefined): string {
   if (!str) return '';
 
   return String(str)

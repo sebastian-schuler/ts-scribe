@@ -1,7 +1,7 @@
 /**
  * Get all permutations of objects in the array
  * @param arr
- * @param ignoreEmpty - If true, the empty array is not included in the result
+ * @param ignoreEmpty - If true, the empty array is not included in the result (default: true)
  * @returns Array of all permutation arrays
  */
 export const powerset = <T>(arr: Array<T>, ignoreEmpty = true): Array<T>[] => {

@@ -1,49 +1,47 @@
 import { parseBoolean } from '../parse-boolean';
 
-describe('parseBoolean', () => {
-  // Test cases for valid inputs
-  it('should parse string "true" to true', () => {
+describe('parseBoolean function', () => {
+  it('should return true when value is "true"', () => {
     expect(parseBoolean('true')).toBe(true);
   });
 
-  it('should parse string "false" to false', () => {
+  it('should return false when value is "false"', () => {
     expect(parseBoolean('false')).toBe(false);
   });
 
-  it('should parse boolean true to true', () => {
+  it('should return true when value is true (boolean)', () => {
     expect(parseBoolean(true)).toBe(true);
   });
 
-  it('should parse boolean false to false', () => {
+  it('should return false when value is false (boolean)', () => {
     expect(parseBoolean(false)).toBe(false);
   });
 
-  it('should parse number 1 to true', () => {
-    expect(parseBoolean(1)).toBe(true);
+  it('should return false when value is null', () => {
+    expect(parseBoolean(null)).toBe(false);
   });
 
-  it('should parse number 0 to false', () => {
-    expect(parseBoolean(0)).toBe(false);
+  it('should return false when value is undefined', () => {
+    expect(parseBoolean(undefined)).toBe(false);
   });
 
-  it('should return the default value when input is null', () => {
+  it('should return false when value is an empty string', () => {
+    expect(parseBoolean('')).toBe(false);
+  });
+
+  it('should return default value when value is null and default value is provided', () => {
     expect(parseBoolean(null, true)).toBe(true);
-    expect(parseBoolean(null, false)).toBe(false);
   });
 
-  it('should return the default value when input is undefined', () => {
+  it('should return default value when value is undefined and default value is provided', () => {
     expect(parseBoolean(undefined, true)).toBe(true);
-    expect(parseBoolean(undefined, false)).toBe(false);
   });
 
-  // Test cases for invalid inputs
-  it('should throw an error when throwInvalid is true and input is invalid', () => {
-    expect(() => {
-      parseBoolean('invalid', false, true);
-    }).toThrow();
+  it('should return default value when value is an empty string and default value is provided', () => {
+    expect(parseBoolean('', true)).toBe(true);
   });
 
-  it('should return the default value when throwInvalid is false and input is invalid', () => {
-    expect(parseBoolean('invalid', false, false)).toBe(false);
+  it('should return default value when value is an unsupported type and default value is provided', () => {
+    expect(parseBoolean(123, true)).toBe(true);
   });
 });

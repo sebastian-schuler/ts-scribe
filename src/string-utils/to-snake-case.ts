@@ -3,7 +3,7 @@
  * @param str - The string to convert.
  * @returns The snake_case string.
  */
-export function toSnakeCase(str: string = ''): string {
+export function toSnakeCase(str: string | undefined): string {
   if (!str) return '';
 
   return String(str)

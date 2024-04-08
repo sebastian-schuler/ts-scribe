@@ -3,7 +3,7 @@
  * @param str - The string to convert.
  * @returns The camel case string.
  */
-export function toCamelCase(str: string = ''): string {
+export function toCamelCase(str: string | undefined): string {
   if (!str) return '';
 
   return String(str)

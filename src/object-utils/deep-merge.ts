@@ -38,6 +38,11 @@ interface IObject {
   [key: string]: any;
 }
 
+/**
+ * Merges two or more objects deeply.
+ * @param objects - The objects to merge
+ * @returns The merged object
+ */
 const merge = <T extends IObject[]>(...objects: T): TMerged<T[number]> =>
   objects.reduce((result, current) => {
     if (Array.isArray(current)) {

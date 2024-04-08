@@ -3,7 +3,7 @@
  * @param str - The string to convert.
  * @returns The dot.case string.
  */
-export function toDotCase(str: string = ''): string {
+export function toDotCase(str: string | undefined): string {
   if (!str) return '';
 
   return String(str)

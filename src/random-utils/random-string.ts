@@ -1,8 +1,8 @@
 /**
  * Generates a random string of the specified length.
  * @param length - The length of the random string to generate.
- * @param includeNumbers - Whether to include numbers in the random string.
- * @param includeSymbols - Whether to include symbols in the random string.
+ * @param includeNumbers - Whether to include numbers in the random string (default: true)
+ * @param includeSymbols - Whether to include symbols in the random string (default: true)
  * @returns The generated random string.
  */
 export function randomString(length: number, includeNumbers: boolean = true, includeSymbols: boolean = true): string {

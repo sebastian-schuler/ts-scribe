@@ -1,5 +1,5 @@
 /**
- * Check if the value is a number or at least a string that can be parsed to a number.
+ * Typeguard: Check if the value is a number or at least a string that can be parsed to a number.
  * @param value - The value to check.
  * @returns Returns `true` if the value is a number, else `false`.
  */
