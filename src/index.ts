@@ -27,9 +27,6 @@ export { Maybe } from './promise-utils/maybe';
 export { RetryHandler, RetryOptions, onRetryDefault, retry } from './promise-utils/retry';
 export { Semaphore } from './promise-utils/semaphore';
 
-// Array Utils
-export { ArrayUtils } from './array-utils';
-
 // Random Utils
 export { RandomUtils } from './random-utils';
 
