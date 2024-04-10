@@ -1,4 +1,3 @@
-import { describe, expect, it } from '@jest/globals';
 import { deepClone } from '../deepClone/deepClone';
 
 describe('deepClone function', () => {

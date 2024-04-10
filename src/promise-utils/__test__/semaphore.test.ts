@@ -1,4 +1,3 @@
-import { describe, expect, test } from '@jest/globals';
 import { Semaphore } from '../semaphore';
 
 describe('Semaphore', () => {

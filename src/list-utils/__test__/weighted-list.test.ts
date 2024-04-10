@@ -1,4 +1,3 @@
-import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import { WeightedList } from '../weighted-list';
 
 describe('WeightedList', () => {
@@ -76,7 +75,7 @@ describe('WeightedList', () => {
     expect(strRepresentation).toMatch(/length: 2/);
     expect(strRepresentation).toMatch(/totalWeight: 5/);
     expect(strRepresentation).toMatch(
-      /items: \[\s+{\s+object: item1\s+weight: 2\s+},\s+{\s+object: item2\s+weight: 3\s+}\s+\]/
+      /items: \[\s+{\s+object: item1\s+weight: 2\s+},\s+{\s+object: item2\s+weight: 3\s+}\s+\]/,
     );
   });
 });

@@ -1,5 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
-import { isNumber } from '../..';
+import { isNumber } from '../is-number';
 
 describe('isNumber', () => {
   it('should return true if the value is a number or parseable as a number', () => {

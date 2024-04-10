@@ -1,13 +1,12 @@
-import { describe, expect, it, jest } from '@jest/globals';
 import { RetryHandler, RetryOptions, retry } from '../retry';
 
 describe('retry function', () => {
   // Mocking a successful handler function
-  const successfulHandler: RetryHandler<number> = jest.fn<() => Promise<number>>().mockResolvedValueOnce(42);
+  const successfulHandler: RetryHandler<number> = vi.fn().mockResolvedValueOnce(42);
 
   // Mocking a failing handler function that eventually succeeds
-  const failingHandler: RetryHandler<number> = jest
-    .fn<() => Promise<number>>()
+  const failingHandler: RetryHandler<number> = vi
+    .fn()
     .mockRejectedValueOnce(new Error('Attempt 1 failed'))
     .mockRejectedValueOnce(new Error('Attempt 2 failed'))
     .mockRejectedValueOnce(new Error('Attempt 3 failed'))
@@ -31,9 +30,7 @@ describe('retry function', () => {
   });
 
   it('should throw an error if handler continues to fail even after retries', async () => {
-    const failingHandlerAlways: RetryHandler<number> = jest
-      .fn<() => Promise<number>>()
-      .mockRejectedValue(new Error('Always fails'));
+    const failingHandlerAlways: RetryHandler<number> = vi.fn().mockRejectedValue(new Error('Always fails'));
     const options: RetryOptions = {
       retries: 2,
       delay: 500, // 0.5 second delay between retries

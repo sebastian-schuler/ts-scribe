@@ -1,5 +1,5 @@
-import { describe, expect, it } from '@jest/globals';
 import { deepMerge } from '../deep-merge';
+
 describe('deepmerge', () => {
   it('should merge multiple objects deeply', () => {
     const obj1 = {

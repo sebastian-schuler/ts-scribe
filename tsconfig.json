@@ -1,22 +1,27 @@
 {
     "compilerOptions": {
+        "skipLibCheck": true,
         "outDir": "./lib",
-        "module": "commonjs",
-        "target": "es6",
-        "declaration": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "target": "ES6",
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "declaration": false,
         "strict": true,
         "sourceMap": true,
         "types": [
-            "jest",
+            "vitest/globals",
             "node"
-        ]
+        ],
+        "lib": [
+            "esnext"
+        ],
     },
     "include": [
         "src"
     ],
     "exclude": [
         "node_modules",
-        "**/*.spec.ts",
-        "**/*.test.ts"
     ]
 }

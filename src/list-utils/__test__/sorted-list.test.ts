@@ -1,4 +1,3 @@
-import { describe, expect, it, jest } from '@jest/globals';
 import { SortedList } from '../sorted-list';
 
 describe('sorted-list', () => {
@@ -169,7 +168,7 @@ describe('sorted-list', () => {
   it('forEach', () => {
     const values = [1, 2, 3];
     const list = new SortedList(values);
-    const callback = jest.fn();
+    const callback = vi.fn();
     list.forEach(callback);
     expect(callback).toHaveBeenCalledTimes(values.length);
 
