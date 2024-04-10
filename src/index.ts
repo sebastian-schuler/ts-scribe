@@ -3,6 +3,7 @@ export { TypeGuards } from './typeguards';
 
 // Object Utils
 export { ObjectUtils } from './object-utils';
+export { deepMerge } from './object-utils/deep-merge';
 
 // Number Utils
 export { clamp } from './number-utils/clamp';

@@ -1,5 +1,4 @@
 import { deepEquals } from './deep-equals';
-import { deepMerge } from './deep-merge';
 import { deepClone } from './deepClone/deepClone';
 import { parseBoolean } from './parse-boolean';
 import { parseNumber } from './parse-number';
@@ -9,7 +8,6 @@ import { parseNumber } from './parse-number';
  */
 export const ObjectUtils = {
   deepEquals,
-  deepMerge: deepMerge,
   deepClone,
   parseBoolean,
   parseNumber,

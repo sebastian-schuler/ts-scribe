@@ -7,7 +7,7 @@
         "target": "ES6",
         "isolatedModules": true,
         "esModuleInterop": true,
-        "declaration": false,
+        "declaration": true,
         "strict": true,
         "sourceMap": true,
         "types": [
