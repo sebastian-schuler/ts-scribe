@@ -1,22 +1,20 @@
 {
+    "extends": "@tsconfig/node20/tsconfig.json",
     "compilerOptions": {
-        "skipLibCheck": true,
+        "target": "ES2020",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "outDir": "./lib",
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "target": "ES6",
-        "isolatedModules": true,
         "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
         "declaration": true,
         "strict": true,
+        "skipLibCheck": true,
         "sourceMap": true,
         "types": [
             "vitest/globals",
             "node"
-        ],
-        "lib": [
-            "esnext"
-        ],
+        ]
     },
     "include": [
         "src"
