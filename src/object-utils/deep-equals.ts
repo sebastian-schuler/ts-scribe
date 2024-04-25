@@ -1,4 +1,4 @@
-import { Nestable } from '../common-types/common-types';
+import { Nestable } from '../common-utils/common-types';
 
 type Reference = {
   [key: string]: Nestable;

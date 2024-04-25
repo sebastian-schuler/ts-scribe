@@ -1,4 +1,4 @@
-import { GenericFunction } from '../common-types/common-types';
+import { GenericFunction } from '../common-utils/common-types';
 
 /**
  * Debounce function to limit the number of times a function is called in a given time frame.

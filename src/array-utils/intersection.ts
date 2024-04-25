@@ -1,4 +1,4 @@
-import { Nestable } from '../common-types/common-types';
+import { Nestable } from '../common-utils/common-types';
 import { deepEquals } from '../object-utils/deep-equals';
 
 /**

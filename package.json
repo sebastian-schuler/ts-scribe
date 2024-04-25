@@ -1,6 +1,6 @@
 {
   "name": "ts-scribe",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "A collection of utility functions and types for TypeScript projects in Node.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
