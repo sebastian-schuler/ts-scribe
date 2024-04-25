@@ -41,4 +41,4 @@ export type {
   TypeOfString,
   TypeOfType,
   UnionToIntersection,
-} from './common-types/common-types';
+} from './common-utils/common-types';
