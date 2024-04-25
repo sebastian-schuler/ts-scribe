@@ -1,6 +1,6 @@
 {
   "name": "ts-scribe",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "A collection of utility functions and types for TypeScript projects in Node.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -50,7 +50,6 @@
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
     "@vitest/ui": "^1.4.0",
-    "ansi-regex": ">=6.0.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",

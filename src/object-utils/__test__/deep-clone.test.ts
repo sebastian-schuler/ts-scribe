@@ -1,4 +1,4 @@
-import { deepClone } from '../deepClone/deepClone';
+import { deepClone } from '../deep-clone/deep-clone';
 
 describe('deepClone function', () => {
   // Test case for cloning a simple object
