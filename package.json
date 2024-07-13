@@ -1,7 +1,9 @@
 {
   "name": "ts-scribe",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A collection of utility functions and types for TypeScript projects in Node.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./array": "./dist/array/index.js",
@@ -20,11 +22,7 @@
     "lint": "eslint . --ext .ts --fix",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "git add -A src",
-    "postversion": "git push && git push --tags",
+    "prepublish": "npm run build",
     "check-updates": "npx npm-check-updates",
     "check-updates:minor": "npx npm-check-updates --target minor",
     "check-updates:patch": "npx npm-check-updates --target patch",
