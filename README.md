@@ -1,5 +1,9 @@
 # TS-Scribe
 
+[![npm](https://img.shields.io/npm/v/ts-scribe)](https://www.npmjs.com/package/ts-scribe)
+<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/install/96171" title="Install size for ts-scribe"></a>
+<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/bundle/145" title="Bundle size for ts-scribe"></a>
+
 A TypeScript library tailored for Node.js development. It offers utility functions and custom types to enhance productivity and improve code quality. Whether you’re handling files, working with asynchronous operations, or ensuring type safety, ts-scribe provides valuable tools for your TypeScript projects.
 
 ## Installation
