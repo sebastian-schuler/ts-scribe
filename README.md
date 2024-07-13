@@ -10,7 +10,7 @@ npm install ts-scribe
 
 ## Functions
 
-### General Utilities
+### Core Utilities
 
 - `run`: Helper to run a function or block of code in a cleaner way.
 - `parseBoolean`: Parses different kinds of values into a boolean.
