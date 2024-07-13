@@ -174,4 +174,5 @@ const isMaybe = (value: unknown): value is Maybe<unknown> => {
   return Boolean((value as { [MAYBE]?: unknown })?.[MAYBE]);
 };
 
-export { isMaybe, maybe, type Maybe };
+export { isMaybe, maybe };
+export type { Maybe };

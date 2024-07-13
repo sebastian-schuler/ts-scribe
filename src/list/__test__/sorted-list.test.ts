@@ -1,6 +1,6 @@
 import { SortedList } from '../sorted-list';
 
-describe('sorted-list', () => {
+describe('SortedList', () => {
   it('search', () => {
     let list = new SortedList<number | undefined>([1, 3, 5]);
     expect(list.search(0)).toEqual([0, false]);

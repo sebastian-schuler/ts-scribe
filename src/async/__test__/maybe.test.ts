@@ -56,12 +56,22 @@ describe('maybe', () => {
     expect(test.error).toEqual(
       expect.objectContaining({
         message: 'unknown',
-      })
+      }),
     );
     expect(() => test.value).toThrow(test.error as any);
   });
 
   it('should return ok', () => {
+    const getAsync = () => {
+      return ['sadasdasd'];
+    };
+
+    const mby = maybe(getAsync())
+      .filter((ddd) => ddd.length <= 3)
+      .catch((err) => console.log('errrrr'));
+    expect(mby.ok).toBe(true);
+    expect(mby.value.at(0)).toBe('sadasdasd');
+
     const test = maybe(1);
     expect(test.ok).toBe(true);
     expect(test.empty).toBe(false);

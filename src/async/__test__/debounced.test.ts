@@ -1,6 +1,6 @@
 import { debounce } from '../debounced';
 
-describe('debounce function', () => {
+describe('debounce', () => {
   vi.useFakeTimers();
 
   it('should call the function after debounce time', () => {

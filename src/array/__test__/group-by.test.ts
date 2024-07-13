@@ -1,6 +1,6 @@
 import { GroupByKeyFn, groupBy } from '../group-by';
 
-describe('groupBy function', () => {
+describe('groupBy', () => {
   interface Person {
     name: string;
     age: number;

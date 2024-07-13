@@ -1,6 +1,6 @@
 import { intersection, intersectionDeep } from '../intersection';
 
-describe('arrIntersection', () => {
+describe('intersection', () => {
   it('should return the intersection of arrays', () => {
     const arr1 = [1, 2, 3, 4];
     const arr2 = [3, 4, 5, 6];

@@ -1,14 +1,14 @@
 import { Semaphore } from '../semaphore';
 
 describe('Semaphore', () => {
-  test('size is truncated to an integer >= 1', () => {
+  it('size is truncated to an integer >= 1', () => {
     expect(new Semaphore(0).size).toBe(1);
     expect(new Semaphore(-1).size).toBe(1);
     expect(new Semaphore(2.2).size).toBe(2);
     expect(new Semaphore(2.8).size).toBe(2);
   });
 
-  test('available and waiting counts are correct', async () => {
+  it('available and waiting counts are correct', async () => {
     const semaphore = new Semaphore(1);
     expect(semaphore.available).toBe(1);
     expect(semaphore.waiting).toBe(0);
@@ -44,7 +44,7 @@ describe('Semaphore', () => {
     expect(semaphore.waiting).toBe(0);
   });
 
-  test('parallelism is limited by the semaphore size', async () => {
+  it('parallelism is limited by the semaphore size', async () => {
     const semaphore = new Semaphore(3);
     const promises: Promise<number>[] = [];
 
@@ -70,7 +70,7 @@ describe('Semaphore', () => {
     expect(await Promise.all(promises)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
 
-  test('release() is a no-op when called twice', async () => {
+  it('release() is a no-op when called twice', async () => {
     const semaphore = new Semaphore(1);
     const lock = await semaphore.acquire();
 

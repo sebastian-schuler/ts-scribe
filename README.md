@@ -10,26 +10,58 @@ npm install ts-scribe
 
 ## Functions
 
-### Typeguards
+### General Utilities
 
-- `isNumber`: Checks if any value is a number or can be parsed into a number.
-- `isString`: Checks if any value is a string.
-- `isDefined`: Checks if a value is defined and not null / undefined / NaN.
+- `run`: Helper to run a function or block of code in a cleaner way.
+- `parseBoolean`: Parses different kinds of values into a boolean.
+- `parseNumber`: Parses different kinds of values into a number.
 
-### Object Utilities
+### Array Utilities
 
-- `deepEquals`: Deeply compares two objects or arrays.
-- `deepMerge`: Deep merges multiple objects and gives accurate types.
-- `deepClone`: Deep clones an object. It's a faster and more accurate alternative to `JSON.parse(JSON.stringify(obj))`. (A type-safe wrapper for `rfdc`)
-- `parseBoolean`: Parses a different kinds of values into a boolean.
+- `chunkArray`: Splits an array into chunks of a specified size.
+- `differenceArray`: Returns the difference between two arrays.
+- `groupBy`: Groups an array of objects by a specified key.
+- `intersection`: Returns the intersection of two arrays.
+- `pluckArray`: Extracts a list of property values from an array of objects.
+- `powerset`: Returns the powerset of an array.
+- `shuffleArray`: Shuffle an array.
+- `toArray`: Converts almost anything into an array.
+- `uniqueBy`: Returns an array of unique objects based on a specified key.
+
+### Async Utilities
+
+- `debounced`: Debounces a promise.
+- `maybe`: A Maybe monad is an immutable wrapper which allows you to defer handling of null/undefined values and errors until you want to capture the result of an operation. It's an alternative to frequent nullish checks and try/catch blocks.
+- `retry`: Retries a promise a specified number of times.
+- `semaphore`: Limits the number of promises that can be executed concurrently.
+- `sleep`: Pause the process for a certain amount of time.
+
+### List Utilities
+
+- `WeightedList`: A list where each element has a weight associated with it. The probability of an element being selected is proportional to its weight.
+- `SortedList`: A list that maintains its elements in sorted order. It's useful for maintaining a list of elements that need to be sorted frequently.
 
 ### Number Utilities
 
 - `clamp`: Clamps a number between a minimum and maximum value.
 
+### Object Utilities
+
+- `deepClone`: Deep clones an object. It's a faster and more accurate alternative to `JSON.parse(JSON.stringify(obj))`.
+- `deepEquals`: Deeply compares two objects or arrays.
+- `deepFreeze`: Deeply freeze an object.
+- `deepMerge`: Deep merges multiple objects and gives accurate types.
+- `safeJsonParse`: Parse a Json string safely.
+
+### Random Utilities
+
+- `randomString`: Generates a random string. You can specify the length and character set.
+- `randomInt`: Generates a random integer. You can specify the minimum and maximum values.
+- `randomBool`: Generates a random boolean. You can specify the probability of getting `true`.
+- `randomSample`: Returns random elements from an array. You can specify the number of elements to return.
+
 ### String Utilities
 
-- `isString`: Typeguard: Checks if any value is a string.
 - `toCamelCase`: Converts a string to camelCase.
 - `toKebabCase`: Converts a string to kebab-case.
 - `toSnakeCase`: Converts a string to snake_case.
@@ -37,55 +69,29 @@ npm install ts-scribe
 - `toPascalCase`: Converts a string to PascalCase.
 - `toHeaderCase`: Converts a string to Header Case.
 
-### Promise Utilities
+### Typeguards
 
-- `debounced`: Debounces a promise.
-- `maybe`: A Maybe monad is an immutable wrapper which allows you to defer handling of null/undefined values and errors until you want to capture the result of an operation. It's an alternative to frequent nullish checks and try/catch blocks.
-- `retry`: Retries a promise a specified number of times.
-- `semaphore`: Limits the number of promises that can be executed concurrently.
-
-### Array Utilities
-
-Use the `ArrayUtils` object for these functions.
-
-- `toArray`: Converts almost anything into an array.
-- `powerset`: Returns the powerset of an array.
-- `chunk`: Splits an array into chunks of a specified size.
-- `difference`: Returns the difference between two arrays.
-- `intersection`: Returns the intersection of two arrays.
-- `pluck`: Extracts a list of property values from an array of objects.
-- `groupBy`: Groups an array of objects by a specified key.
-- `uniqueBy`: Returns an array of unique objects based on a specified key.
-
-### Random Utilities
-
-Use the `ArrayUtils` class for these functions.
-
-- `string`: Generates a random string. You can specify the length and character set.
-- `number`: Generates a random number. You can specify the minimum and maximum values.
-- `boolean`: Generates a random boolean. You can specify the probability of getting `true`.
-- `sample`: Returns random elements from an array. You can specify the number of elements to return.
-
-### List Utilities
-
-- `WeightedList`: A weighted list is a list where each element has a weight associated with it. The probability of an element being selected is proportional to its weight.
-- `SortedList`: A sorted list is a list that maintains its elements in sorted order. It's useful for maintaining a list of elements that need to be sorted frequently.
+- `isDefined`: Checks if a value is defined and not null / undefined / NaN.
+- `isEmptyObject`: Checks if an object is empty.
+- `isNumber`: Checks if any value is a number or can be parsed into a number.
+- `isString`: Checks if any value is a string.
 
 ### Utility Types
 
-- `Mandatory`: Exclude nullish values from a type.
-- `NonNullish`: Allows assignment of anything except nullish values.
-- `Nullish`: Only allows assignment of anything nullish.
-- `OverloadUnion`: Converts a union of functions into a single function with overloads.
 - `Primitive`: JS primitive types.
-- `Simplify`: If two or more types are intersected, it simplifies them into a single type for better readability.
-- `SmartPartial`: The keys that allow undefined are optional, the rest are required.
+- `Nullish`: Only allows assignment of anything nullish.
+- `NonNullish`: Allows assignment of anything except nullish values.
+- `Mandatory`: Exclude nullish values from a type.
+- `Nestable`: A type that can be nested infinitely. Used in deepEquals and arrIntersection functions.
+- `GenericFunction`: A generic function type, useful for defining functions that accept any number of arguments and return any type. It's a stronger type than `Function`.
 - `TypeOfString`: Strings which can be used with `typeof` operator.
 - `TypeOfType`: Infer the `typeof` type from a `typeof` string.
 - `UnionToIntersection`: Convert a union type (`|`) to an intersection type (`&`).
-- `GenericFunction`: A generic function type, useful for defining functions that accept any number of arguments and return any type. It's a stronger type than `Function`.
-- `Nestable`: A type that can be nested infinitely. Used in deepEquals and arrIntersection functions.
-
+- `SmartPartial`: The keys that allow undefined are optional, the rest are required.
+- `Simplify`: If two or more types are intersected, it simplifies them into a single type for better readability.
+- `OverloadUnion`: Converts a union of functions into a single function with overloads.
+- `ReadonlyDeep`: Typescripts readonly but for nested objects.
+  
 ## Credits
 
 - [deepClone](https://github.com/davidmarkclements/rfdc/tree/master)

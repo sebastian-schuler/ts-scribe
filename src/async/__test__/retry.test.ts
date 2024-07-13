@@ -1,6 +1,6 @@
 import { RetryHandler, RetryOptions, retry } from '../retry';
 
-describe('retry function', () => {
+describe('retry', () => {
   // Mocking a successful handler function
   const successfulHandler: RetryHandler<number> = vi.fn().mockResolvedValueOnce(42);
 

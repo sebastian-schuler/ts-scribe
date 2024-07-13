@@ -5,11 +5,11 @@
   "exports": {
     ".": "./dist/index.js",
     "./array": "./dist/array/index.js",
-    "./fn": "./dist/fn/index.js",
+    "./async": "./dist/async/index.js",
+    "./core": "./dist/core/index.js",
     "./list": "./dist/list/index.js",
     "./number": "./dist/number/index.js",
     "./object": "./dist/object/index.js",
-    "./promise": "./dist/promise/index.js",
     "./random": "./dist/random/index.js",
     "./string": "./dist/string/index.js",
     "./typeguards": "./dist/typeguards/index.js"

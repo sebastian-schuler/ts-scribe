@@ -1,6 +1,6 @@
 import { powerset } from '../powerset';
 
-describe('arrPowerset function', () => {
+describe('powerset', () => {
   /***
    * Helper function to check if the result contains all the expected output
    */

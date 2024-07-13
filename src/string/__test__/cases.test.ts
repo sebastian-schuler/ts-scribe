@@ -6,7 +6,7 @@ import { toPascalCase } from '../to-pascal-case';
 import { toSnakeCase } from '../to-snake-case';
 
 describe('String conversion functions', () => {
-  describe('toCamelCase function', () => {
+  describe('toCamelCase', () => {
     it('converts simple sentences', () => {
       expect(toCamelCase('hello world')).toBe('helloWorld');
     });
@@ -24,7 +24,7 @@ describe('String conversion functions', () => {
     });
   });
 
-  describe('toDotCase function', () => {
+  describe('toDotCase', () => {
     it('converts simple sentences', () => {
       expect(toDotCase('hello world')).toBe('hello.world');
     });
@@ -42,7 +42,7 @@ describe('String conversion functions', () => {
     });
   });
 
-  describe('toHeaderCase function', () => {
+  describe('toHeaderCase', () => {
     it('converts simple sentences', () => {
       expect(toHeaderCase('hello world')).toBe('Hello World');
     });
@@ -60,7 +60,7 @@ describe('String conversion functions', () => {
     });
   });
 
-  describe('toKebabCase function', () => {
+  describe('toKebabCase', () => {
     it('converts simple sentences', () => {
       expect(toKebabCase('hello world')).toBe('hello-world');
     });
@@ -78,7 +78,7 @@ describe('String conversion functions', () => {
     });
   });
 
-  describe('toPascalCase function', () => {
+  describe('toPascalCase', () => {
     it('converts simple sentences', () => {
       expect(toPascalCase('hello world')).toBe('HelloWorld');
     });
@@ -96,7 +96,7 @@ describe('String conversion functions', () => {
     });
   });
 
-  describe('toSnakeCase function', () => {
+  describe('toSnakeCase', () => {
     it('converts simple sentences', () => {
       expect(toSnakeCase('hello world')).toBe('hello_world');
     });

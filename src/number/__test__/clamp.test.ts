@@ -1,6 +1,6 @@
 import { clamp } from '../clamp';
 
-describe('Fn: clamp', () => {
+describe('clamp', () => {
   it('it should clamp the value between the min and max', () => {
     expect(clamp(13, 1, 10)).toBe(10);
     expect(clamp(13, 1, 20)).toBe(13);

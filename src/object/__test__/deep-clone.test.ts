@@ -1,6 +1,6 @@
 import { deepClone } from '../deep-clone/deep-clone';
 
-describe('deepClone function', () => {
+describe('deepClone', () => {
   // Test case for cloning a simple object
   it('should clone a simple object', () => {
     const obj = { a: 1, b: 'hello' };

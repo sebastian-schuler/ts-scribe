@@ -1,6 +1,6 @@
 import { randomString } from '../random-string';
 
-describe('generateRandomString', () => {
+describe('randomString', () => {
     it('should generate a random string of specified length with default options', () => {
         const length = 50;
         const result = randomString(length);
