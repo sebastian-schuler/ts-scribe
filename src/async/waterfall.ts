@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 type Task<T> = (callback: (error: Error | null, result?: T) => void) => void;
 
 /**

@@ -23,7 +23,7 @@ export async function asyncForEach<T>(
           executing.splice(idx, 1);
         }
       });
-    //   const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+      //   const e = p.then(() => executing.splice(executing.indexOf(e), 1));
       executing.push(e);
       if (executing.length >= limit) {
         await Promise.race(executing);
