@@ -47,9 +47,11 @@ npm install ts-scribe
 - `WeightedList`: A list where each element has a weight associated with it. The probability of an element being selected is proportional to its weight.
 - `SortedList`: A list that maintains its elements in sorted order. It's useful for maintaining a list of elements that need to be sorted frequently.
 
-### Number
+### Math
 
 - `clamp`: Clamps a number between a minimum and maximum value.
+- `greatestCommonDivisor`: Compute the greatest common divisor between any amount of numbers.
+- `smallestCommonMultiple`: Compute the smallest common multiple between any amount of numbers.
 
 ### Object
 
@@ -74,6 +76,11 @@ npm install ts-scribe
 - `toDotCase`: Converts a string to dot.case.
 - `toPascalCase`: Converts a string to PascalCase.
 - `toHeaderCase`: Converts a string to Header Case.
+
+### System
+
+- `isBrowser`: Checks if the code is run in a browser.
+- `isNode`: Checks if the code is run in NodeJS.
 
 ### Typeguards
 
