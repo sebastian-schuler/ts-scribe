@@ -14,13 +14,13 @@ npm install ts-scribe
 
 ## Functions
 
-### Core Utilities
+### Core
 
 - `run`: Helper to run a function or block of code in a cleaner way.
 - `parseBoolean`: Parses different kinds of values into a boolean.
 - `parseNumber`: Parses different kinds of values into a number.
 
-### Array Utilities
+### Array
 
 - `chunkArray`: Splits an array into chunks of a specified size.
 - `differenceArray`: Returns the difference between two arrays.
@@ -32,24 +32,26 @@ npm install ts-scribe
 - `toArray`: Converts almost anything into an array.
 - `uniqueBy`: Returns an array of unique objects based on a specified key.
 
-### Async Utilities
+### Async
 
+- `asyncForEach`: Asynchronous for each function running in parallel (behaving like Promise.all).
 - `debounced`: Debounces a promise.
 - `maybe`: A Maybe monad is an immutable wrapper which allows you to defer handling of null/undefined values and errors until you want to capture the result of an operation. It's an alternative to frequent nullish checks and try/catch blocks.
 - `retry`: Retries a promise a specified number of times.
 - `semaphore`: Limits the number of promises that can be executed concurrently.
 - `sleep`: Pause the process for a certain amount of time.
+- `waterfall`: Runs an array of functions in series, each passing their results to the next in the array.
 
-### List Utilities
+### List
 
 - `WeightedList`: A list where each element has a weight associated with it. The probability of an element being selected is proportional to its weight.
 - `SortedList`: A list that maintains its elements in sorted order. It's useful for maintaining a list of elements that need to be sorted frequently.
 
-### Number Utilities
+### Number
 
 - `clamp`: Clamps a number between a minimum and maximum value.
 
-### Object Utilities
+### Object
 
 - `deepClone`: Deep clones an object. It's a faster and more accurate alternative to `JSON.parse(JSON.stringify(obj))`.
 - `deepEquals`: Deeply compares two objects or arrays.
@@ -57,14 +59,14 @@ npm install ts-scribe
 - `deepMerge`: Deep merges multiple objects and gives accurate types.
 - `safeJsonParse`: Parse a Json string safely.
 
-### Random Utilities
+### Random
 
 - `randomString`: Generates a random string. You can specify the length and character set.
 - `randomInt`: Generates a random integer. You can specify the minimum and maximum values.
 - `randomBool`: Generates a random boolean. You can specify the probability of getting `true`.
 - `randomSample`: Returns random elements from an array. You can specify the number of elements to return.
 
-### String Utilities
+### String
 
 - `toCamelCase`: Converts a string to camelCase.
 - `toKebabCase`: Converts a string to kebab-case.
@@ -80,7 +82,7 @@ npm install ts-scribe
 - `isNumber`: Checks if any value is a number or can be parsed into a number.
 - `isString`: Checks if any value is a string.
 
-### Utility Types
+### Types
 
 - `Primitive`: JS primitive types.
 - `Nullish`: Only allows assignment of anything nullish.
