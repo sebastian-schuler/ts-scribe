@@ -4,3 +4,4 @@ export { toSnakeCase } from './to-snake-case';
 export { toKebabCase } from './to-kebab-case';
 export { toHeaderCase } from './to-header-case';
 export { toDotCase } from './to-dot-case';
+export { truncateString } from './truncate-string';

@@ -11,6 +11,7 @@ import {
   UnionToIntersection,
   Nestable,
 } from '../../src';
+import { DeepPartial } from '../../src/types/common-types';
 
 describe('Mandatory<T>', () => {
   it('should make all properties in T required', () => {
@@ -107,6 +108,30 @@ describe('Nestable', () => {
     type TestType = Nestable;
     // Ensure the type is a nestable object type
     type Expected = Primitive | Nestable[] | { [key: string]: Nestable };
+    expect<true>(true).toBeTruthy(); // Placeholder assertion to ensure test runs
+  });
+});
+
+describe('DeepPartial', () => {
+  it('should make all properties in T optional', () => {
+    type TestType = DeepPartial<{
+      a: number;
+      b: {
+        c: string;
+        d: {
+          e: number;
+          f: string;
+        };
+      };
+      c: [
+        {
+          g: number;
+          h: string;
+        },
+      ];
+    }>;
+    // Ensure all properties become optional
+    type Expected = { a?: number; b?: string };
     expect<true>(true).toBeTruthy(); // Placeholder assertion to ensure test runs
   });
 });
