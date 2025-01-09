@@ -1,5 +1,5 @@
 /**
- * Typeguard: Check if a value is defined
+ * Typeguard: Check if a value is defined (not null, undefined, or NaN )
  * @param arg - Value to check
  * @returns True if value is defined, false otherwise
  */

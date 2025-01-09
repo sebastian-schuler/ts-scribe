@@ -4,7 +4,7 @@
  * @param prefix - Prefix for the keys (optional)
  * @returns Flattened object
  */
-export const flattenObject = <T>(obj: Record<string, any>, prefix = ''): Record<string, T> => {
+export const flattenObject = <T>(obj: Record<string, unknown>, prefix = ''): Record<string, T> => {
   return Object.keys(obj).reduce(
     (acc, key) => {
       const value = obj[key];
@@ -21,9 +21,9 @@ export const flattenObject = <T>(obj: Record<string, any>, prefix = ''): Record<
           }
         });
       } else if (value && typeof value === 'object') {
-        Object.assign(acc, flattenObject(value, newKey));
+        Object.assign(acc, flattenObject(value as Record<string, unknown>, newKey));
       } else {
-        acc[newKey] = value;
+        acc[newKey] = value as T;
       }
 
       return acc;

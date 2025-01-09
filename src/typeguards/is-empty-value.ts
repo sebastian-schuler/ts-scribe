@@ -3,7 +3,7 @@
  * @param value - Value to check
  * @returns True if the value is empty, false otherwise
  */
-export const isEmptyValue = (value: any): boolean => {
+export const isEmptyValue = (value: unknown): boolean => {
   if (value === null || value === undefined) return true;
   if (typeof value === 'string' && value.trim() === '') return true;
   if (Array.isArray(value) && value.length === 0) return true;
