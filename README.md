@@ -60,6 +60,9 @@ npm install ts-scribe
 - `deepFreeze`: Deeply freeze an object.
 - `deepMerge`: Deep merges multiple objects and gives accurate types.
 - `safeJsonParse`: Parse a Json string safely.
+- `pruneObject`: Removes all properties with undefined values from an object.
+- `removeKeys`: Removes keys from an object.
+- `flattenObject`: Flattens an object. You can specify the separator.
 
 ### Random
 
@@ -76,6 +79,7 @@ npm install ts-scribe
 - `toDotCase`: Converts a string to dot.case.
 - `toPascalCase`: Converts a string to PascalCase.
 - `toHeaderCase`: Converts a string to Header Case.
+- `truncateString`: Truncates a string to a specified length. You have some options to customize the output and behavior.
 
 ### System
 
@@ -104,6 +108,7 @@ npm install ts-scribe
 - `Simplify`: If two or more types are intersected, it simplifies them into a single type for better readability.
 - `OverloadUnion`: Converts a union of functions into a single function with overloads.
 - `ReadonlyDeep`: Typescripts readonly but for nested objects.
+- `DeepPartial`: Typescripts partial but for nested objects.
   
 ## Credits
 
