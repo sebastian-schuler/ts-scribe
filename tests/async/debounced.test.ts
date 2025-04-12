@@ -1,39 +1,70 @@
-import { debounce } from '../../src/async';
+import { describe, expect, it, jest } from 'bun:test';
+import { debounce } from '../../src/async/index.js';
 
 describe('debounce', () => {
-  vi.useFakeTimers();
+  it('calls the function after the wait time', async () => {
+    const fn = jest.fn();
+    const debounced = debounce(100, fn);
+    debounced.call(null, null);
 
-  it('should call the function after debounce time', () => {
-    const mockFn = vi.fn();
-    const debouncedFn = debounce<void, void>(100, mockFn);
+    expect(fn).not.toHaveBeenCalled();
 
-    debouncedFn();
-    expect(mockFn).not.toBeCalled();
-
-    vi.advanceTimersByTime(100);
-    expect(mockFn).toBeCalled();
+    await new Promise((res) => setTimeout(res, 150));
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it('should call the function only once within debounce time', () => {
-    const mockFn = vi.fn();
-    const debouncedFn = debounce<void, void>(100, mockFn);
+  it('resets the wait time if called again', async () => {
+    const fn = jest.fn();
+    const debounced = debounce(100, fn);
 
-    debouncedFn();
-    debouncedFn();
-    debouncedFn();
+    debounced.call(null, null);
+    await new Promise((res) => setTimeout(res, 50));
+    debounced.call(null, null);
+    await new Promise((res) => setTimeout(res, 50));
+    expect(fn).not.toHaveBeenCalled();
 
-    vi.advanceTimersByTime(100);
-    expect(mockFn).toHaveBeenCalledTimes(1);
+    await new Promise((res) => setTimeout(res, 60));
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it('should call the function immediately when immediate is true', () => {
-    const mockFn = vi.fn();
-    const debouncedFn = debounce<void, void>(100, mockFn, true);
+  it('calls function immediately if immediate=true', async () => {
+    const fn = jest.fn();
+    const debounced = debounce(100, fn, true);
+    debounced.call(null, null);
 
-    debouncedFn();
-    expect(mockFn).toBeCalled();
+    expect(fn).toHaveBeenCalledTimes(1);
 
-    vi.advanceTimersByTime(100);
-    expect(mockFn).toHaveBeenCalledTimes(1);
+    // Should not call again until the debounce window expires
+    await new Promise((res) => setTimeout(res, 150));
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not call again if called multiple times immediately with immediate=true', async () => {
+    const fn = jest.fn();
+    const debounced = debounce(100, fn, true);
+    debounced.call(null, null);
+    debounced.call(null, null);
+    debounced.call(null, null);
+
+    expect(fn).toHaveBeenCalledTimes(1);
+    await new Promise((res) => setTimeout(res, 150));
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('respects the correct this context', async () => {
+    const context = {
+      value: 42,
+      handler(this: any) {
+        calledWithThis = this.value;
+      },
+    };
+
+    let calledWithThis = 0;
+    const debounced = debounce(100, context.handler);
+
+    debounced.call(context, context);
+    await new Promise((res) => setTimeout(res, 120));
+
+    expect(calledWithThis).toBe(42);
   });
 });

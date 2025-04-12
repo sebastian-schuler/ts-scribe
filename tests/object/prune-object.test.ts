@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { pruneObject } from '../../src/object';
+// @ts-nocheck
+import { describe, expect, it } from 'bun:test';
+import { pruneObject } from '../../src/object/index.js';
 
 describe('pruneObject', () => {
   it('should remove undefined values from a flat object', () => {

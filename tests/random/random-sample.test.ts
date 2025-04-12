@@ -1,4 +1,5 @@
-import { randomSample } from '../../src/random';
+import { describe, expect, it } from 'bun:test';
+import { randomSample } from '../../src/random/index.js';
 
 describe('randomSample', () => {
   // Test case for getting a single random sample

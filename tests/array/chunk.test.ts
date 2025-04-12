@@ -1,4 +1,5 @@
-import { chunkArray } from '../../src/array';
+import { describe, expect, it } from 'bun:test';
+import { chunkArray } from '../../src/array/index.js';
 
 describe('chunkArray', () => {
   it('should chunk the array into subarrays of specified size', () => {

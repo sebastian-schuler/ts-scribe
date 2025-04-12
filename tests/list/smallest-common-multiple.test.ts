@@ -1,4 +1,5 @@
-import { smallestCommonMultiple } from '../../src/math';
+import { describe, expect, it } from 'bun:test';
+import { smallestCommonMultiple } from '../../src/math/index.js';
 
 describe('smallestCommonMultiple', () => {
   it('it should calculate the greatest common divisor of any amount of numbers', () => {

@@ -1,4 +1,5 @@
-import { isDefined } from '../../src/typeguards';
+import { describe, expect, it } from 'bun:test';
+import { isDefined } from '../../src/typeguards/index.js';
 
 describe('isDefined', () => {
   it('should return true for defined values', () => {

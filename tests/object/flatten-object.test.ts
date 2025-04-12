@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { flattenObject } from '../../src/object';
+import { describe, expect, it } from 'bun:test';
+import { flattenObject } from '../../src/object/index.js';
 
 describe('flattenObject', () => {
   it('should flatten a simple nested object', () => {

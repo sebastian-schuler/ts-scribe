@@ -1,5 +1,5 @@
-import { Nestable } from '../types/common-types';
-import { deepEquals } from '../object/deep-equals';
+import { Nestable } from '../types/common-types.js';
+import { deepEquals } from '../object/deep-equals.js';
 
 /**
  * Find the intersection of multiple arrays

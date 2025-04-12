@@ -1,4 +1,5 @@
-import { SortedList } from '../../src/list';
+import { describe, expect, it, jest } from 'bun:test';
+import { SortedList } from '../../src/list/index.js';
 
 describe('SortedList', () => {
   it('search', () => {
@@ -168,7 +169,7 @@ describe('SortedList', () => {
   it('forEach', () => {
     const values = [1, 2, 3];
     const list = new SortedList(values);
-    const callback = vi.fn();
+    const callback = jest.fn();
     list.forEach(callback);
     expect(callback).toHaveBeenCalledTimes(values.length);
 

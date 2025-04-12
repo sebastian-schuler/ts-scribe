@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { removeKeys } from '../../src/object';
+import { describe, expect, it } from 'bun:test';
+import { removeKeys } from '../../src/object/index.js';
 
 describe('removeKeys', () => {
   it('should remove a single key from the object', () => {

@@ -11,4 +11,4 @@ export type {
   TypeOfString,
   TypeOfType,
   UnionToIntersection,
-} from './types/common-types';
+} from './types/common-types.js';

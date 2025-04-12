@@ -1,4 +1,5 @@
-import { deepMerge } from '../../src/object';
+import { describe, expect, it } from 'bun:test';
+import { deepMerge } from '../../src/object/index.js';
 
 describe('deepmerge', () => {
   it('should merge multiple objects deeply', () => {

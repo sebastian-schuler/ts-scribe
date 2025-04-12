@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { truncateString } from '../../src/string/truncate-string';
+import { describe, expect, it } from 'bun:test';
+import { truncateString } from '../../src/string/index.js';
 
 describe('truncateString function', () => {
   // Test default behavior (no options)

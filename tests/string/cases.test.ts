@@ -1,4 +1,5 @@
-import { toCamelCase, toDotCase, toHeaderCase, toKebabCase, toPascalCase, toSnakeCase } from '../../src/string';
+import { describe, expect, it } from 'bun:test';
+import { toCamelCase, toDotCase, toHeaderCase, toKebabCase, toPascalCase, toSnakeCase } from '../../src/string/index.js';
 
 describe('String conversion functions', () => {
   describe('toCamelCase', () => {

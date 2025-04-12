@@ -1,4 +1,5 @@
-import { pluckArray } from '../../src/array';
+import { describe, expect, it } from 'bun:test';
+import { pluckArray } from '../../src/array/index.js';
 
 interface Stooge {
   name: string;

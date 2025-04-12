@@ -1,5 +1,8 @@
+import { describe, expect, it } from 'bun:test';
 import {
+  DeepPartial,
   Mandatory,
+  Nestable,
   NonNullish,
   Nullish,
   OverloadUnion,
@@ -9,9 +12,7 @@ import {
   TypeOfString,
   TypeOfType,
   UnionToIntersection,
-  Nestable,
-} from '../../src';
-import { DeepPartial } from '../../src/types/common-types';
+} from '../../src/types/common-types.js';
 
 describe('Mandatory<T>', () => {
   it('should make all properties in T required', () => {

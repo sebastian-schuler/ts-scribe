@@ -1,4 +1,5 @@
-import { Semaphore } from '../../src/async';
+import { describe, expect, it } from 'bun:test';
+import { Semaphore } from '../../src/async/index.js';
 
 describe('Semaphore', () => {
   it('size is truncated to an integer >= 1', () => {

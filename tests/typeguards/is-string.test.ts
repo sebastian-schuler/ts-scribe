@@ -1,4 +1,5 @@
-import { isString } from "../../src/typeguards";
+import { describe, expect, it } from 'bun:test';
+import { isString } from '../../src/typeguards/index.js';
 
 describe('isString', () => {
   it('should return true for strings', () => {

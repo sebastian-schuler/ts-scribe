@@ -1,4 +1,5 @@
-import { randomString } from '../../src/random';
+import { describe, expect, it } from 'bun:test';
+import { randomString } from '../../src/random/index.js';
 
 describe('randomString', () => {
   it('should generate a random string of specified length with default options', () => {

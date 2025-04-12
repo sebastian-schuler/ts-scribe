@@ -1,4 +1,5 @@
-import { waterfall } from '../../src/async';
+import { describe, expect, test } from 'bun:test';
+import { waterfall } from '../../src/async/index.js';
 
 describe('waterfall', () => {
   test('should run tasks in series and pass results to the next task', async () => {

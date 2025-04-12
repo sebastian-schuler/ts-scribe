@@ -1,4 +1,4 @@
-import { ReadonlyDeep } from '../types/common-types';
+import { ReadonlyDeep } from '../types/common-types.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 

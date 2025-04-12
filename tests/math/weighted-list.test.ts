@@ -1,4 +1,5 @@
-import { WeightedList } from '../../src/list';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
+import { WeightedList } from '../../src/list/index.js';
 
 describe('WeightedList', () => {
   let weightedList: WeightedList<string>;

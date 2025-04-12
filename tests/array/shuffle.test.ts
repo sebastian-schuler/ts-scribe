@@ -1,4 +1,5 @@
-import { shuffleArray } from '../../src/array';
+import { describe, expect, it } from 'bun:test';
+import { shuffleArray } from '../../src/array/index.js';
 
 describe('shuffleArray', () => {
   it('should return an array with the same length after shuffling', () => {

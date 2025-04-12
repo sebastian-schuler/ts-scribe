@@ -1,5 +1,5 @@
 // @ts-nocheck
-
+import { describe, expect, it } from 'bun:test';
 import { isNode } from '../../src/system';
 
 describe('isNode', () => {

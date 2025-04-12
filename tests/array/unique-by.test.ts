@@ -1,4 +1,5 @@
-import { uniqueBy } from '../../src/array';
+import { describe, expect, it } from 'bun:test';
+import { uniqueBy } from '../../src/array/index.js';
 
 describe('uniqueBy', () => {
   it('should return an array with unique objects based on the key returned by keyFunc', () => {
