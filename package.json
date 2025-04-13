@@ -76,7 +76,7 @@
     "lint": "eslint src/**/*.{ts,tsx} --fix",
     "test": "bun test",
     "prepublish": "bun run build",
-    "publish": "npm publish --access public"
+    "publish": "bunx changeset"
   },
   "engines": {
     "node": ">=18.0",
@@ -103,10 +103,8 @@
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
     "@eslint/js": "^9.24.0",
-    "@types/node": "^22.14.1",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
-    "@vitest/ui": "^3.1.1",
     "bun-types": "latest",
     "eslint": "^9.24.0",
     "eslint-config-prettier": "^10.1.2",
@@ -116,8 +114,6 @@
     "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.29.1",
-    "unplugin-auto-import": "^19.1.2",
-    "vitest": "^3.1.1"
+    "typescript-eslint": "^8.29.1"
   }
 }
