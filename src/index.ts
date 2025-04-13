@@ -55,8 +55,8 @@ export {
   strTruncate,
 } from './string/index.js';
 
-// String
-export { isBrowser, isNode } from './system/index.js';
+// System
+export { isBrowser, isNode, getEnvironment } from './system/index.js';
 
 // Typeguards
 export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString } from './typeguards/index.js';
