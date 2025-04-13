@@ -1,8 +1,8 @@
 # TS-Scribe
 
 [![npm](https://img.shields.io/npm/v/ts-scribe)](https://www.npmjs.com/package/ts-scribe)
-<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/install/111632" title="Install size for ts-scribe"></a>
-<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/bundle/145" title="Bundle size for ts-scribe"></a>
+<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/install/135422" title="Install size for ts-scribe"></a>
+<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/bundle/14746" title="Bundle size for ts-scribe"></a>
 [![Module type: CJS+ESM](https://img.shields.io/badge/module%20type-cjs%2Besm-brightgreen)](https://github.com/voxpelli/badges-cjs-esm)
 
 A TypeScript utility library tailored for Node.js development. It provides a rich set of utility functions and advanced types to enhance productivity and code quality.
