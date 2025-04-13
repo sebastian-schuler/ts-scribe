@@ -1,4 +1,5 @@
-import { randomInt } from '../../src/random';
+import { describe, expect, it } from 'bun:test';
+import { randomInt } from '../../src/random/index.js';
 
 describe('randomInt', () => {
   it('should generate a random number within the specified range', () => {

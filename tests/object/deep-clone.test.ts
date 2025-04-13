@@ -1,4 +1,5 @@
-import { deepClone } from '../../src/object';
+import { describe, expect, it } from 'bun:test';
+import { deepClone } from '../../src/object/index.js';
 
 describe('deepClone', () => {
   // Test case for cloning a simple object

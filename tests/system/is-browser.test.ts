@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import { describe, expect, it } from 'bun:test';
 import { isBrowser } from '../../src/system';
 
 describe('isBrowser', () => {

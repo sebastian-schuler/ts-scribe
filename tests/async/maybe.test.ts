@@ -1,4 +1,5 @@
-import { maybe } from '../../src/async';
+import { jest, describe, it, expect } from 'bun:test';
+import { maybe } from '../../src/async/index.js';
 
 describe('maybe', () => {
   it('should return empty', () => {
@@ -15,7 +16,7 @@ describe('maybe', () => {
     expect(test.map(() => 1)).toBe(test);
     expect(test.toArray()).toEqual([]);
 
-    const callback = vi.fn((tt: any) => {
+    const callback = jest.fn((tt: any) => {
       return tt;
     });
     expect(test.filter(callback)).toBe(test);
@@ -33,7 +34,7 @@ describe('maybe', () => {
     expect(test.catch(() => 1).value).toBe(1);
     expect(test.toArray()).toEqual([]);
 
-    const callback = vi.fn((tt: any) => {
+    const callback = jest.fn((tt: any) => {
       return tt;
     });
     expect(test.else(callback)).toBe(test);
@@ -83,7 +84,7 @@ describe('maybe', () => {
     expect(test.map((value) => value + 2).value).toBe(3);
     expect(test.toArray()).toEqual([1]);
 
-    const callback = vi.fn();
+    const callback = jest.fn();
     expect(test.catch(callback)).toBe(test);
     expect(test.else(callback)).toBe(test);
     expect(callback).not.toBeCalled();

@@ -1,4 +1,4 @@
-import { isString } from '../typeguards/is-string';
+import { isString } from '../typeguards/is-string.js';
 
 /**
  * Parse a value into a boolean

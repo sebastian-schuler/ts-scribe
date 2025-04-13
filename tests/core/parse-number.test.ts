@@ -1,4 +1,5 @@
-import { parseNumber } from '../../src/core';
+import { describe, expect, it } from 'bun:test';
+import { parseNumber } from '../../src/core/index.js';
 
 describe('parseNumber function', () => {
   it('should return parsed number when value is a valid integer string', () => {

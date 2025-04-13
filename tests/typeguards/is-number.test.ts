@@ -1,4 +1,5 @@
-import { isNumber } from "../../src/typeguards";
+import { describe, expect, it } from 'bun:test';
+import { isNumber } from '../../src/typeguards/index.js';
 
 describe('isNumber', () => {
   it('should return true if the value is a number or parseable as a number', () => {

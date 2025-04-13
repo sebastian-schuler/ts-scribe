@@ -1,4 +1,5 @@
-import { parseBoolean } from '../../src/core';
+import { describe, expect, it } from 'bun:test';
+import { parseBoolean } from '../../src/core/index.js';
 
 describe('parseBoolean function', () => {
   it('should return true when value is "true"', () => {

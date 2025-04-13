@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { isEmptyValue } from '../../src/typeguards/is-empty-value';
+import { describe, expect, it } from 'bun:test';
+import { isEmptyValue } from '../../src/typeguards/index.js';
 
 describe('isEmptyValue function', () => {
   // Test null value

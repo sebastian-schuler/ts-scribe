@@ -1,4 +1,4 @@
-import { Mandatory, NonNullish, Nullish } from '..';
+import { Mandatory, NonNullish, Nullish } from '../types/common-types.js';
 
 const MAYBE = Symbol.for('@@maybe');
 

@@ -1,4 +1,5 @@
-import { differenceArray } from '../../src/array';
+import { describe, expect, it } from 'bun:test';
+import { differenceArray } from '../../src/array/index.js';
 
 describe('differenceArray', () => {
   it('should return elements that are present in the first array but not in the other arrays', () => {

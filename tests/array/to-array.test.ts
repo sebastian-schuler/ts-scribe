@@ -1,4 +1,5 @@
-import { toArray } from '../../src/array';
+import { describe, expect, it } from 'bun:test';
+import { toArray } from '../../src/array/index.js';
 
 describe('toArray', () => {
   it('should convert a single value to an array', () => {

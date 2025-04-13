@@ -1,4 +1,5 @@
-import { deepFreeze } from '../../src/object';
+import { describe, expect, it } from 'bun:test';
+import { deepFreeze } from '../../src/object/index.js';
 
 describe('deepFreeze', () => {
   it('should freeze a simple object', () => {

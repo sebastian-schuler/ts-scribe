@@ -1,4 +1,5 @@
-import { safeJsonParse } from '../../src/object';
+import { describe, expect, it, spyOn } from 'bun:test';
+import { safeJsonParse } from '../../src/object/safe-json-parse.js';
 
 describe('safeJsonParse', () => {
   it('should parse a valid JSON string correctly', () => {
@@ -34,7 +35,8 @@ describe('safeJsonParse', () => {
 
   it('should run the callback function if parsing fails', () => {
     // Mock console.error to capture logs
-    const consoleErrorMock = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleErrorMock = spyOn(console, 'error').mockImplementation(() => {});
+    // const consoleErrorMock = mock.module(console, "error");
 
     const jsonString = '{name: "John", age: 30}';
     const fallbackValue = { name: 'Fallback', age: 0 };

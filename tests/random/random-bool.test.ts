@@ -1,4 +1,5 @@
-import { randomBool } from '../../src/random';
+import { describe, expect, it } from 'bun:test';
+import { randomBool } from '../../src/random/index.js';
 
 describe('randomBool', () => {
   // Test case for default probability

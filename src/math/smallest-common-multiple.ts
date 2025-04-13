@@ -1,4 +1,4 @@
-import { getGcd } from './greatest-common-divisor';
+import { getGcd } from './greatest-common-divisor.js';
 
 /**
  * Compute the smallest common multiple between any amount of numbers

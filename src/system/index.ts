@@ -1,2 +1,2 @@
-export { isNode } from './is-node';
-export { isBrowser } from './is-browser';
+export { isNode } from './is-node.js';
+export { isBrowser } from './is-browser.js';

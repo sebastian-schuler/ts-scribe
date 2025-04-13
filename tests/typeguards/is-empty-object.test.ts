@@ -1,4 +1,5 @@
-import { isEmptyObject } from '../../src/typeguards/is-empty-object';
+import { describe, expect, it } from 'bun:test';
+import { isEmptyObject } from '../../src/typeguards/index.js';
 
 describe('isEmptyObject', () => {
   it('should return true for an empty object', () => {

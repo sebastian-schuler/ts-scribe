@@ -1,4 +1,5 @@
-import { sleep } from '../../src/async';
+import { describe, expect, it } from 'bun:test';
+import { sleep } from '../../src/async/index.js';
 
 describe('sleep', () => {
   it('sleep waits the specified amount of time', async () => {

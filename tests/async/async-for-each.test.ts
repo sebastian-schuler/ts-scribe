@@ -1,10 +1,11 @@
-import { asyncForEach } from '../../src/async';
+import { jest, describe, it, expect } from 'bun:test';
+import { asyncForEach } from '../../src/async/index.js';
 
 describe('asyncForEach', () => {
   it('should process all elements simultaneously', async () => {
     const items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     const start = Date.now();
-    const mockCallback = vi.fn(async (item: number) => {
+    const mockCallback = jest.fn(async (item: number) => {
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async operation
     });
 
@@ -18,7 +19,7 @@ describe('asyncForEach', () => {
   it('should process correct amount of elements simultaneously with a limit', async () => {
     const items = [1, 2, 3, 4, 5];
     const start = Date.now();
-    const mockCallback = vi.fn(async (item: number) => {
+    const mockCallback = jest.fn(async (item: number) => {
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async operation
     });
 
@@ -31,7 +32,7 @@ describe('asyncForEach', () => {
 
   it('should call the callback with correct arguments', async () => {
     const items = [1, 2, 3];
-    const mockCallback = vi.fn(async (item: number, index: number, array: number[]) => {
+    const mockCallback = jest.fn(async (item: number, index: number, array: number[]) => {
       // Simulate async operation
       await new Promise((resolve) => setTimeout(resolve, 10));
     });
@@ -45,7 +46,7 @@ describe('asyncForEach', () => {
 
   it('should handle an empty array', async () => {
     const items: number[] = [];
-    const mockCallback = vi.fn(async (item: number) => {
+    const mockCallback = jest.fn(async (item: number) => {
       await new Promise((resolve) => setTimeout(resolve, 10)); // Simulate async operation
     });
 
@@ -56,7 +57,7 @@ describe('asyncForEach', () => {
 
   it('should handle a single element array', async () => {
     const items = [42];
-    const mockCallback = vi.fn(async (item: number) => {
+    const mockCallback = jest.fn(async (item: number) => {
       await new Promise((resolve) => setTimeout(resolve, 10)); // Simulate async operation
     });
 
@@ -69,7 +70,7 @@ describe('asyncForEach', () => {
   it('should propagate errors thrown in the callback', async () => {
     const items = [1, 2, 3];
     const error = new Error('Test error');
-    const mockCallback = vi.fn(async (item: number) => {
+    const mockCallback = jest.fn(async (item: number) => {
       if (item === 2) {
         throw error;
       }

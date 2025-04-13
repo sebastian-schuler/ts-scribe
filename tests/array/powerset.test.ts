@@ -1,4 +1,5 @@
-import { powerset } from '../../src/array';
+import { describe, expect, it } from 'bun:test';
+import { powerset } from '../../src/array/index.js';
 
 describe('powerset', () => {
   /***

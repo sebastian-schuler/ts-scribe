@@ -1,4 +1,5 @@
-import { clamp } from '../../src/math';
+import { describe, expect, it } from 'bun:test';
+import { clamp } from '../../src/math/index.js';
 
 describe('clamp', () => {
   it('it should clamp the value between the min and max', () => {

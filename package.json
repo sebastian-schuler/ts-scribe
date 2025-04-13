@@ -1,39 +1,88 @@
 {
   "name": "ts-scribe",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A collection of utility functions and types for TypeScript projects in Node.js",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./array": "./dist/array/index.js",
-    "./async": "./dist/async/index.js",
-    "./core": "./dist/core/index.js",
-    "./list": "./dist/list/index.js",
-    "./math": "./dist/math/index.js",
-    "./object": "./dist/object/index.js",
-    "./random": "./dist/random/index.js",
-    "./string": "./dist/string/index.js",
-    "./system": "./dist/system/index.js",
-    "./typeguards": "./dist/typeguards/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./array": {
+      "import": "./dist/array/index.js",
+      "require": "./dist/cjs/array/index.js",
+      "types": "./dist/array/index.d.ts"
+    },
+    "./async": {
+      "import": "./dist/async/index.js",
+      "require": "./dist/cjs/async/index.js",
+      "types": "./dist/async/index.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.js",
+      "require": "./dist/cjs/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./list": {
+      "import": "./dist/list/index.js",
+      "require": "./dist/cjs/list/index.js",
+      "types": "./dist/list/index.d.ts"
+    },
+    "./math": {
+      "import": "./dist/math/index.js",
+      "require": "./dist/cjs/math/index.js",
+      "types": "./dist/math/index.d.ts"
+    },
+    "./object": {
+      "import": "./dist/object/index.js",
+      "require": "./dist/cjs/object/index.js",
+      "types": "./dist/object/index.d.ts"
+    },
+    "./random": {
+      "import": "./dist/random/index.js",
+      "require": "./dist/cjs/random/index.js",
+      "types": "./dist/random/index.d.ts"
+    },
+    "./string": {
+      "import": "./dist/string/index.js",
+      "require": "./dist/cjs/string/index.js",
+      "types": "./dist/string/index.d.ts"
+    },
+    "./system": {
+      "import": "./dist/system/index.js",
+      "require": "./dist/cjs/system/index.js",
+      "types": "./dist/system/index.d.ts"
+    },
+    "./typeguards": {
+      "import": "./dist/typeguards/index.js",
+      "require": "./dist/cjs/typeguards/index.js",
+      "types": "./dist/typeguards/index.d.ts"
+    }
   },
   "files": [
     "/dist"
   ],
   "scripts": {
-    "build": "npm run clean && tsc --P tsconfig.prod.json",
-    "clean": "if exist dist rmdir dist /q /s",
+    "build": "bun run build:clean && bun run build:esm && bun run build:cjs && bun run build:types && bun run build:submodules",
+    "build:clean": "rm -rf dist",
+    "build:esm": "bun build ./src/index.ts --outdir ./dist --target node --format esm",
+    "build:cjs": "bun build ./src/index.ts --outdir ./dist/cjs --target node --format cjs",
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "build:submodules": "bun scripts/build-submodules.ts",
+    "clean": "rm -rf dist",
     "lint": "eslint src/**/*.{ts,tsx} --fix",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "prepublish": "npm run build",
-    "check-updates": "npx npm-check-updates",
-    "check-updates:minor": "npx npm-check-updates --target minor",
-    "check-updates:patch": "npx npm-check-updates --target patch",
-    "publish": "npm publish --access public"
+    "test": "bun test",
+    "prepublish": "bun run build",
+    "changeset": "bunx changeset",
+    "version": "bunx changeset version",
+    "publish": "bunx changeset publish"
   },
   "engines": {
-    "node": ">=18.0"
+    "node": ">=18.0",
+    "bun": ">=1.0.0"
   },
   "repository": {
     "type": "git",
@@ -54,21 +103,19 @@
   },
   "homepage": "https://github.com/sebastian-schuler/ts-scribe#readme",
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
-    "@types/node": "^22.10.5",
-    "@typescript-eslint/eslint-plugin": "^8.19.1",
-    "@typescript-eslint/parser": "^8.19.1",
-    "@vitest/ui": "^2.1.8",
-    "eslint": "^9.17.0",
-    "eslint-config-prettier": "^9.1.0",
+    "@changesets/cli": "^2.28.1",
+    "@eslint/js": "^9.24.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.1",
+    "@typescript-eslint/parser": "^8.29.1",
+    "bun-types": "latest",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.2.1",
-    "globals": "^15.14.0",
-    "prettier": "^3.4.2",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.19.1",
-    "unplugin-auto-import": "^19.0.0",
-    "vitest": "^2.1.8"
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.1"
   }
 }

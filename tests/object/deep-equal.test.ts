@@ -1,4 +1,5 @@
-import { deepEquals } from '../../src/object';
+import { describe, expect, it } from 'bun:test';
+import { deepEquals } from '../../src/object/index.js';
 
 describe('deepEquals', () => {
   it('should return true for equal primitive values', () => {

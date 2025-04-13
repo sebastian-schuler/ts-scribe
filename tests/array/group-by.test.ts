@@ -1,5 +1,5 @@
-import { groupBy } from '../../src/array';
-import { GroupByKeyFn } from '../../src/array/group-by';
+import { describe, expect, it } from 'bun:test';
+import { groupBy, GroupByKeyFn } from '../../src/array/group-by.js';
 
 describe('groupBy', () => {
   interface Person {

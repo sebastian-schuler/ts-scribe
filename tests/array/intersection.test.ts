@@ -1,5 +1,5 @@
-import { intersection } from '../../src/array';
-import { intersectionDeep } from '../../src/array/intersection';
+import { describe, expect, it } from 'bun:test';
+import { intersection, intersectionDeep } from '../../src/array/intersection.js';
 
 describe('intersection', () => {
   it('should return the intersection of arrays', () => {
