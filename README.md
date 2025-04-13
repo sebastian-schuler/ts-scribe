@@ -5,7 +5,7 @@
 <a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/bundle/145" title="Bundle size for ts-scribe"></a>
 [![Module type: CJS+ESM](https://img.shields.io/badge/module%20type-cjs%2Besm-brightgreen)](https://github.com/voxpelli/badges-cjs-esm)
 
-A TypeScript utility library tailored for Node.js development. It provides a rich set of utility functions and advanced types to enhance productivity and code quality.
+A TypeScript utility library tailored for Node.js and Bun development. It provides a rich set of utility functions and advanced types to enhance productivity and code quality.
 
 ## Installation
 
@@ -60,10 +60,13 @@ npm install ts-scribe
 - `objectDeepClone`: Deeply clones an object.
 - `objectDeepEquals`: Deeply compares two objects or arrays.
 - `objectDeepFreeze`: Deep freezes an object recursively.
-- `objectDeepMerge`: Deep merges multiple objects with accurate types.
 - `objectFlatten`: Flattens an object into dot notation.
 - `objectPrune`: Removes properties with undefined values.
 - `objectRemoveKeys`: Removes specified keys from an object.
+
+#### Deepmerge
+
+Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts), check their documentation for more details.
 
 ### Random
 
@@ -116,6 +119,7 @@ npm install ts-scribe
 
 - [objectDeepClone](https://github.com/davidmarkclements/rfdc/tree/master)
 - [semaphore](https://github.com/Shakeskeyboarde)
+- [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts)
 
 ## License
 

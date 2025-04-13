@@ -1,7 +1,14 @@
 /**
- * Convert a string to camel case.
- * @param str - The string to convert.
- * @returns The camel case string.
+ * Converts a given string to camelCase format.
+ *
+ * @param {string | undefined} str - The input string to convert.
+ * @returns {string} The camelCase version of the input string, or an empty string if input is falsy.
+ *
+ * @example
+ * strCamelCase('Hello world');           // "helloWorld"
+ * strCamelCase('  foo_bar-baz  ');       // "fooBarBaz"
+ * strCamelCase('XMLHttpRequest');        // "xmlHttpRequest"
+ * strCamelCase(undefined);               // ""
  */
 export function strCamelCase(str: string | undefined): string {
   if (!str) return '';

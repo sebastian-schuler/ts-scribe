@@ -1,10 +1,23 @@
 /**
- * Parses a string or number into a number. If the value is not a number, it will return the default value.
- * @param value - The value to parse
- * @param defaultValue - The default value to return if the value is not a number
- * @param type - The type of number to parse. 'int' will only return integers, 'float' will return any number (default: 'float')
- * @param throwInvalid - If true, will throw an error if the value is not a number (default: false)
- * @returns The parsed number or the default value
+ * Parses a value and converts it to a number.
+ * The function handles multiple input types (string, number, null, or undefined) and can convert
+ * the input into either an integer or a float. If the input cannot be parsed, it returns a default value.
+ *
+ * @param {string | number | null | undefined} value - The value to be parsed into a number.
+ * @param {number} defaultValue - The default value to return if the value cannot be parsed.
+ * @param {'int' | 'float'} [type='float'] - The type of number to return, either 'int' or 'float'. Defaults to 'float'.
+ * @param {boolean} [throwInvalid=false] - Whether to throw an error if parsing fails. If `true`, an error is thrown when invalid input is provided.
+ * @returns {number} The parsed number, or the default value if parsing fails.
+ *
+ * @example
+ * parseNumber('123'); // Returns 123
+ * parseNumber('123.45', 0, 'float'); // Returns 123.45
+ * parseNumber('123.45', 0, 'int'); // Returns 0 (because it's not an integer)
+ * parseNumber('abc', 0); // Returns 0 (invalid string)
+ * parseNumber(null, 42); // Returns 42
+ * parseNumber(undefined, 42); // Returns 42
+ * parseNumber('10', 0, 'int', true); // Returns 10 (valid integer)
+ * parseNumber('12.34', 0, 'int', true); // Throws an error (invalid for 'int')
  */
 export function parseNumber(
   value: string | number | null | undefined,

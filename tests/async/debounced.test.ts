@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, jest } from 'bun:test';
 import { debounce } from '../../src/async/index.js';
 

@@ -1,7 +1,14 @@
 /**
- * Converts a string to kebab-case.
- * @param str - The string to convert.
- * @returns The kebab-case string.
+ * Converts a given string to kebab-case.
+ *
+ * @param {string | undefined} str - The input string to convert.
+ * @returns {string} The kebab-case version of the input string, or an empty string if input is falsy.
+ *
+ * @example
+ * strKebabCase('helloWorld');         // "hello-world"
+ * strKebabCase('foo_bar-baz');        // "foo-bar-baz"
+ * strKebabCase(' SomeInputValue  ');  // "some-input-value"
+ * strKebabCase(undefined);            // ""
  */
 export function strKebabCase(str: string | undefined): string {
   if (!str) return '';

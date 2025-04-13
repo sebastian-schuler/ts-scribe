@@ -19,12 +19,12 @@
     "clean": "rm -rf dist",
     "lint": "eslint src/**/*.{ts}",
     "test": "bun test",
+    "test:watch": "bun test --watch",
     "changeset": "bunx changeset",
     "version-packages": "bunx changeset version",
     "release": "bunx changeset publish"
   },
   "engines": {
-    "node": ">=18.0",
     "bun": ">=1.0.0"
   },
   "repository": {
@@ -60,5 +60,8 @@
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.29.1"
+  },
+  "dependencies": {
+    "deepmerge-ts": "^7.1.5"
   }
 }

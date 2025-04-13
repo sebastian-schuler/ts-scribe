@@ -20,6 +20,7 @@ type SortedListOptions<TType> = {
 
 /**
  * A binary sorted list.
+ * This list keeps items sorted according to a custom compare function or the default comparison (based on string value).
  */
 class SortedList<TType> {
   public static readonly defaultCompare = (a_: any, b_: any): number => {
@@ -34,12 +35,11 @@ class SortedList<TType> {
   readonly #values: TType[];
 
   /**
-   * Construct a binary sorted list which is initially empty.
+   * Constructs a binary sorted list which is initially empty or populated with initial values.
+   * @param options Options for the list such as comparison function or duplicate allowance.
+   * @param values Optional initial values to populate the list.
    */
   public constructor(options?: SortedListCompare<TType> | SortedListOptions<TType>);
-  /**
-   * Construct a binary sorted list with initial values.
-   */
   public constructor(values: Iterable<TType>, options?: SortedListCompare<TType> | SortedListOptions<TType>);
   public constructor(
     ...args:
@@ -60,19 +60,22 @@ class SortedList<TType> {
       ? [...values].sort(compare)
       : [...values]
           .sort(compare)
-           
+
           .filter((value, index, array) => index === 0 || this.#compare(value, array[index - 1]!) !== 0);
   }
 
   /**
-   * Number of entries in the list.
+   * The number of entries in the sorted list.
+   * @returns The number of items in the list.
    */
   public get size(): number {
     return this.#values.length;
   }
 
   /**
-   * Insert the `value` in order (before duplicates if they exist).
+   * Insert a `value` in order (before duplicates if they exist).
+   * @param value The value to insert into the list.
+   * @returns The instance of the `SortedList` with the new value added.
    */
   public add(value: TType): this {
     const [index, isMatch] = this.search(value);
@@ -85,21 +88,27 @@ class SortedList<TType> {
   }
 
   /**
-   * Get the value at the `index`.
+   * Get the value at the specified index.
+   * @param index The index of the value to retrieve.
+   * @returns The value at the given index or undefined if the index is out of bounds.
    */
   public at(index: number): TType | undefined {
     return this.#values.at(index);
   }
 
   /**
-   * Returns true if the `value` is in the list.
+   * Check if the `value` exists in the list.
+   * @param value The value to search for.
+   * @returns True if the value exists, otherwise false.
    */
   public has(value: TType): boolean {
     return this.search(value)[1];
   }
 
   /**
-   * Remove the `value` (only the first if duplicates exist).
+   * Remove the `value` (only the first occurrence if duplicates exist).
+   * @param value The value to remove.
+   * @returns True if the value was removed, otherwise false.
    */
   public delete(value: TType): boolean {
     const [index, isMatch] = this.search(value);
@@ -114,7 +123,9 @@ class SortedList<TType> {
   }
 
   /**
-   * Remove the entry at the `index`.
+   * Remove the entry at the specified index.
+   * @param index The index of the value to remove.
+   * @returns The removed value or undefined if the index is out of bounds.
    */
   public deleteAt(index: number): TType | undefined {
     return this.#values.splice(index, 1)[0];
@@ -128,22 +139,27 @@ class SortedList<TType> {
   }
 
   /**
-   * Get part the list as a new sorted list, selected from `start` to `end`.
+   * Get a slice of the list as a new sorted list, selected from `start` to `end`.
+   * @param start The starting index (inclusive).
+   * @param end The ending index (exclusive).
+   * @returns A new `SortedList` containing the sliced portion of the list.
    */
   public slice(start?: number, end?: number): SortedList<TType> {
     return new SortedList(this.#values.slice(start, end), this.#compare);
   }
 
   /**
-   * Call the `callback` once for each entry in the list.
+   * Call the `callback` function once for each entry in the list.
+   * @param callback The callback function to call on each entry.
    */
   public forEach(callback: (value: TType, index: number, list: this) => void): void {
     this.#values.forEach((value, index) => callback(value, index, this));
   }
 
   /**
-   * Find the entry (first if duplicates exist) that matches `value`, or the
-   * next greater entry if no exact match is found.
+   * Search for the entry that matches the `value`, or the next greater entry if no exact match is found.
+   * @param value The value to search for.
+   * @returns An array where the first element is the index, and the second element is a boolean indicating if an exact match was found.
    */
   public search(value: TType): [index: number, isMatch: boolean] {
     let min = 0;
@@ -153,7 +169,6 @@ class SortedList<TType> {
     while (min <= max) {
       const mid = min + Math.floor((max - min) / 2);
 
-       
       result = this.#compare(value, this.#values[mid]!);
 
       if (min === max) {
@@ -177,6 +192,7 @@ class SortedList<TType> {
 
   /**
    * Returns a new iterator object that yields the list values.
+   * @returns An iterable iterator for the list values.
    */
   public values(): IterableIterator<TType> {
     return this.#values.values();
@@ -184,6 +200,7 @@ class SortedList<TType> {
 
   /**
    * Returns a new iterator object that yields the list values.
+   * @returns An iterable iterator for the list values, same as `values()`.
    */
   public [Symbol.iterator](): IterableIterator<TType> {
     return this.values();

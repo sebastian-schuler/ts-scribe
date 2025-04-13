@@ -1,7 +1,17 @@
 /**
- * Check if an object is empty (has no keys or empty array).
- * @param obj - Object to check
- * @returns True if object is empty, false otherwise
+ * Checks if a given value is an empty object (i.e., an object with no properties).
+ *
+ * @param {unknown} obj - The value to check.
+ * @returns {boolean} `true` if the value is an object and has no properties, otherwise `false`.
+ *                    Returns `false` for `null`, `undefined`, or non-object values, as well as arrays.
+ *
+ * @example
+ * isEmptyObject({});               // true
+ * isEmptyObject({ key: 'value' }); // false
+ * isEmptyObject([]);               // false
+ * isEmptyObject(null);             // false
+ * isEmptyObject(undefined);        // false
+ * isEmptyObject('string');         // false
  */
 export function isEmptyObject(obj: unknown): boolean {
   if (!obj || typeof obj !== 'object' || Array.isArray(obj)) {

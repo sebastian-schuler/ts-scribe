@@ -1,7 +1,14 @@
 /**
- * Converts a string to PascalCase.
- * @param str - The string to convert.
- * @returns The PascalCase string.
+ * Converts a given string to PascalCase.
+ *
+ * @param {string | undefined} str - The input string to convert.
+ * @returns {string} The PascalCase version of the input string, or an empty string if input is falsy.
+ *
+ * @example
+ * strPascalCase('hello world');         // "HelloWorld"
+ * strPascalCase('foo_bar-baz');         // "FooBarBaz"
+ * strPascalCase(' someInputValue  ');   // "SomeInputValue"
+ * strPascalCase(undefined);             // ""
  */
 export function strPascalCase(str: string | undefined): string {
   if (!str) return '';

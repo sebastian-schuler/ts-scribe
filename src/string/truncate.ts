@@ -1,10 +1,21 @@
 /**
- * Truncate a string to a certain length and add an ellipsis to the end.
- * Optionally, preserve whole words by truncating at the last space before maxLength.
- * @param str - String to truncate
- * @param maxLength - Maximum length of the string (including the ellipsis)
- * @param options - Options for truncating the string
- * @returns Truncated string with ellipsis if necessary
+ * Truncates a string to a specified maximum length, optionally adding an ellipsis
+ * and preserving whole words when truncating.
+ *
+ * @param {string} str - The string to truncate.
+ * @param {number} maxLength - The maximum length of the string, including the ellipsis.
+ * @param {Object} [options] - Optional configuration for truncation.
+ * @param {string} [options.ellipsis='...'] - The string to append to indicate truncation. Default is '...'.
+ * @param {boolean} [options.preserveWords=false] - Whether to preserve whole words when truncating. Default is `false`.
+ * @returns {string} The truncated string with an ellipsis if necessary, or the original string if it's within the length limit.
+ *
+ * @throws {Error} If `maxLength` is less than or equal to the length of the ellipsis.
+ *
+ * @example
+ * strTruncate('This is a long string that should be truncated', 20); // "This is a long..."
+ * strTruncate('This is a long string that should be truncated', 20, { preserveWords: true }); // "This is a long..."
+ * strTruncate('Short text', 20); // "Short text"
+ * strTruncate('Short text', 5); // "Short..."
  */
 export function strTruncate(
   str: string,

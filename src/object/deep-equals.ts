@@ -79,11 +79,22 @@ function deepEqualsRecursive(obj1: Nestable, obj2: Nestable, valueRefs?: Referen
 }
 
 /**
- * Deeply compares two nestable objects to determine if they are equal.
- * @param obj1 - The first object to compare.
- * @param obj2 - The second object to compare.
- * @returns `true` if the objects are equal, `false` otherwise.
+ * Compares two objects (or nested structures) for deep equality.
+ * This function performs a recursive comparison to check if the two objects are equivalent, including all nested properties or elements.
+ * It returns `true` if the objects are deeply equal, and `false` otherwise.
+ *
+ * @param {Nestable} obj1 - The first object or nested structure to compare.
+ * @param {Nestable} obj2 - The second object or nested structure to compare.
+ * @returns {boolean} `true` if the objects are deeply equal, `false` otherwise.
+ *
+ * @example
+ * const obj1 = { a: 1, b: { x: 2, y: 3 } };
+ * const obj2 = { a: 1, b: { x: 2, y: 3 } };
+ * const obj3 = { a: 1, b: { x: 2, y: 4 } };
+ *
+ * objectDeepEquals(obj1, obj2); // true
+ * objectDeepEquals(obj1, obj3); // false
  */
-export function objectDeepEquals(obj1: Nestable, obj2: Nestable) {
+export function objectDeepEquals(obj1: Nestable, obj2: Nestable): boolean {
   return deepEqualsRecursive(obj1, obj2);
 }

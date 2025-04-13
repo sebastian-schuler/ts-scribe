@@ -18,6 +18,9 @@ describe('String conversion functions', () => {
     it('handle scrambled data', () => {
       expect(strCamelCase('adaio.asd.a:D:')).toBe('adaioAsdAD');
     });
+    it('handle undefined', () => {
+      expect(strCamelCase(undefined)).toBe('');
+    });
   });
 
   describe('strDotCase', () => {
@@ -35,6 +38,9 @@ describe('String conversion functions', () => {
     });
     it('handle scrambled data', () => {
       expect(strDotCase('adaio.asd.a:D:')).toBe('adaio.asd.a.d');
+    });
+    it('handle undefined', () => {
+      expect(strDotCase(undefined)).toBe('');
     });
   });
 
@@ -54,6 +60,9 @@ describe('String conversion functions', () => {
     it('handle scrambled data', () => {
       expect(strHeaderCase('adaio.asd.a:D:')).toBe('Adaio Asd A D');
     });
+    it('handle undefined', () => {
+      expect(strHeaderCase(undefined)).toBe('');
+    });
   });
 
   describe('strKebabCase', () => {
@@ -71,6 +80,9 @@ describe('String conversion functions', () => {
     });
     it('handle scrambled data', () => {
       expect(strKebabCase('adaio.asd.a:D:')).toBe('adaio-asd-a-d');
+    });
+    it('handle undefined', () => {
+      expect(strKebabCase(undefined)).toBe('');
     });
   });
 
@@ -90,6 +102,9 @@ describe('String conversion functions', () => {
     it('handle scrambled data', () => {
       expect(strPascalCase('adaio.asd.a:D:')).toBe('AdaioAsdAD');
     });
+    it('handle undefined', () => {
+      expect(strPascalCase(undefined)).toBe('');
+    });
   });
 
   describe('toSnakeCase', () => {
@@ -107,6 +122,9 @@ describe('String conversion functions', () => {
     });
     it('handle scrambled data', () => {
       expect(strSnakeCase('adaio.asd.a:D:')).toBe('adaio_asd_a_d');
+    });
+    it('handle undefined', () => {
+      expect(strSnakeCase(undefined)).toBe('');
     });
   });
 });

@@ -3,29 +3,29 @@ import { randomString } from '../../src/random/index.js';
 
 describe('randomString', () => {
   it('should generate a random string of specified length with default options', () => {
-    const length = 50;
+    const length = 150;
     const result = randomString(length);
     expect(result.length).toBe(length);
     expect(/^[A-Za-z0-9!@#$%^&*()_\-+=<>?/[\]{}.,:;]+$/.test(result)).toBe(true);
   });
 
   it('should generate a random string without including numbers and symbols', () => {
-    const length = 50;
-    const result = randomString(length, false, false);
+    const length = 150;
+    const result = randomString(length, { includeNumbers: false, includeSymbols: false });
     expect(result.length).toBe(length);
     expect(/^[A-Za-z]+$/.test(result)).toBe(true);
   });
 
   it('should generate a random string including numbers but not symbols', () => {
-    const length = 50;
-    const result = randomString(length, true, false);
+    const length = 150;
+    const result = randomString(length, { includeNumbers: true, includeSymbols: false });
     expect(result.length).toBe(length);
     expect(/^[A-Za-z0-9]+$/.test(result)).toBe(true);
   });
 
   it('should generate a random string including numbers and symbols', () => {
-    const length = 50;
-    const result = randomString(length, true, true);
+    const length = 150;
+    const result = randomString(length, { includeNumbers: true, includeSymbols: true });
     expect(result.length).toBe(length);
     expect(/^[A-Za-z0-9!@#$%^&*()_\-+=<>?/[\]{}.,:;]+$/.test(result)).toBe(true);
   });

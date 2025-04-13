@@ -1,11 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * Coerce a value to an array. Single values will become a single value array.
- * All entries in an array-like or iterable will be copied to a new array (except for strings and functions).
- * Null or undefined will return an empty array.
- * @param value - The value to coerce to an array.
- * @returns An array containing the value.
+ * Coerce a given value to an array.
+ *
+ * The function checks if the input value is an array-like or iterable object (like a string, Set, or Map).
+ * If so, it returns the value as an array. If the value is not iterable, it returns an array containing the value.
+ *
+ * @param {TValue} value - The value to convert into an array.
+ * @returns {(TValue extends ArrayLike<infer TElement> | Iterable<infer TElement> ? TElement : TValue)[]}
+ *  An array containing the elements of the iterable if the value is iterable, or the value itself if it's not iterable.
+ *
+ * @example
+ * const arr1 = toArray([1, 2, 3]);
+ * console.log(arr1); // [1, 2, 3]
+ *
+ * const arr2 = toArray('hello');
+ * console.log(arr2); // ['h', 'e', 'l', 'l', 'o']
+ *
+ * const arr3 = toArray(42);
+ * console.log(arr3); // [42]
  */
 export const toArray = <TValue>(
   value: TValue,

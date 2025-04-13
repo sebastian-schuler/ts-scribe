@@ -17,7 +17,10 @@ export class WeightedList<T> {
   private totalWeight = 0.0;
   length = 0;
 
-  // Option to merge with an existing List
+  /**
+   * Optionally merge with an existing WeightedList.
+   * @param list An existing WeightedList to merge with, if provided.
+   */
   constructor(list?: WeightedList<T>) {
     if (list !== undefined) {
       this.entries = [...list.entries];
@@ -27,9 +30,9 @@ export class WeightedList<T> {
   }
 
   /**
-   * Add a new object with its weight
-   * @param data the object to put into the list
-   * @param weight a number which defines its weight inside the list, used to calculate probabilities.
+   * Add a new object with its associated weight.
+   * @param data The object to put into the list.
+   * @param weight A number that defines its weight inside the list, used to calculate probabilities.
    */
   push(data: T, weight: number) {
     this.totalWeight += weight;
@@ -42,7 +45,9 @@ export class WeightedList<T> {
   }
 
   /**
-   * Get a random object based on its weight
+   * Get a random object from the list based on its weight.
+   * The higher the weight, the more likely it will be chosen.
+   * @returns A random object from the list or null if the list is empty.
    */
   random(): T | null {
     if (this.entries.length == 0) return null;
@@ -55,7 +60,8 @@ export class WeightedList<T> {
   }
 
   /**
-   * Returns all Objects inside the List
+   * Returns all objects inside the list.
+   * @returns An array of all objects in the list.
    */
   values() {
     return this.entries.map((val) => {
@@ -64,7 +70,8 @@ export class WeightedList<T> {
   }
 
   /**
-   * Returns a list of all objects and their weights
+   * Returns a list of all objects and their associated weights.
+   * @returns An array of objects and their weights.
    */
   weights(): InputEntry<T>[] {
     return this.entries.map((val) => {
@@ -73,15 +80,17 @@ export class WeightedList<T> {
   }
 
   /**
-   * Returns the total weight of all items inside the list
+   * Returns the total weight of all items inside the list.
+   * @returns The total weight of all items.
    */
   getTotalWeight() {
     return this.totalWeight;
   }
 
   /**
-   * Returns the probability of a specific item inside the list
-   * @param index of an item
+   * Returns the probability of a specific item inside the list based on its weight.
+   * @param index The index of the item.
+   * @returns The probability of the item, or null if the index is invalid.
    */
   probability(index: number) {
     const item = this.entries.at(index);
@@ -90,7 +99,8 @@ export class WeightedList<T> {
   }
 
   /**
-   * Returns and removes a random item inside the list
+   * Returns and removes a random item from the list based on its weight.
+   * @returns The item and its weight, or null if the list is empty.
    */
   popRandom(): InputEntry<T> | null {
     if (this.entries.length == 0) return null;
@@ -110,7 +120,7 @@ export class WeightedList<T> {
   }
 
   /**
-   * Remove all items, reset the list.
+   * Remove all items from the list and reset it.
    */
   clear() {
     this.entries = [];
@@ -119,7 +129,8 @@ export class WeightedList<T> {
   }
 
   /**
-   * Return a String representation of a WeightedList
+   * Returns a string representation of the WeightedList.
+   * @returns A string summarizing the list, including length, total weight, and item details.
    */
   toString(): string {
     let formatted = `{\n\tlength: ${this.length},\n\ttotalWeight: ${this.totalWeight},\n\titems: [\n`;

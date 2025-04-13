@@ -1,7 +1,21 @@
 /**
- * Remove all undefined values from an object recursively. Arrays are also cleaned.
- * @param obj - Object to clean
- * @returns Cleaned object
+ * Recursively removes `undefined` values from an object or array.
+ * This function cleans nested objects and arrays, ensuring that no properties
+ * or elements are left with the value `undefined`.
+ *
+ * @param {T} obj - The object or array to prune.
+ * @returns {T} The pruned object or array with `undefined` values removed.
+ *
+ * @template T - The type of the object to be pruned, which extends an object.
+ *
+ * @example
+ * objectPrune({ a: 1, b: undefined, c: { d: undefined } }); // Returns: { a: 1, c: {} }
+ *
+ * objectPrune([1, undefined, { a: undefined }, [undefined]]); // Returns: [1, {}]
+ *
+ * objectPrune([undefined, undefined]); // Returns: []
+ *
+ * objectPrune({ date: new Date() }); // Returns: { date: DateInstance }
  */
 export const objectPrune = <T extends object>(obj: T): T => {
   // Iterate if object is an array

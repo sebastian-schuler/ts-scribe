@@ -1,5 +1,11 @@
 /**
- * Check if the code is running in the browser
- * @returns true if in a browser; false if not
+ * Determines whether the current environment is a browser.
+ *
+ * Checks for the existence of `window` and `document` objects to infer a browser context.
+ *
+ * @returns {boolean} `true` if running in a browser environment, otherwise `false`.
+ *
+ * @example
+ * isBrowser(); // true in browser, false in Node.js or other non-browser environments
  */
-export const isBrowser = () => typeof window === 'object' && typeof document === 'object';
+export const isBrowser = (): boolean => typeof window === 'object' && typeof document === 'object';

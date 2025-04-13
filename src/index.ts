@@ -1,3 +1,8 @@
+import { deepmerge, deepmergeInto, deepmergeCustom, deepmergeIntoCustom } from 'deepmerge-ts';
+
+// Re-Exported
+export { deepmerge, deepmergeInto, deepmergeCustom, deepmergeIntoCustom };
+
 // Array
 export {
   arrChunk,
@@ -31,7 +36,6 @@ export {
   objectDeepClone,
   objectDeepEquals,
   objectDeepFreeze,
-  objectDeepMerge,
   objectFlatten,
   objectPrune,
   objectRemoveKeys,

@@ -10,6 +10,10 @@ class Lock {
   #released = false;
   #onRelease: () => void;
 
+  /**
+   * Creates a new lock instance.
+   * @param onRelease - A callback to be executed when the lock is released.
+   */
   constructor(onRelease: () => void) {
     this.#onRelease = onRelease;
     this.release = this.release.bind(this);
@@ -17,6 +21,7 @@ class Lock {
 
   /**
    * Release the lock. This should only be called once.
+   * Once released, the lock cannot be released again.
    */
   release(): void {
     if (this.#released) return;
@@ -29,7 +34,7 @@ class Lock {
 /**
  * A semaphore is a concurrency control mechanism that limits the number of asynchronous tasks accessing a shared resource simultaneously.
  *
- * ``.acquire()`` and ``.release()`` manage the state, while ``.available``, ``.waiting``, and ``.size`` return the state information.
+ * The `acquire()` and `release()` methods manage the state, while `available`, `waiting`, and `size` return the state information.
  */
 export class Semaphore {
   readonly #size: number;
@@ -38,6 +43,7 @@ export class Semaphore {
 
   /**
    * Call the next waiting operation if there is an available lock.
+   * This will shift the first waiting task and grant it a lock if one is available.
    */
   #next(): void {
     if (this.#available <= 0) return;
@@ -46,21 +52,24 @@ export class Semaphore {
   }
 
   /**
-   * The maximum number of concurrent operations.
+   * The maximum number of concurrent operations that can be acquired by the semaphore.
+   * @returns {number} The maximum number of concurrent operations.
    */
   get size(): number {
     return this.#size;
   }
 
   /**
-   * The number of operations that can be acquired without blocking.
+   * The number of available operations that can be acquired without blocking.
+   * @returns {number} The number of available operations.
    */
   get available(): number {
     return this.#available;
   }
 
   /**
-   * The number of operations waiting for a lock.
+   * The number of operations currently waiting for a lock.
+   * @returns {number} The number of operations in the waiting queue.
    */
   get waiting(): number {
     return this.#waiting.length;
@@ -93,7 +102,8 @@ export class Semaphore {
 
   /**
    * Acquire a lock. This will block until a lock is available.
-   * @returns A lock that must be released when the operation is complete.
+   * When a lock is acquired, the caller must release it after completing the operation.
+   * @returns {Promise<Lock>} A promise that resolves to a `Lock` object.
    */
   acquire(): Promise<Lock> {
     return new Promise((resolve) => {

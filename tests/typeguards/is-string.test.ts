@@ -6,6 +6,7 @@ describe('isString', () => {
     expect(isString('hello')).toBe(true);
     expect(isString('123')).toBe(true);
     expect(isString('')).toBe(true);
+    expect(isString(new String('Test'))).toBe(true);
   });
 
   it('should return false for non-string values', () => {

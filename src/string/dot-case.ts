@@ -1,7 +1,14 @@
 /**
- * Converts a string to dot.case.
- * @param str - The string to convert.
- * @returns The dot.case string.
+ * Converts a given string to dot.case format.
+ *
+ * @param {string | undefined} str - The input string to convert.
+ * @returns {string} The dot.case version of the input string, or an empty string if input is falsy.
+ *
+ * @example
+ * strDotCase('HelloWorld');         // "hello.world"
+ * strDotCase('foo_bar-baz');        // "foo.bar.baz"
+ * strDotCase('  someInputValue ');  // "some.input.value"
+ * strDotCase(undefined);            // ""
  */
 export function strDotCase(str: string | undefined): string {
   if (!str) return '';

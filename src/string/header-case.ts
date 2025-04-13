@@ -1,7 +1,14 @@
 /**
- * Converts a string to Header Case.
- * @param str - The string to convert.
- * @returns The Header Case string.
+ * Converts a given string to Header-Case (also known as Title Case with spaces).
+ *
+ * @param {string | undefined} str - The input string to convert.
+ * @returns {string} The Header-Case version of the input string, or an empty string if input is falsy.
+ *
+ * @example
+ * strHeaderCase('helloWorld');       // "Hello World"
+ * strHeaderCase('foo_bar-baz');      // "Foo Bar Baz"
+ * strHeaderCase('  someInputValue'); // "Some Input Value"
+ * strHeaderCase(undefined);          // ""
  */
 export function strHeaderCase(str: string | undefined): string {
   if (!str) return '';

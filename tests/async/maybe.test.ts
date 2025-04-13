@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { jest, describe, it, expect } from 'bun:test';
 import { maybe } from '../../src/async/index.js';
 
@@ -69,7 +70,7 @@ describe('maybe', () => {
 
     const mby = maybe(getAsync())
       .filter((ddd) => ddd.length <= 3)
-      .catch((err) => console.log('errrrr'));
+      .catch(() => console.log('error'));
     expect(mby.ok).toBe(true);
     expect(mby.value.at(0)).toBe('sadasdasd');
 

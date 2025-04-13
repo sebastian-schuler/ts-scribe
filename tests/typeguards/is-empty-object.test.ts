@@ -28,4 +28,9 @@ describe('isEmptyObject', () => {
     expect(isEmptyObject([])).toBe(false);
     expect(isEmptyObject([1, 2, 3])).toBe(false);
   });
+
+  it('should return false for null and undefined', () => {
+    expect(isEmptyObject(null)).toBe(false);
+    expect(isEmptyObject(undefined)).toBe(false);
+  });
 });
