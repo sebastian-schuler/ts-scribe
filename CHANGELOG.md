@@ -1,5 +1,11 @@
 # ts-scribe
 
+## 0.5.1
+
+### Patch Changes
+
+- Fix minor issue with commonjs bundle
+
 ## 0.5.0
 
 ### Minor Changes
