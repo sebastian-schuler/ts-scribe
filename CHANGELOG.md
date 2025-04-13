@@ -1,5 +1,11 @@
 # ts-scribe
 
+## 0.5.3
+
+### Patch Changes
+
+- Added JSDocs; Added new deepmerge dependency; Updated safeJsonParse
+
 ## 0.5.2
 
 ### Patch Changes
