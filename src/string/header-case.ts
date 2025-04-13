@@ -3,7 +3,7 @@
  * @param str - The string to convert.
  * @returns The Header Case string.
  */
-export function toHeaderCase(str: string | undefined): string {
+export function strHeaderCase(str: string | undefined): string {
   if (!str) return '';
 
   return String(str)

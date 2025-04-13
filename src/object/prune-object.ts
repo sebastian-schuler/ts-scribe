@@ -3,10 +3,10 @@
  * @param obj - Object to clean
  * @returns Cleaned object
  */
-export const pruneObject = <T extends object>(obj: T): T => {
+export const objectPrune = <T extends object>(obj: T): T => {
   // Iterate if object is an array
   if (Array.isArray(obj)) {
-    return obj.map((value) => pruneObject(value)).filter((value) => value !== undefined) as T;
+    return obj.map((value) => objectPrune(value)).filter((value) => value !== undefined) as T;
   }
 
   // Keep property if not an object
@@ -18,7 +18,7 @@ export const pruneObject = <T extends object>(obj: T): T => {
   const result = {} as T;
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      const value = pruneObject(obj[key]!);
+      const value = objectPrune(obj[key]!);
       if (value !== undefined) {
         result[key] = value;
       }

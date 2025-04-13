@@ -101,8 +101,8 @@ export type OverloadUnion<TOverload extends (...args: any[]) => any> = Exclude<
 /**
  * TS readonly but for nested objects
  */
-export type ReadonlyDeep<T> = {
-  readonly [P in keyof T]: ReadonlyDeep<T[P]>;
+export type DeepReadonly<T> = {
+  readonly [P in keyof T]: DeepReadonly<T[P]>;
 };
 
 /**

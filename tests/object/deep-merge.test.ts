@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { deepMerge } from '../../src/object/index.js';
+import { objectDeepMerge } from '../../src/object/index.js';
 
 describe('deepmerge', () => {
   it('should merge multiple objects deeply', () => {
@@ -26,7 +26,7 @@ describe('deepmerge', () => {
       },
     };
 
-    const result = deepMerge(obj1, obj2, obj3);
+    const result = objectDeepMerge(obj1, obj2, obj3);
 
     expect(result).toEqual({
       a: 1,
@@ -60,7 +60,7 @@ describe('deepmerge', () => {
     const obj1Copy = { ...obj1 };
     const obj2Copy = { ...obj2 };
 
-    deepMerge(obj1, obj2);
+    objectDeepMerge(obj1, obj2);
 
     expect(obj1).toEqual(obj1Copy);
     expect(obj2).toEqual(obj2Copy);

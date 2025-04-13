@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from 'bun:test';
-import { deepFreeze } from '../../src/object/index.js';
+import { objectDeepFreeze } from '../../src/object/index.js';
 
 describe('deepFreeze', () => {
   it('should freeze a simple object', () => {
@@ -11,7 +12,7 @@ describe('deepFreeze', () => {
       d: [3, 4, 5],
     };
 
-    const frozenObj = deepFreeze(obj);
+    const frozenObj = objectDeepFreeze(obj);
 
     // Check if the object itself is frozen
     expect(Object.isFrozen(frozenObj)).toBe(true);
@@ -29,7 +30,7 @@ describe('deepFreeze', () => {
       },
     };
 
-    const frozenObj = deepFreeze(obj);
+    const frozenObj = objectDeepFreeze(obj);
 
     // Attempt to mutate frozenObj
     expect(() => {
@@ -48,7 +49,7 @@ describe('deepFreeze', () => {
       b: [{ c: 4 }, [5, 6, 7]],
     };
 
-    const frozenObj = deepFreeze(obj);
+    const frozenObj = objectDeepFreeze(obj);
 
     // Check if arrays and nested arrays are frozen
     expect(Object.isFrozen(frozenObj.a)).toBe(true);
@@ -59,7 +60,7 @@ describe('deepFreeze', () => {
 
   it('should handle arrays', () => {
     const obj = [{ key: 4 }, { key: 1 }, { key: 2 }];
-    const frozenObj = deepFreeze(obj);
+    const frozenObj = objectDeepFreeze(obj);
     expect(Object.isFrozen(frozenObj.at(0))).toBe(true);
   });
 });

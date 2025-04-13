@@ -1,5 +1,5 @@
 import { describe, expect, it, spyOn } from 'bun:test';
-import { safeJsonParse } from '../../src/object/safe-json-parse.js';
+import { safeJsonParse } from '../../src/core/index.js';
 
 describe('safeJsonParse', () => {
   it('should parse a valid JSON string correctly', () => {

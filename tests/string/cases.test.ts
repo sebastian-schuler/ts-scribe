@@ -1,112 +1,112 @@
 import { describe, expect, it } from 'bun:test';
-import { toCamelCase, toDotCase, toHeaderCase, toKebabCase, toPascalCase, toSnakeCase } from '../../src/string/index.js';
+import { strCamelCase, strDotCase, strHeaderCase, strKebabCase, strPascalCase, strSnakeCase } from '../../src/index.js';
 
 describe('String conversion functions', () => {
-  describe('toCamelCase', () => {
+  describe('strCamelCase', () => {
     it('converts simple sentences', () => {
-      expect(toCamelCase('hello world')).toBe('helloWorld');
+      expect(strCamelCase('hello world')).toBe('helloWorld');
     });
     it('handles single words', () => {
-      expect(toCamelCase('world')).toBe('world');
+      expect(strCamelCase('world')).toBe('world');
     });
     it('handles empty strings', () => {
-      expect(toCamelCase('')).toBe('');
+      expect(strCamelCase('')).toBe('');
     });
     it('handles special characters', () => {
-      expect(toCamelCase('hello-world')).toBe('helloWorld');
+      expect(strCamelCase('hello-world')).toBe('helloWorld');
     });
     it('handle scrambled data', () => {
-      expect(toCamelCase('adaio.asd.a:D:')).toBe('adaioAsdAD');
+      expect(strCamelCase('adaio.asd.a:D:')).toBe('adaioAsdAD');
     });
   });
 
-  describe('toDotCase', () => {
+  describe('strDotCase', () => {
     it('converts simple sentences', () => {
-      expect(toDotCase('hello world')).toBe('hello.world');
+      expect(strDotCase('hello world')).toBe('hello.world');
     });
     it('handles single words', () => {
-      expect(toDotCase('world')).toBe('world');
+      expect(strDotCase('world')).toBe('world');
     });
     it('handles empty strings', () => {
-      expect(toDotCase('')).toBe('');
+      expect(strDotCase('')).toBe('');
     });
     it('handles special characters', () => {
-      expect(toDotCase('hello-world')).toBe('hello.world');
+      expect(strDotCase('hello-world')).toBe('hello.world');
     });
     it('handle scrambled data', () => {
-      expect(toDotCase('adaio.asd.a:D:')).toBe('adaio.asd.a.d');
+      expect(strDotCase('adaio.asd.a:D:')).toBe('adaio.asd.a.d');
     });
   });
 
-  describe('toHeaderCase', () => {
+  describe('strHeaderCase', () => {
     it('converts simple sentences', () => {
-      expect(toHeaderCase('hello world')).toBe('Hello World');
+      expect(strHeaderCase('hello world')).toBe('Hello World');
     });
     it('handles single words', () => {
-      expect(toHeaderCase('world')).toBe('World');
+      expect(strHeaderCase('world')).toBe('World');
     });
     it('handles empty strings', () => {
-      expect(toHeaderCase('')).toBe('');
+      expect(strHeaderCase('')).toBe('');
     });
     it('handles special characters', () => {
-      expect(toHeaderCase('hello-world')).toBe('Hello World');
+      expect(strHeaderCase('hello-world')).toBe('Hello World');
     });
     it('handle scrambled data', () => {
-      expect(toHeaderCase('adaio.asd.a:D:')).toBe('Adaio Asd A D');
+      expect(strHeaderCase('adaio.asd.a:D:')).toBe('Adaio Asd A D');
     });
   });
 
-  describe('toKebabCase', () => {
+  describe('strKebabCase', () => {
     it('converts simple sentences', () => {
-      expect(toKebabCase('hello world')).toBe('hello-world');
+      expect(strKebabCase('hello world')).toBe('hello-world');
     });
     it('handles single words', () => {
-      expect(toKebabCase('world')).toBe('world');
+      expect(strKebabCase('world')).toBe('world');
     });
     it('handles empty strings', () => {
-      expect(toKebabCase('')).toBe('');
+      expect(strKebabCase('')).toBe('');
     });
     it('handles special characters', () => {
-      expect(toKebabCase('hello_world')).toBe('hello-world');
+      expect(strKebabCase('hello_world')).toBe('hello-world');
     });
     it('handle scrambled data', () => {
-      expect(toKebabCase('adaio.asd.a:D:')).toBe('adaio-asd-a-d');
+      expect(strKebabCase('adaio.asd.a:D:')).toBe('adaio-asd-a-d');
     });
   });
 
-  describe('toPascalCase', () => {
+  describe('strPascalCase', () => {
     it('converts simple sentences', () => {
-      expect(toPascalCase('hello world')).toBe('HelloWorld');
+      expect(strPascalCase('hello world')).toBe('HelloWorld');
     });
     it('handles single words', () => {
-      expect(toPascalCase('world')).toBe('World');
+      expect(strPascalCase('world')).toBe('World');
     });
     it('handles empty strings', () => {
-      expect(toPascalCase('')).toBe('');
+      expect(strPascalCase('')).toBe('');
     });
     it('handles special characters', () => {
-      expect(toPascalCase('hello-world')).toBe('HelloWorld');
+      expect(strPascalCase('hello-world')).toBe('HelloWorld');
     });
     it('handle scrambled data', () => {
-      expect(toPascalCase('adaio.asd.a:D:')).toBe('AdaioAsdAD');
+      expect(strPascalCase('adaio.asd.a:D:')).toBe('AdaioAsdAD');
     });
   });
 
   describe('toSnakeCase', () => {
     it('converts simple sentences', () => {
-      expect(toSnakeCase('hello world')).toBe('hello_world');
+      expect(strSnakeCase('hello world')).toBe('hello_world');
     });
     it('handles single words', () => {
-      expect(toSnakeCase('world')).toBe('world');
+      expect(strSnakeCase('world')).toBe('world');
     });
     it('handles empty strings', () => {
-      expect(toSnakeCase('')).toBe('');
+      expect(strSnakeCase('')).toBe('');
     });
     it('handles special characters', () => {
-      expect(toSnakeCase('hello-world')).toBe('hello_world');
+      expect(strSnakeCase('hello-world')).toBe('hello_world');
     });
     it('handle scrambled data', () => {
-      expect(toSnakeCase('adaio.asd.a:D:')).toBe('adaio_asd_a_d');
+      expect(strSnakeCase('adaio.asd.a:D:')).toBe('adaio_asd_a_d');
     });
   });
 });

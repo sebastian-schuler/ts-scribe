@@ -1,9 +1,9 @@
-export { chunkArray } from './chunk.js';
-export { differenceArray } from './difference.js';
-export { groupBy } from './group-by.js';
-export { intersection } from './intersection.js';
-export { pluckArray } from './pluck.js';
-export { powerset } from './powerset.js';
+export { arrChunk } from './chunk.js';
+export { arrDifference } from './difference.js';
+export { arrGroupBy } from './group-by.js';
+export { arrIntersection, arrIntersectionDeep } from './intersection.js';
+export { arrPluck } from './pluck.js';
+export { arrPowerset } from './powerset.js';
 export { toArray } from './to-array.js';
-export { uniqueBy } from './unique-by.js';
-export { shuffleArray } from './shuffle.js';
+export { arrUniqueBy } from './unique-by.js';
+export { arrShuffle } from './shuffle.js';

@@ -1,80 +1,23 @@
 {
   "name": "ts-scribe",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A collection of utility functions and types for TypeScript projects in Node.js",
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./array": {
-      "import": "./dist/array/index.js",
-      "require": "./dist/cjs/array/index.js",
-      "types": "./dist/array/index.d.ts"
-    },
-    "./async": {
-      "import": "./dist/async/index.js",
-      "require": "./dist/cjs/async/index.js",
-      "types": "./dist/async/index.d.ts"
-    },
-    "./core": {
-      "import": "./dist/core/index.js",
-      "require": "./dist/cjs/core/index.js",
-      "types": "./dist/core/index.d.ts"
-    },
-    "./list": {
-      "import": "./dist/list/index.js",
-      "require": "./dist/cjs/list/index.js",
-      "types": "./dist/list/index.d.ts"
-    },
-    "./math": {
-      "import": "./dist/math/index.js",
-      "require": "./dist/cjs/math/index.js",
-      "types": "./dist/math/index.d.ts"
-    },
-    "./object": {
-      "import": "./dist/object/index.js",
-      "require": "./dist/cjs/object/index.js",
-      "types": "./dist/object/index.d.ts"
-    },
-    "./random": {
-      "import": "./dist/random/index.js",
-      "require": "./dist/cjs/random/index.js",
-      "types": "./dist/random/index.d.ts"
-    },
-    "./string": {
-      "import": "./dist/string/index.js",
-      "require": "./dist/cjs/string/index.js",
-      "types": "./dist/string/index.d.ts"
-    },
-    "./system": {
-      "import": "./dist/system/index.js",
-      "require": "./dist/cjs/system/index.js",
-      "types": "./dist/system/index.d.ts"
-    },
-    "./typeguards": {
-      "import": "./dist/typeguards/index.js",
-      "require": "./dist/cjs/typeguards/index.js",
-      "types": "./dist/typeguards/index.d.ts"
-    }
-  },
   "files": [
     "/dist"
   ],
   "scripts": {
-    "build": "bun run build:clean && bun run build:esm && bun run build:cjs && bun run build:types && bun run build:submodules",
+    "build": "bun run build:clean && bun run build:esm && bun run build:cjs && bun run build:types:esm && bun run build:types:cjs",
     "build:clean": "rm -rf dist",
     "build:esm": "bun build ./src/index.ts --outdir ./dist --target node --format esm",
     "build:cjs": "bun build ./src/index.ts --outdir ./dist/cjs --target node --format cjs",
-    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
-    "build:submodules": "bun scripts/build-submodules.ts",
+    "build:types:esm": "tsc --emitDeclarationOnly --project tsconfig.esm.json --declaration --outDir dist",
+    "build:types:cjs": "tsc --emitDeclarationOnly --project tsconfig.cjs.json --declaration --outDir dist/cjs",
     "clean": "rm -rf dist",
-    "lint": "eslint src/**/*.{ts,tsx} --fix",
+    "lint": "eslint src/**/*.{ts}",
     "test": "bun test",
     "changeset": "bunx changeset",
     "version-packages": "bunx changeset version",
