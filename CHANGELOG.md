@@ -1,5 +1,11 @@
 # ts-scribe
 
+## 0.5.2
+
+### Patch Changes
+
+- Final export rework to improve DX; improved function naming; updated documentation
+
 ## 0.5.1
 
 ### Patch Changes
