@@ -12,3 +12,5 @@ export type {
   TypeOfType,
   UnionToIntersection,
 } from './types/common-types.js';
+
+export * from './string/index.js';
