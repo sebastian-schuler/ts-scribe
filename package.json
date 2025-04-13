@@ -1,6 +1,6 @@
 {
   "name": "ts-scribe",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A collection of utility functions and types for TypeScript projects in Node.js",
   "type": "module",
   "main": "dist/index.js",
@@ -76,7 +76,9 @@
     "lint": "eslint src/**/*.{ts,tsx} --fix",
     "test": "bun test",
     "prepublish": "bun run build",
-    "publish": "bunx changeset"
+    "changeset": "bunx changeset",
+    "version": "bunx changeset version",
+    "publish": "bunx changeset publish"
   },
   "engines": {
     "node": ">=18.0",
