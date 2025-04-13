@@ -34,17 +34,38 @@ describe('safeJsonParse', () => {
   });
 
   it('should run the callback function if parsing fails', () => {
-    // Mock console.error to capture logs
-    const consoleErrorMock = spyOn(console, 'error').mockImplementation(() => {});
-    // const consoleErrorMock = mock.module(console, "error");
-
-    const jsonString = '{name: "John", age: 30}';
+    const callbackMock = spyOn({ fn: () => {} }, 'fn');
+    const jsonString = '{invalid json}';
     const fallbackValue = { name: 'Fallback', age: 0 };
-    safeJsonParse(jsonString, fallbackValue, () => console.error('Error parsing JSON'));
+
+    safeJsonParse(jsonString, fallbackValue, { callback: callbackMock });
+
+    expect(callbackMock).toHaveBeenCalledTimes(1);
+    expect(callbackMock).toHaveBeenCalledWith(expect.any(Error));
+  });
+
+  it('should log an error if logError is true and parsing fails', () => {
+    const consoleErrorMock = spyOn(console, 'error').mockImplementation(() => {});
+    const jsonString = 'invalid';
+    const fallbackValue = { error: true };
+
+    safeJsonParse(jsonString, fallbackValue, {
+      logError: true,
+    });
 
     expect(consoleErrorMock).toHaveBeenCalledTimes(1);
-    expect(consoleErrorMock).toHaveBeenCalledWith(expect.stringContaining('Error parsing JSON'));
-
+    expect(consoleErrorMock.mock.calls[0][0]).toBe('Failed to parse JSON:');
     consoleErrorMock.mockRestore();
+  });
+
+  it('should use the reviver function during parsing', () => {
+    const jsonString = '{"name": "alice", "age": 25}';
+    const fallbackValue = { name: '', age: 0 };
+
+    const parsedObject = safeJsonParse(jsonString, fallbackValue, {
+      reviver: (key, value) => (key === 'name' ? value.toUpperCase() : value),
+    });
+
+    expect(parsedObject).toEqual({ name: 'ALICE', age: 25 });
   });
 });
