@@ -17,7 +17,7 @@
     "build:types:esm": "tsc --emitDeclarationOnly --project tsconfig.esm.json --declaration --outDir dist",
     "build:types:cjs": "tsc --emitDeclarationOnly --project tsconfig.cjs.json --declaration --outDir dist/cjs",
     "clean": "rm -rf dist",
-    "lint": "eslint src/**/*.{ts,tsx} --fix",
+    "lint": "eslint src/**/*.{ts}",
     "test": "bun test",
     "changeset": "bunx changeset",
     "version-packages": "bunx changeset version",
