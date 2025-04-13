@@ -3,7 +3,8 @@
   "version": "0.5.0",
   "description": "A collection of utility functions and types for TypeScript projects in Node.js",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
@@ -75,10 +76,9 @@
     "clean": "rm -rf dist",
     "lint": "eslint src/**/*.{ts,tsx} --fix",
     "test": "bun test",
-    "prepublish": "bun run build",
     "changeset": "bunx changeset",
-    "version": "bunx changeset version",
-    "publish": "bunx changeset publish"
+    "version-packages": "bunx changeset version",
+    "release": "bunx changeset publish"
   },
   "engines": {
     "node": ">=18.0",
