@@ -84,6 +84,6 @@ function deepEqualsRecursive(obj1: Nestable, obj2: Nestable, valueRefs?: Referen
  * @param obj2 - The second object to compare.
  * @returns `true` if the objects are equal, `false` otherwise.
  */
-export function deepEquals(obj1: Nestable, obj2: Nestable) {
+export function objectDeepEquals(obj1: Nestable, obj2: Nestable) {
   return deepEqualsRecursive(obj1, obj2);
 }

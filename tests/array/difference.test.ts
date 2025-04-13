@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'bun:test';
-import { differenceArray } from '../../src/array/index.js';
+import { arrDifference } from '../../src/array/index.js';
 
-describe('differenceArray', () => {
+describe('arrDifference', () => {
   it('should return elements that are present in the first array but not in the other arrays', () => {
     const arr1 = [1, 2, 3, 4, 5];
     const arr2 = [2, 4];
     const arr3 = [4, 5];
     const expectedOutput = [1, 3];
 
-    const result = differenceArray(arr1, arr2, arr3);
+    const result = arrDifference(arr1, arr2, arr3);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -17,7 +17,7 @@ describe('differenceArray', () => {
     const arr2: number[] = [];
     const expectedOutput: number[] = [];
 
-    const result = differenceArray(arr1, arr2);
+    const result = arrDifference(arr1, arr2);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -25,7 +25,7 @@ describe('differenceArray', () => {
     const arr1: number[] = [];
     const expectedOutput: number[] = [];
 
-    const result = differenceArray(arr1);
+    const result = arrDifference(arr1);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -34,7 +34,7 @@ describe('differenceArray', () => {
     const arr2: number[] = [];
     const expectedOutput = [1, 2, 3];
 
-    const result = differenceArray(arr1, arr2);
+    const result = arrDifference(arr1, arr2);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -43,7 +43,7 @@ describe('differenceArray', () => {
     const arr2 = [1, 2, 3];
     const expectedOutput: number[] = [];
 
-    const result = differenceArray(arr1, arr2);
+    const result = arrDifference(arr1, arr2);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -53,7 +53,7 @@ describe('differenceArray', () => {
     const arr3 = ['banana'];
     const expectedOutput = ['apple', 'orange'];
 
-    const result = differenceArray(arr1, arr2, arr3);
+    const result = arrDifference(arr1, arr2, arr3);
     expect(result).toEqual(expectedOutput);
   });
 
@@ -63,7 +63,7 @@ describe('differenceArray', () => {
     const arr3 = [3, 4];
     const expectedOutput: number[] = [];
 
-    const result = differenceArray(arr1, arr2, arr3);
+    const result = arrDifference(arr1, arr2, arr3);
     expect(result).toEqual(expectedOutput);
   });
 });

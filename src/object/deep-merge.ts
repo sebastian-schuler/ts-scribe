@@ -91,4 +91,4 @@ merge.withOptions = <T extends IObject[]>(options: Partial<IOptions>, ...objects
   return result;
 };
 
-export { merge as deepMerge };
+export { merge as objectDeepMerge };

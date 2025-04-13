@@ -1,4 +1,4 @@
-import { ReadonlyDeep } from '../types/common-types.js';
+import { DeepReadonly } from '../types/common-types.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -7,7 +7,7 @@ import { ReadonlyDeep } from '../types/common-types.js';
  * @param obj
  * @returns
  */
-export function deepFreeze<T>(obj: T): ReadonlyDeep<T> {
+export function objectDeepFreeze<T>(obj: T): DeepReadonly<T> {
   // Retrieve the property names defined on obj
   const propNames = Object.getOwnPropertyNames(obj);
 
@@ -17,7 +17,7 @@ export function deepFreeze<T>(obj: T): ReadonlyDeep<T> {
 
     // Freeze prop if it's an object
     if (typeof prop === 'object' && prop !== null) {
-      deepFreeze(prop);
+      objectDeepFreeze(prop);
     }
   }
 

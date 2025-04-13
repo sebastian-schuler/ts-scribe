@@ -6,7 +6,7 @@
  * @param options - Options for truncating the string
  * @returns Truncated string with ellipsis if necessary
  */
-export function truncateString(
+export function strTruncate(
   str: string,
   maxLength: number,
   options?: { ellipsis?: string; preserveWords?: boolean },

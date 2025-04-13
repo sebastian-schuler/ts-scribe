@@ -1,12 +1,13 @@
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from 'bun:test';
-import { pruneObject } from '../../src/object/index.js';
+import { objectPrune } from '../../src/object/index.js';
 
 describe('pruneObject', () => {
   it('should remove undefined values from a flat object', () => {
     const input = { a: 1, b: undefined, c: 'test', d: null };
     const expected = { a: 1, c: 'test', d: null };
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should remove undefined values recursively from nested objects', () => {
@@ -31,13 +32,14 @@ describe('pruneObject', () => {
         },
       },
     };
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should remove undefined values from arrays', () => {
     const input = [1, undefined, 2, undefined, 3];
     const expected = [1, 2, 3];
-    expect(pruneObject(input)).toEqual(expected);
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should handle mixed objects and arrays', () => {
@@ -54,37 +56,42 @@ describe('pruneObject', () => {
         c: ['test'],
       },
     };
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should return an empty object if all values are undefined', () => {
     const input = { a: undefined, b: undefined };
     const expected = {};
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should return an empty array if all elements are undefined', () => {
     const input = [undefined, undefined];
     const expected: any[] = [];
-    expect(pruneObject(input)).toEqual(expected);
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should handle null values properly', () => {
     const input = { a: null, b: undefined };
     const expected = { a: null };
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should handle empty objects and arrays', () => {
     const input = { a: {}, b: [], c: undefined };
     const expected = { a: {}, b: [] };
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should not remove falsy values other than undefined', () => {
     const input = { a: false, b: 0, c: '', d: undefined };
     const expected = { a: false, b: 0, c: '' };
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should handle complex nested structures', () => {
@@ -110,13 +117,14 @@ describe('pruneObject', () => {
         },
       ],
     };
-    expect(pruneObject(input)).toEqual(expected);
+    // @ts-expect-error testing should resolve in an error
+    expect(objectPrune(input)).toEqual(expected);
   });
 
   it('should return a new object and not mutate the original input', () => {
     const input = { a: undefined, b: 1 };
     const inputCopy = { ...input };
-    pruneObject(input);
+    objectPrune(input);
     expect(input).toEqual(inputCopy);
   });
 });

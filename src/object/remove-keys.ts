@@ -1,4 +1,4 @@
-export function removeKeys<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+export function objectRemoveKeys<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
   // Create a shallow copy of the object to avoid mutating the original object
   const newObj = { ...obj };
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { flattenObject } from '../../src/object/index.js';
+import { objectFlatten } from '../../src/object/index.js';
 
 describe('flattenObject', () => {
   it('should flatten a simple nested object', () => {
@@ -13,7 +13,7 @@ describe('flattenObject', () => {
     const expectedOutput = {
       'a.b.c': 1,
     };
-    expect(flattenObject(input)).toEqual(expectedOutput);
+    expect(objectFlatten(input)).toEqual(expectedOutput);
   });
 
   it('should handle multiple nested keys', () => {
@@ -31,7 +31,7 @@ describe('flattenObject', () => {
       'a.c.d': 2,
       e: 3,
     };
-    expect(flattenObject(input)).toEqual(expectedOutput);
+    expect(objectFlatten(input)).toEqual(expectedOutput);
   });
 
   it('should work with arrays', () => {
@@ -48,13 +48,13 @@ describe('flattenObject', () => {
       'b.c.0': 4,
       'b.c.1': 5,
     };
-    expect(flattenObject(input)).toEqual(expectedOutput);
+    expect(objectFlatten(input)).toEqual(expectedOutput);
   });
 
   it('should return an empty object if input is an empty object', () => {
     const input = {};
     const expectedOutput = {};
-    expect(flattenObject(input)).toEqual(expectedOutput);
+    expect(objectFlatten(input)).toEqual(expectedOutput);
   });
 
   it('should handle an object with no nesting', () => {
@@ -66,7 +66,7 @@ describe('flattenObject', () => {
       a: 1,
       b: 2,
     };
-    expect(flattenObject(input)).toEqual(expectedOutput);
+    expect(objectFlatten(input)).toEqual(expectedOutput);
   });
 
   it('should respect the prefix argument', () => {
@@ -78,7 +78,7 @@ describe('flattenObject', () => {
     const expectedOutput = {
       '$.a.b': 1,
     };
-    expect(flattenObject(input, '$')).toEqual(expectedOutput);
+    expect(objectFlatten(input, '$')).toEqual(expectedOutput);
   });
 
   it('should handle objects with null or undefined values', () => {
@@ -92,7 +92,7 @@ describe('flattenObject', () => {
       a: null,
       'b.c': undefined,
     };
-    expect(flattenObject(input)).toEqual(expectedOutput);
+    expect(objectFlatten(input)).toEqual(expectedOutput);
   });
 
   it('should handle complex nested structures', () => {
@@ -111,6 +111,6 @@ describe('flattenObject', () => {
       'a.e.0': 1,
       'a.e.1.f': 2,
     };
-    expect(flattenObject(input)).toEqual(expectedOutput);
+    expect(objectFlatten(input)).toEqual(expectedOutput);
   });
 });

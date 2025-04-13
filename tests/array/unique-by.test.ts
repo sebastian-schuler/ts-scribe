@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { uniqueBy } from '../../src/array/index.js';
+import { arrUniqueBy } from '../../src/array/index.js';
 
 describe('uniqueBy', () => {
   it('should return an array with unique objects based on the key returned by keyFunc', () => {
@@ -10,7 +10,7 @@ describe('uniqueBy', () => {
       { name: 'David', age: 25 },
     ];
 
-    const uniqueByName = uniqueBy(people, (person) => person.name);
+    const uniqueByName = arrUniqueBy(people, (person) => person.name);
 
     expect(uniqueByName).toEqual([
       { name: 'Alice', age: 30 },
@@ -26,14 +26,14 @@ describe('uniqueBy', () => {
       age: number;
     }
     const emptyArray: Person[] = [];
-    const uniqueEmptyArray = uniqueBy(emptyArray, (person) => person.name);
+    const uniqueEmptyArray = arrUniqueBy(emptyArray, (person) => person.name);
 
     expect(uniqueEmptyArray).toEqual([]);
   });
 
   it('should handle arrays with one element correctly', () => {
     const singleElementArray = [{ name: 'Alice', age: 30 }];
-    const uniqueSingleElementArray = uniqueBy(singleElementArray, (person) => person.name);
+    const uniqueSingleElementArray = arrUniqueBy(singleElementArray, (person) => person.name);
 
     expect(uniqueSingleElementArray).toEqual([{ name: 'Alice', age: 30 }]);
   });
@@ -45,7 +45,7 @@ describe('uniqueBy', () => {
       { name: 'Charlie', age: 35 },
     ];
 
-    const uniqueArrayResult = uniqueBy(uniqueArray, (person) => person.name);
+    const uniqueArrayResult = arrUniqueBy(uniqueArray, (person) => person.name);
 
     expect(uniqueArrayResult).toEqual(uniqueArray);
   });
@@ -59,7 +59,7 @@ describe('uniqueBy', () => {
       { name: 'Alice', age: 30 },
     ];
 
-    const nonUniqueArrayResult = uniqueBy(nonUniqueArray, (person) => person.name);
+    const nonUniqueArrayResult = arrUniqueBy(nonUniqueArray, (person) => person.name);
 
     expect(nonUniqueArrayResult).toEqual([
       { name: 'Alice', age: 30 },
@@ -78,7 +78,7 @@ describe('uniqueBy', () => {
       { name: 'Alice', age: 30 },
     ];
 
-    const nonUniqueArrayResult = uniqueBy(nonUniqueArray, (person) => person.name);
+    const nonUniqueArrayResult = arrUniqueBy(nonUniqueArray, (person) => person.name);
 
     expect(nonUniqueArrayResult).toEqual([{ name: 'Alice', age: 30 }]);
   });
@@ -89,7 +89,7 @@ describe('uniqueBy', () => {
       { name: 'Bob', age: 10, address: { city: 'New York' } },
     ];
 
-    const nonUniqueArrayResult = uniqueBy(deeplyNestedArray, (person) => person.address.city);
+    const nonUniqueArrayResult = arrUniqueBy(deeplyNestedArray, (person) => person.address.city);
 
     expect(nonUniqueArrayResult).toEqual([{ name: 'Alice', age: 30, address: { city: 'New York' } }]);
   });

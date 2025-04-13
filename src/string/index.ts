@@ -1,7 +1,7 @@
-export { toCamelCase } from './to-camel-case.js';
-export { toPascalCase } from './to-pascal-case.js';
-export { toSnakeCase } from './to-snake-case.js';
-export { toKebabCase } from './to-kebab-case.js';
-export { toHeaderCase } from './to-header-case.js';
-export { toDotCase } from './to-dot-case.js';
-export { truncateString } from './truncate-string.js';
+export { strCamelCase } from './camel-case.js';
+export { strDotCase } from './dot-case.js';
+export { strHeaderCase } from './header-case.js';
+export { strKebabCase } from './kebab-case.js';
+export { strPascalCase } from './pascal-case.js';
+export { strSnakeCase } from './snake-case.js';
+export { strTruncate } from './truncate.js';
