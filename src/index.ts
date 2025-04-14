@@ -1,7 +1,7 @@
-import { deepmerge, deepmergeInto, deepmergeCustom, deepmergeIntoCustom } from 'deepmerge-ts';
+import { deepmerge, deepmergeCustom, deepmergeInto, deepmergeIntoCustom } from 'deepmerge-ts';
 
 // Re-Exported
-export { deepmerge, deepmergeInto, deepmergeCustom, deepmergeIntoCustom };
+export { deepmerge, deepmergeCustom, deepmergeInto, deepmergeIntoCustom };
 
 // Array
 export {
@@ -51,19 +51,21 @@ export {
   strHeaderCase,
   strKebabCase,
   strPascalCase,
+  strSlugify,
   strSnakeCase,
   strTruncate,
-  strSlugify,
 } from './string/index.js';
 
 // System
-export { isBrowser, isNode, getEnvironment } from './system/index.js';
+export { getEnvironment, isBrowser, isNode } from './system/index.js';
 
 // Typeguards
 export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString } from './typeguards/index.js';
 
 // Custom Types
 export type {
+  DeepPartial,
+  DeepReadonly,
   GenericFunction,
   Mandatory,
   Nestable,
@@ -71,11 +73,10 @@ export type {
   Nullish,
   OverloadUnion,
   Primitive,
+  Serializable,
   Simplify,
   SmartPartial,
   TypeOfString,
   TypeOfType,
   UnionToIntersection,
-  DeepPartial,
-  DeepReadonly,
 } from './types/common-types.js';

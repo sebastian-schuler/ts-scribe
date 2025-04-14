@@ -119,6 +119,7 @@ Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts
 - `OverloadUnion<T>`: Turns a union of functions into a single overloaded function type.
 - `DeepReadonly<T>`: Deep version of `Readonly<T>`.
 - `DeepPartial<T>`: Deep version of `Partial<T>`.
+- `Serializable`: Represents a type that can be serialized to a JSON-compatible format.
 
 ## Credits
 

@@ -23,7 +23,7 @@ export type NonNullish = NonNullable<unknown>;
 /**
  * Excludes nullish values (`null` and `undefined`) from a given type.
  * This type is useful when you need to ensure a value is always defined (i.e., not null or undefined).
- * 
+ *
  * @template TValue - The type from which `null` and `undefined` are excluded.
  */
 export type Mandatory<TValue> = Exclude<TValue, Nullish>;
@@ -37,7 +37,7 @@ export type Nestable = Primitive | Nestable[] | { [key: string]: Nestable };
 /**
  * A function type with a generic argument and return type.
  * This type allows you to define a function signature with specific input and output types.
- * 
+ *
  * @template T - The type of the function's input argument.
  * @template R - The type of the function's return value.
  */
@@ -52,7 +52,7 @@ export type TypeOfString = 'bigint' | 'boolean' | 'function' | 'number' | 'objec
 /**
  * A type that infers the type based on the result of the `typeof` operator in JavaScript.
  * It maps a string representing a `typeof` result to the corresponding TypeScript type.
- * 
+ *
  * @template TString - A string that represents the result of `typeof`.
  */
 export type TypeOfType<TString> = TString extends 'string'
@@ -76,7 +76,7 @@ export type TypeOfType<TString> = TString extends 'string'
 /**
  * Converts a union type (`|`) into an intersection type (`&`).
  * This utility type is helpful for extracting the intersection of all possible types in a union.
- * 
+ *
  * @template T - The union type to be converted into an intersection type.
  */
 export type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x: infer V) => any ? V : never;
@@ -86,7 +86,7 @@ export type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) ext
  * but only for those properties that can accept `undefined` as a valid value.
  * This is useful for scenarios where a partial version of an object is allowed,
  * but only for properties that are explicitly nullable.
- * 
+ *
  * @template T - The object type to apply the smart partial transformation to.
  */
 export type SmartPartial<T> = Simplify<
@@ -97,7 +97,7 @@ export type SmartPartial<T> = Simplify<
  * Simplifies a type by merging intersected objects into a single object with all properties.
  * This utility is helpful when dealing with complex object intersections.
  * For example, `{ foo: string } & { bar: string }` would be simplified to `{ foo: string; bar: string }`.
- * 
+ *
  * @template T - The type to simplify, typically an intersection of types.
  */
 export type Simplify<T> = T extends Record<string, unknown> ? { [P in keyof T]: T[P] } : T;
@@ -105,7 +105,7 @@ export type Simplify<T> = T extends Record<string, unknown> ? { [P in keyof T]: 
 /**
  * Helper type to assist in the implementation of function overloads.
  * This type works recursively to extract the union of overloaded function signatures.
- * 
+ *
  * @template TOverload - The function overload type.
  * @template TPartialOverload - A partial version of the overload.
  */
@@ -124,9 +124,9 @@ type _OverloadUnion<TOverload, TPartialOverload = unknown> = TPartialOverload & 
  * into a union of those signatures.
  * This is useful when you want to handle multiple function signatures as separate types,
  * rather than a single intersection of them.
- * 
+ *
  * @template TOverload - The function overload type, typically an intersection of function signatures.
- * 
+ *
  * @example
  * type U = OverloadUnion<(() => 1) & ((a: 2) => 2)>;
  * type U = (() => 1) | ((a: 2) => 2);
@@ -140,7 +140,7 @@ export type OverloadUnion<TOverload extends (...args: any[]) => any> = Exclude<
  * A recursive `readonly` type for objects, ensuring that all properties
  * in an object and its nested structures are read-only.
  * This helps in cases where you want to deeply enforce immutability in an object.
- * 
+ *
  * @template T - The object type to make deeply readonly.
  */
 export type DeepReadonly<T> = {
@@ -151,7 +151,25 @@ export type DeepReadonly<T> = {
  * A recursive `partial` type for objects, where all properties and nested properties
  * are optional. This is useful when you want to allow partial updates or modifications
  * to deeply nested objects.
- * 
+ *
  * @template T - The object type to make deeply partial.
  */
 export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
+
+/**
+ * Represents a type that can be serialized to a JSON-compatible format.
+ *
+ * This type includes primitive types (`string`, `number`, `boolean`, `null`), arrays,
+ * and objects with string keys whose values are serializable.
+ *
+ * **Note**: `undefined` is not serializable to JSON and will be omitted in serialization.
+ *
+ * @example
+ * const data: Serializable = {
+ *   name: "John Doe",
+ *   age: 30,
+ *   isActive: true,
+ *   tags: ["developer", "typescript"]
+ * };
+ */
+export type Serializable = string | number | boolean | null | Serializable[] | { [key: string]: Serializable };
