@@ -1,3 +1,5 @@
+import { isNotDefined } from '../typeguards/is-not-defined.js';
+
 /**
  * Asynchronously iterates over an array, executing a provided `callback` function for each element.
  * The function allows limiting the number of concurrently executed tasks, making it useful for managing
@@ -37,6 +39,7 @@ export async function asyncForEach<T>(
   callback: (element: T, index: number, array: T[]) => Promise<void>,
   limit?: number,
 ): Promise<void> {
+  if (isNotDefined(array)) throw new Error(`Input array must not be null or undefined`);
   if (!limit) limit = array.length;
   const promises: Promise<void>[] = [];
   const executing: Promise<void>[] = [];

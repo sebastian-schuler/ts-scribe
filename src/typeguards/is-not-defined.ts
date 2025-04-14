@@ -22,6 +22,6 @@ import { isDefined } from './is-defined.js';
  *   console.log("Value is defined!");
  * }
  */
-export function isNotDefined<T>(arg: T): arg is Exclude<T, null | undefined> {
+export function isNotDefined<T>(arg: T): boolean {
   return !isDefined(arg);
 }

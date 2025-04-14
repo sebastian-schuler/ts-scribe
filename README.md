@@ -88,6 +88,7 @@ Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts
 - `strPascalCase`: Converts a string to PascalCase.
 - `strSnakeCase`: Converts a string to snake_case.
 - `strTruncate`: Truncates a string with configurable options.
+- `strSlugify`: Slugifies a string, converting it into a URL-friendly format with customizable options.
 
 ### System
 

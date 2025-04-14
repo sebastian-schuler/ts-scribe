@@ -53,6 +53,7 @@ export {
   strPascalCase,
   strSnakeCase,
   strTruncate,
+  strSlugify,
 } from './string/index.js';
 
 // System
