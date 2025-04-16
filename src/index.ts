@@ -24,6 +24,9 @@ export type { Maybe, RetryHandler, RetryOptions, Semaphore } from './async/index
 // Core
 export { parseBoolean, parseNumber, run, safeJsonParse } from './core/index.js';
 
+// Development
+export { benchmark } from './development/index.js';
+
 // List
 export { SortedList, WeightedList } from './list/index.js';
 export type { SortedListCompare, SortedListOptions } from './list/index.js';
