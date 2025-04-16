@@ -77,6 +77,6 @@ describe('asyncForEach', () => {
       await new Promise((resolve) => setTimeout(resolve, 10)); // Simulate async operation
     });
 
-    await expect(asyncForEach(items, mockCallback)).rejects.toThrow(error);
+    expect(asyncForEach(items, mockCallback)).rejects.toThrow(error);
   });
 });

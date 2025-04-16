@@ -18,7 +18,7 @@ export {
 } from './array/index.js';
 
 // Async
-export { asyncForEach, debounce, maybe, retry, sleep, waterfall } from './async/index.js';
+export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall } from './async/index.js';
 export type { Maybe, RetryHandler, RetryOptions, Semaphore } from './async/index.js';
 
 // Core
@@ -60,7 +60,7 @@ export {
 export { getEnvironment, isBrowser, isNode } from './system/index.js';
 
 // Typeguards
-export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString } from './typeguards/index.js';
+export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString, isNotDefined } from './typeguards/index.js';
 
 // Custom Types
 export type {
