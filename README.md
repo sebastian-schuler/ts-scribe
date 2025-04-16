@@ -42,6 +42,7 @@ bun add ts-scribe
 ### Async
 
 - `asyncForEach`: Runs async operations over an array in parallel.
+- `asyncMap`: Similar to asyncForEach but with the behavior of Array.map function.
 - `debounce`: Debounces a function or promise.
 - `maybe`: Maybe monad for null-safe operations.
 - `retry`: Retries a promise a specified number of times.
@@ -94,10 +95,12 @@ Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts
 
 - `isBrowser`: Returns `true` if running in a browser environment.
 - `isNode`: Returns `true` if running in Node.js.
+- `getEnvironment`: Returns 'Browser', 'Bun', 'Node', or 'Unknown' depending on the context it's run in.
 
 ### Typeguards
 
 - `isDefined`: Checks if a value is not null/undefined/NaN.
+- `isNotDefined`: The inverse of isDefined.
 - `isEmptyObject`: Checks if an object has no own properties.
 - `isEmptyValue`: Checks for null, undefined, NaN, empty string/array/object.
 - `isNumber`: Validates numeric values or strings that can be parsed as numbers.
@@ -120,6 +123,10 @@ Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts
 - `DeepReadonly<T>`: Deep version of `Readonly<T>`.
 - `DeepPartial<T>`: Deep version of `Partial<T>`.
 - `Serializable`: Represents a type that can be serialized to a JSON-compatible format.
+
+### Development
+
+- `benchmark`: Wrap around a function to benchmark it's performance without affecting app behavior.
 
 ## Credits
 
