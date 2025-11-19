@@ -22,7 +22,7 @@ export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall } from
 export type { Maybe, RetryHandler, RetryOptions, Semaphore } from './async/index.js';
 
 // Core
-export { parseBoolean, parseNumber, run, safeJsonParse } from './core/index.js';
+export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify } from './core/index.js';
 
 // Development
 export { benchmark } from './development/index.js';
@@ -63,7 +63,7 @@ export {
 export { getEnvironment, isBrowser, isNode } from './system/index.js';
 
 // Typeguards
-export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString, isNotDefined } from './typeguards/index.js';
+export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString } from './typeguards/index.js';
 
 // Custom Types
 export type {

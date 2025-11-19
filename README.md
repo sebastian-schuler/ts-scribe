@@ -24,7 +24,8 @@ bun add ts-scribe
 - `run`: Helper to run a function or block of code in a cleaner way.
 - `parseBoolean`: Parses various values into a boolean.
 - `parseNumber`: Parses various values into a number.
-- `safeJsonParse`: Safely parses a JSON string without throwing.
+- `safeJsonParse`: Safely parses a string without throwing.
+- `safeJsonStringify`: Safely stringifies a JSON object without throwing (handles issues like circular references).
 
 ### Array
 
@@ -100,7 +101,6 @@ Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts
 ### Typeguards
 
 - `isDefined`: Checks if a value is not null/undefined/NaN.
-- `isNotDefined`: The inverse of isDefined.
 - `isEmptyObject`: Checks if an object has no own properties.
 - `isEmptyValue`: Checks for null, undefined, NaN, empty string/array/object.
 - `isNumber`: Validates numeric values or strings that can be parsed as numbers.
