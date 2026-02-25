@@ -9,6 +9,14 @@
   "files": [
     "/dist"
   ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "bun run build:clean && bun run build:esm && bun run build:cjs && bun run build:types:esm && bun run build:types:cjs",
     "build:clean": "rm -rf dist",

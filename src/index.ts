@@ -19,8 +19,8 @@ export {
 } from './array/index.js';
 
 // Async
-export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall } from './async/index.js';
-export type { Maybe, RetryHandler, RetryOptions, Semaphore } from './async/index.js';
+export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall, Semaphore } from './async/index.js';
+export type { Maybe, RetryHandler, RetryOptions } from './async/index.js';
 
 // Core
 export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify } from './core/index.js';
