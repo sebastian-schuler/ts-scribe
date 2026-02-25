@@ -7,3 +7,4 @@ export { arrPowerset } from './powerset.js';
 export { toArray } from './to-array.js';
 export { arrUniqueBy } from './unique-by.js';
 export { arrShuffle } from './shuffle.js';
+export { arrUnique } from './unique.js';

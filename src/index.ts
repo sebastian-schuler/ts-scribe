@@ -15,6 +15,7 @@ export {
   arrShuffle,
   arrUniqueBy,
   toArray,
+  arrUnique
 } from './array/index.js';
 
 // Async

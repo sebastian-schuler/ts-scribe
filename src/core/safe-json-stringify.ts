@@ -93,10 +93,8 @@ function ensureProperties(value: unknown, visited: VisitedSet = new WeakSet()): 
     if (typeof (value as any).toJSON === 'function') {
       let jsonValue: unknown;
       try {
-        // 🎯 This is the line that's currently throwing uncaught!
         jsonValue = (value as any).toJSON();
       } catch (err) {
-        // 🟢 Return placeholder string — DON’T rethrow!
         return formatThrowsMessage(err);
       }
       // Recurse on the returned value

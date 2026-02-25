@@ -29,6 +29,7 @@ bun add ts-scribe
 
 ### Array
 
+- `arrUnique`: Given an array of primitive values, returns a new array with duplicates removed.
 - `arrChunk`: Splits an array into chunks of a specified size.
 - `arrDifference`: Returns the difference between two arrays.
 - `arrGroupBy`: Groups an array of objects by a specified key.
