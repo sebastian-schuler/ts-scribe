@@ -5,18 +5,21 @@
  * @returns {string} The Header-Case version of the input string, or an empty string if input is falsy.
  *
  * @example
- * strHeaderCase('helloWorld');       // "Hello World"
- * strHeaderCase('foo_bar-baz');      // "Foo Bar Baz"
- * strHeaderCase('  someInputValue'); // "Some Input Value"
- * strHeaderCase(undefined);          // ""
+ * toHeaderCase('helloWorld');       // "Hello World"
+ * toHeaderCase('foo_bar-baz');      // "Foo Bar Baz"
+ * toHeaderCase('  someInputValue'); // "Some Input Value"
+ * toHeaderCase(undefined);          // ""
  */
-export function strHeaderCase(str: string | undefined): string {
-  if (!str) return '';
+export function toHeaderCase(string_: string | undefined): string {
+	if (!string_) return '';
 
-  return String(str)
-    .replace(/^[^A-Za-z0-9]*|[^A-Za-z0-9]*$/g, '')
-    .replace(/([a-z])([A-Z])/g, (m, a, b) => `${a}_${b.toLowerCase()}`)
-    .replace(/[^A-Za-z0-9]+|_+/g, ' ')
-    .toLowerCase()
-    .replace(/( ?)(\w+)( ?)/g, (m, a, b, c) => a + b.charAt(0).toUpperCase() + b.slice(1) + c);
+	return String(string_)
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
+		.replaceAll(/([a-z])([A-Z])/g, (m: string, a: string, b: string) => `${a}_${b.toLowerCase()}`)
+		.replaceAll(/[^A-Za-z\d]+|_+/g, ' ')
+		.toLowerCase()
+		.replaceAll(
+			/( ?)(\w+)( ?)/g,
+			(m: string, a: string, b: string, c: string) => a + b.charAt(0).toUpperCase() + b.slice(1) + c,
+		);
 }

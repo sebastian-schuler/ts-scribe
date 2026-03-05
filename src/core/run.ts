@@ -50,5 +50,5 @@
  * run(() => { return "Hello, world!"; }); // Returns "Hello, world!"
  */
 export function run<T>(fn: () => T): T {
-  return fn();
+	return fn();
 }

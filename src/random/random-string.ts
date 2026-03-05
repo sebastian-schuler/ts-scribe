@@ -13,27 +13,24 @@
  * randomString(8, { includeNumbers: true, includeSymbols: true }); // e.g., "aB3!Lp9&"
  * randomString(12, { includeNumbers: false, includeSymbols: false }); // e.g., "aBcDeFgHiJkL"
  */
-export function randomString(
-  length: number,
-  { includeNumbers = false, includeSymbols = false }: { includeNumbers: boolean; includeSymbols: boolean } = {
-    includeNumbers: false,
-    includeSymbols: false,
-  },
-): string {
-  const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
-  const numbers = '0123456789';
-  const symbols = '!@#$%^&*()_-+=<>?/[]{},.:;';
+export function randomString(length: number, config?: { includeNumbers: boolean; includeSymbols: boolean }): string {
+	const includeNumbers = config?.includeNumbers ?? false;
+	const includeSymbols = config?.includeSymbols ?? false;
 
-  let validChars = uppercaseLetters + lowercaseLetters;
-  if (includeNumbers) validChars += numbers;
-  if (includeSymbols) validChars += symbols;
+	const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
+	const numbers = '0123456789';
+	const symbols = '!@#$%^&*()_-+=<>?/[]{},.:;';
 
-  let randomString = '';
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * validChars.length);
-    randomString += validChars[randomIndex];
-  }
+	let validChars = uppercaseLetters + lowercaseLetters;
+	if (includeNumbers) validChars += numbers;
+	if (includeSymbols) validChars += symbols;
 
-  return randomString;
+	let randomString = '';
+	for (let i = 0; i < length; i++) {
+		const randomIndex = Math.floor(Math.random() * validChars.length);
+		randomString += validChars[randomIndex];
+	}
+
+	return randomString;
 }

@@ -29,16 +29,16 @@ bun add ts-scribe
 
 ### Array
 
-- `arrUnique`: Given an array of primitive values, returns a new array with duplicates removed.
-- `arrChunk`: Splits an array into chunks of a specified size.
-- `arrDifference`: Returns the difference between two arrays.
-- `arrGroupBy`: Groups an array of objects by a specified key.
-- `arrIntersection`: Returns the intersection of two arrays.
-- `arrIntersectionDeep`: Deep intersection between arrays of objects or values.
-- `arrPluck`: Extracts a list of property values from an array of objects.
-- `arrPowerset`: Returns the powerset of an array.
-- `arrShuffle`: Shuffles an array randomly.
-- `arrUniqueBy`: Returns an array of unique values based on a specified key.
+- `arrayUnique`: Given an array of primitive values, returns a new array with duplicates removed.
+- `arrayChunk`: Splits an array into chunks of a specified size.
+- `arrayDifference`: Returns the difference between two arrays.
+- `arrayGroupBy`: Groups an array of objects by a specified key.
+- `arrayIntersection`: Returns the intersection of two arrays.
+- `arrayIntersectionDeep`: Deep intersection between arrays of objects or values.
+- `arrayPluck`: Extracts a list of property values from an array of objects.
+- `arrayPowerset`: Returns the powerset of an array.
+- `arrayShuffle`: Shuffles an array randomly.
+- `arrayUniqueBy`: Returns an array of unique values based on a specified key.
 - `toArray`: Converts almost anything into an array.
 
 ### Async
@@ -67,8 +67,8 @@ bun add ts-scribe
 - `objectDeepClone`: Deeply clones an object.
 - `objectDeepEquals`: Deeply compares two objects or arrays.
 - `objectDeepFreeze`: Deep freezes an object recursively.
-- `objectFlatten`: Flattens an object into dot notation.
-- `objectPrune`: Removes properties with undefined values.
+- `flattenObject`: Flattens an object into dot notation.
+- `pruneObject`: Removes properties with undefined values.
 - `objectRemoveKeys`: Removes specified keys from an object.
 
 #### Deepmerge
@@ -84,14 +84,14 @@ Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts
 
 ### String
 
-- `strCamelCase`: Converts a string to camelCase.
-- `strDotCase`: Converts a string to dot.case.
-- `strHeaderCase`: Converts a string to Header Case.
-- `strKebabCase`: Converts a string to kebab-case.
-- `strPascalCase`: Converts a string to PascalCase.
-- `strSnakeCase`: Converts a string to snake_case.
-- `strTruncate`: Truncates a string with configurable options.
-- `strSlugify`: Slugifies a string, converting it into a URL-friendly format with customizable options.
+- `toCamelCase`: Converts a string to camelCase.
+- `toDotCase`: Converts a string to dot.case.
+- `toHeaderCase`: Converts a string to Header Case.
+- `toKebabCase`: Converts a string to kebab-case.
+- `toPascalCase`: Converts a string to PascalCase.
+- `toSnakeCase`: Converts a string to snake_case.
+- `truncateString`: Truncates a string with configurable options.
+- `slugifyString`: Slugifies a string, converting it into a URL-friendly format with customizable options.
 
 ### System
 

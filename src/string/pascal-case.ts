@@ -1,22 +1,22 @@
 /**
  * Converts a given string to PascalCase.
  *
- * @param {string | undefined} str - The input string to convert.
+ * @param {string | undefined} text - The input string to convert.
  * @returns {string} The PascalCase version of the input string, or an empty string if input is falsy.
  *
  * @example
- * strPascalCase('hello world');         // "HelloWorld"
- * strPascalCase('foo_bar-baz');         // "FooBarBaz"
- * strPascalCase(' someInputValue  ');   // "SomeInputValue"
- * strPascalCase(undefined);             // ""
+ * toPascalCase('hello world');         // "HelloWorld"
+ * toPascalCase('foo_bar-baz');         // "FooBarBaz"
+ * toPascalCase(' someInputValue  ');   // "SomeInputValue"
+ * toPascalCase(undefined);             // ""
  */
-export function strPascalCase(str: string | undefined): string {
-  if (!str) return '';
+export function toPascalCase(text: string | undefined): string {
+	if (!text) return '';
 
-  return String(str)
-    .replace(/^[^A-Za-z0-9]*|[^A-Za-z0-9]*$/g, '$')
-    .replace(/[^A-Za-z0-9]+/g, '$')
-    .replace(/([a-z])([A-Z])/g, (m, a, b) => `${a}$${b}`)
-    .toLowerCase()
-    .replace(/(\$)(\w?)/g, (m, a, b) => b.toUpperCase());
+	return String(text)
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '$')
+		.replaceAll(/[^A-Za-z\d]+/g, '$')
+		.replaceAll(/([a-z])([A-Z])/g, (m: string, a: string, b: string) => `${a}$${b}`)
+		.toLowerCase()
+		.replaceAll(/(\$)(\w?)/g, (m: string, a: string, b: string): string => b.toUpperCase());
 }

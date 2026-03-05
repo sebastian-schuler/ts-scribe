@@ -3,7 +3,7 @@
  *
  * @template T - The expected return type after parsing.
  *
- * @param {string} str - The JSON string to parse.
+ * @param {string} text - The JSON string to parse.
  * @param {T} fallback - The fallback value to return if parsing fails.
  * @param {Object} [options] - Optional settings to customize parsing behavior.
  * @param {(error: unknown) => void} [options.callback] - Optional callback invoked when parsing fails. Receives the error object.
@@ -26,26 +26,28 @@
  * // result => { name: "Default" }
  */
 export function safeJsonParse<T>(
-  str: string,
-  fallback: T,
-  options?: {
-    callback?: (error: unknown) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    reviver?: (this: any, key: string, value: any) => any;
-    logError?: boolean;
-  },
-): T {
-  const { callback, reviver, logError } = options || {};
+	text: string,
+	fallback: T,
+	options?: {
+		callback?: (error: unknown) => void;
 
-  try {
-    return JSON.parse(str, reviver);
-  } catch (error) {
-    if (logError) {
-      console.error('Failed to parse JSON:', error, 'Input string:', str);
-    }
-    if (callback) {
-      callback(error);
-    }
-    return fallback;
-  }
+		reviver?: (this: any, key: string, value: any) => any;
+		logError?: boolean;
+	},
+): T {
+	const { callback, reviver, logError } = options ?? {};
+
+	try {
+		return JSON.parse(text, reviver) as T;
+	} catch (error) {
+		if (logError) {
+			console.error('Failed to parse JSON:', error, 'Input string:', text);
+		}
+
+		if (callback) {
+			callback(error);
+		}
+
+		return fallback;
+	}
 }

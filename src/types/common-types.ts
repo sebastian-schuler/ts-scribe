@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
 /**
@@ -6,13 +5,13 @@
  * This includes all the fundamental types available in JavaScript,
  * such as numbers, strings, and booleans, as well as `null` and `undefined`.
  */
-export type Primitive = bigint | boolean | number | string | symbol | null | undefined;
+export type Primitive = bigint | boolean | number | string | symbol | undefined;
 
 /**
  * Type representing values that are either `null`, `undefined`, or `void`.
  * Useful for ensuring that only nullish values are allowed in specific contexts.
  */
-export type Nullish = null | undefined | void;
+export type Nullish = undefined | void;
 
 /**
  * Type that allows assignment of any value except for nullish values (`null` or `undefined`).
@@ -24,9 +23,9 @@ export type NonNullish = NonNullable<unknown>;
  * Excludes nullish values (`null` and `undefined`) from a given type.
  * This type is useful when you need to ensure a value is always defined (i.e., not null or undefined).
  *
- * @template TValue - The type from which `null` and `undefined` are excluded.
+ * @template Value - The type from which `null` and `undefined` are excluded.
  */
-export type Mandatory<TValue> = Exclude<TValue, Nullish>;
+export type Mandatory<Value> = Exclude<Value, Nullish>;
 
 /**
  * A recursive type that represents objects that can contain primitives, nested objects, or arrays of `Nestable` types.
@@ -53,25 +52,25 @@ export type TypeOfString = 'bigint' | 'boolean' | 'function' | 'number' | 'objec
  * A type that infers the type based on the result of the `typeof` operator in JavaScript.
  * It maps a string representing a `typeof` result to the corresponding TypeScript type.
  *
- * @template TString - A string that represents the result of `typeof`.
+ * @template TypeString - A string that represents the result of `typeof`.
  */
-export type TypeOfType<TString> = TString extends 'string'
-  ? string
-  : TString extends 'number'
-    ? number
-    : TString extends 'boolean'
-      ? boolean
-      : TString extends 'object'
-        ? object
-        : TString extends 'function'
-          ? Function
-          : TString extends 'bigint'
-            ? bigint
-            : TString extends 'symbol'
-              ? symbol
-              : TString extends 'undefined'
-                ? undefined
-                : unknown;
+export type TypeOfType<TypeString> = TypeString extends 'string'
+	? string
+	: TypeString extends 'number'
+		? number
+		: TypeString extends 'boolean'
+			? boolean
+			: TypeString extends 'object'
+				? Record<string, unknown>
+				: TypeString extends 'function'
+					? Function
+					: TypeString extends 'bigint'
+						? bigint
+						: TypeString extends 'symbol'
+							? symbol
+							: TypeString extends 'undefined'
+								? undefined
+								: unknown;
 
 /**
  * Converts a union type (`|`) into an intersection type (`&`).
@@ -90,7 +89,9 @@ export type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) ext
  * @template T - The object type to apply the smart partial transformation to.
  */
 export type SmartPartial<T> = Simplify<
-  UnionToIntersection<{ [P in keyof T]: undefined extends T[P] ? { [K in P]?: T[P] } : { [K in P]: T[P] } }[keyof T]>
+	UnionToIntersection<
+		{ [P in keyof T]: undefined extends T[P] ? Partial<Record<P, T[P]>> : Record<P, T[P]> }[keyof T]
+	>
 >;
 
 /**
@@ -106,18 +107,21 @@ export type Simplify<T> = T extends Record<string, unknown> ? { [P in keyof T]: 
  * Helper type to assist in the implementation of function overloads.
  * This type works recursively to extract the union of overloaded function signatures.
  *
- * @template TOverload - The function overload type.
- * @template TPartialOverload - A partial version of the overload.
+ * @template TypedOverload - The function overload type.
+ * @template TypedPartialOverload - A partial version of the overload.
  */
-type _OverloadUnion<TOverload, TPartialOverload = unknown> = TPartialOverload & TOverload extends (
-  ...args: infer TArgs
+type OverloadUnionHelper<TypedOverload, TypedPartialOverload = unknown> = TypedPartialOverload & TypedOverload extends (
+	...args: infer TArgs
 ) => infer TReturn
-  ? TPartialOverload extends TOverload
-    ? never
-    :
-        | _OverloadUnion<TOverload, Pick<TOverload, keyof TOverload> & TPartialOverload & ((...args: TArgs) => TReturn)>
-        | ((...args: TArgs) => TReturn)
-  : never;
+	? TypedPartialOverload extends TypedOverload
+		? never
+		:
+				| OverloadUnionHelper<
+						TypedOverload,
+						Pick<TypedOverload, keyof TypedOverload> & TypedPartialOverload & ((...args: TArgs) => TReturn)
+				  >
+				| ((...args: TArgs) => TReturn)
+	: never;
 
 /**
  * Converts a function overload (an intersection of function signatures)
@@ -131,9 +135,9 @@ type _OverloadUnion<TOverload, TPartialOverload = unknown> = TPartialOverload & 
  * type U = OverloadUnion<(() => 1) & ((a: 2) => 2)>;
  * type U = (() => 1) | ((a: 2) => 2);
  */
-export type OverloadUnion<TOverload extends (...args: any[]) => any> = Exclude<
-  _OverloadUnion<(() => never) & TOverload>,
-  TOverload extends () => never ? never : () => never
+export type OverloadUnion<TypedOverload extends (...args: any[]) => any> = Exclude<
+	OverloadUnionHelper<(() => never) & TypedOverload>,
+	TypedOverload extends () => never ? never : () => never
 >;
 
 /**
@@ -144,7 +148,7 @@ export type OverloadUnion<TOverload extends (...args: any[]) => any> = Exclude<
  * @template T - The object type to make deeply readonly.
  */
 export type DeepReadonly<T> = {
-  readonly [P in keyof T]: DeepReadonly<T[P]>;
+	readonly [P in keyof T]: DeepReadonly<T[P]>;
 };
 
 /**
@@ -154,7 +158,7 @@ export type DeepReadonly<T> = {
  *
  * @template T - The object type to make deeply partial.
  */
-export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
+export type DeepPartial<T> = T extends Record<string, unknown> ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
 
 /**
  * Represents a type that can be serialized to a JSON-compatible format.
@@ -172,4 +176,4 @@ export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T
  *   tags: ["developer", "typescript"]
  * };
  */
-export type Serializable = string | number | boolean | null | Serializable[] | { [key: string]: Serializable };
+export type Serializable = string | number | boolean | undefined | Serializable[] | { [key: string]: Serializable };

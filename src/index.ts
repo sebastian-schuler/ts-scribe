@@ -1,21 +1,18 @@
-import { deepmerge, deepmergeCustom, deepmergeInto, deepmergeIntoCustom } from 'deepmerge-ts';
-
 // Re-Exported
-export { deepmerge, deepmergeCustom, deepmergeInto, deepmergeIntoCustom };
 
 // Array
 export {
-  arrChunk,
-  arrDifference,
-  arrGroupBy,
-  arrIntersection,
-  arrIntersectionDeep,
-  arrPluck,
-  arrPowerset,
-  arrShuffle,
-  arrUniqueBy,
-  toArray,
-  arrUnique
+	arrayChunk,
+	arrayDifference,
+	arrayGroupBy,
+	arrayIntersection,
+	arrayIntersectionDeep,
+	arrayPluck,
+	arrayPowerset,
+	arrayShuffle,
+	arrayUniqueBy,
+	toArray,
+	arrayUnique,
 } from './array/index.js';
 
 // Async
@@ -37,12 +34,12 @@ export { clamp, greatestCommonDivisor, smallestCommonMultiple } from './math/ind
 
 // Object
 export {
-  objectDeepClone,
-  objectDeepEquals,
-  objectDeepFreeze,
-  objectFlatten,
-  objectPrune,
-  objectRemoveKeys,
+	objectDeepClone,
+	objectDeepEquals,
+	objectDeepFreeze,
+	flattenObject,
+	pruneObject,
+	objectRemoveKeys,
 } from './object/index.js';
 
 // Random
@@ -50,14 +47,14 @@ export { randomBool, randomInt, randomSample, randomString } from './random/inde
 
 // String
 export {
-  strCamelCase,
-  strDotCase,
-  strHeaderCase,
-  strKebabCase,
-  strPascalCase,
-  strSlugify,
-  strSnakeCase,
-  strTruncate,
+	toCamelCase,
+	toDotCase,
+	toHeaderCase,
+	toKebabCase,
+	toPascalCase,
+	slugifyString,
+	toSnakeCase,
+	truncateString,
 } from './string/index.js';
 
 // System
@@ -68,19 +65,21 @@ export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString } from './ty
 
 // Custom Types
 export type {
-  DeepPartial,
-  DeepReadonly,
-  GenericFunction,
-  Mandatory,
-  Nestable,
-  NonNullish,
-  Nullish,
-  OverloadUnion,
-  Primitive,
-  Serializable,
-  Simplify,
-  SmartPartial,
-  TypeOfString,
-  TypeOfType,
-  UnionToIntersection,
+	DeepPartial,
+	DeepReadonly,
+	GenericFunction,
+	Mandatory,
+	Nestable,
+	NonNullish,
+	Nullish,
+	OverloadUnion,
+	Primitive,
+	Serializable,
+	Simplify,
+	SmartPartial,
+	TypeOfString,
+	TypeOfType,
+	UnionToIntersection,
 } from './types/common-types.js';
+
+export { deepmerge, deepmergeInto, deepmergeCustom, deepmergeIntoCustom } from 'deepmerge-ts';

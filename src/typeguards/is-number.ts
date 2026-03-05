@@ -14,10 +14,11 @@
  * isNumber(null);         // false
  */
 export const isNumber = (value: unknown): value is number => {
-  if (typeof value === 'number' && !isNaN(value) && isFinite(value)) return true;
-  if (typeof value === 'string') {
-    const parsed = parseFloat(value);
-    return !isNaN(parsed) && isFinite(parsed);
-  }
-  return false;
+	if (typeof value === 'number' && !Number.isNaN(value) && Number.isFinite(value)) return true;
+	if (typeof value === 'string') {
+		const parsed = Number.parseFloat(value);
+		return !Number.isNaN(parsed) && Number.isFinite(parsed);
+	}
+
+	return false;
 };

@@ -20,40 +20,37 @@
  * parseNumber('12.34', 0, 'int', true); // Throws an error (invalid for 'int')
  */
 export function parseNumber(
-  value: string | number | null | undefined,
-  defaultValue: number,
-  type: 'int' | 'float' = 'float',
-  throwInvalid: boolean = false,
+	value: string | number | undefined,
+	defaultValue: number,
+	type: 'int' | 'float' = 'float',
+	throwInvalid = false,
 ): number {
-  if (typeof value === 'number') {
-    return handleNumber(value, defaultValue, type, throwInvalid);
-  }
+	if (typeof value === 'number') {
+		return handleNumber(value, defaultValue, type, throwInvalid);
+	}
 
-  if (value === null || value === undefined || (typeof value === 'string' && value.length === 0)) {
-    return defaultValue;
-  }
+	if (value === null || value === undefined || (typeof value === 'string' && value.length === 0)) {
+		return defaultValue;
+	}
 
-  const parsedValue = Number(value);
-  return handleNumber(parsedValue, defaultValue, type, throwInvalid);
+	const parsedValue = Number(value);
+	return handleNumber(parsedValue, defaultValue, type, throwInvalid);
 }
 
-const handleNumber = (
-  value: number,
-  defaultValue: number,
-  type: 'int' | 'float' = 'float',
-  throwInvalid: boolean = false,
-) => {
-  if (Number.isNaN(value) || !Number.isFinite(value)) {
-    if (throwInvalid) throw new TypeError(`parseNumber failed with: ${value}`);
-    return defaultValue;
-  }
-  if (type === 'int') {
-    if (Number.isInteger(value)) {
-      return value;
-    } else {
-      if (throwInvalid) throw new TypeError(`parseNumber failed with: ${value}`);
-      return defaultValue;
-    }
-  }
-  return value;
+const handleNumber = (value: number, defaultValue: number, type: 'int' | 'float' = 'float', throwInvalid = false) => {
+	if (Number.isNaN(value) || !Number.isFinite(value)) {
+		if (throwInvalid) throw new TypeError(`parseNumber failed with: ${value}`);
+		return defaultValue;
+	}
+
+	if (type === 'int') {
+		if (Number.isInteger(value)) {
+			return value;
+		}
+
+		if (throwInvalid) throw new TypeError(`parseNumber failed with: ${value}`);
+		return defaultValue;
+	}
+
+	return value;
 };

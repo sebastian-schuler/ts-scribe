@@ -1,4 +1,4 @@
-import { GenericFunction } from '../types/common-types.js';
+import { type GenericFunction } from '../types/common-types.js';
 
 /**
  * Creates a debounced version of a function, which will only be invoked after a specified delay
@@ -19,38 +19,32 @@ import { GenericFunction } from '../types/common-types.js';
  * // This prevents calling the function too frequently during rapid input changes.
  * ```
  *
- * @param {number} wait - The number of milliseconds to wait before invoking the function after the last call.
- * @param {GenericFunction<T, R>} fn - The function to debounce.
- * @param {boolean} [immediate=false] - If true, the function will be triggered at the beginning of the debounce period.
- * @returns {GenericFunction<T, R>} A debounced version of the input function.
+ * @param wait - The number of milliseconds to wait before invoking the function after the last call.
+ * @param fn - The function to debounce.
+ * @param immediate - If true, the function will be triggered at the beginning of the debounce period.
+ * @returns A debounced version of the input function.
  *
  * @example
  * const debouncedLog = debounce(1000, (msg: string) => console.log(msg), true);
  * debouncedLog("Hello"); // Immediately logs "Hello", then waits for 1000ms for further calls
  */
-export function debounce<T, R>(
-  wait: number,
-  fn: GenericFunction<T, R>,
-  immediate: boolean = false,
-): (this: T, arg: T) => void {
-  let timeoutId: NodeJS.Timeout | null;
+export function debounce<T, R>(wait: number, fn: GenericFunction<T, R>, immediate = false): (this: T, arg: T) => void {
+	let timeoutId: NodeJS.Timeout | undefined;
 
-  return function (this: T, ...args: [arg: T]) {
-    const context = this as T;
+	return function (this: T, ...args: [arg: T]) {
+		const later = () => {
+			timeoutId = undefined;
+			if (!immediate) {
+				fn.apply(this, args);
+			}
+		};
 
-    const later = function () {
-      timeoutId = null;
-      if (!immediate) {
-        fn.apply(context, args);
-      }
-    };
+		const callNow = immediate && !timeoutId;
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(later, wait);
 
-    const callNow = immediate && !timeoutId;
-    clearTimeout(timeoutId as NodeJS.Timeout);
-    timeoutId = setTimeout(later, wait);
-
-    if (callNow) {
-      fn.apply(context, args);
-    }
-  };
+		if (callNow) {
+			fn.apply(this, args);
+		}
+	};
 }

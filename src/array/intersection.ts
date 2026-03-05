@@ -1,4 +1,4 @@
-import { Nestable } from '../types/common-types.js';
+import { type Nestable } from '../types/common-types.js';
 import { objectDeepEquals } from '../object/deep-equals.js';
 
 /**
@@ -11,32 +11,33 @@ import { objectDeepEquals } from '../object/deep-equals.js';
  *
  * @private
  */
-const intersectionInternal = <T>(deep = false, ...arrays: T[][]): Array<T> => {
-  if (arrays.length === 0 || arrays.some((arr) => arr.length === 0)) {
-    return [];
-  }
+const intersectionInternal = <T>(deep = false, ...arrays: T[][]): T[] => {
+	if (arrays.length === 0 || arrays.some((array) => array.length === 0)) {
+		return [];
+	}
 
-  const findIntersection = (arr1: T[], arr2: T[]): T[] => {
-    const intersection = arr1.filter((value) => {
-      return arr2.some((value2) => {
-        return deep ? objectDeepEquals(value as Nestable, value2 as Nestable) : value === value2;
-      });
-    });
-    return Array.from(new Set(intersection));
-  };
+	const findIntersection = (array1: T[], array2: T[]): T[] => {
+		const intersection = array1.filter((value) => {
+			return array2.some((value2) => {
+				return deep ? objectDeepEquals(value as Nestable, value2 as Nestable) : value === value2;
+			});
+		});
+		return [...new Set(intersection)];
+	};
 
-  // Reduce the arrays to find the intersection
-  let result: T[] = arrays[0] || [];
-  for (let i = 0; i < arrays.length; i++) {
-    const currentArray = arrays[i] || [];
-    const currentIntersection = findIntersection(result, currentArray);
-    if (currentIntersection.length === 0) {
-      return []; // No intersection, return empty array
-    }
-    result = currentIntersection;
-  }
+	// Reduce the arrays to find the intersection
+	let result: T[] = arrays[0] || [];
+	for (const array of arrays) {
+		const currentArray = array || [];
+		const currentIntersection = findIntersection(result, currentArray);
+		if (currentIntersection.length === 0) {
+			return []; // No intersection, return empty array
+		}
 
-  return result;
+		result = currentIntersection;
+	}
+
+	return result;
 };
 
 /**
@@ -49,10 +50,10 @@ const intersectionInternal = <T>(deep = false, ...arrays: T[][]): Array<T> => {
  * @returns {T[]} An array containing elements that are present in all arrays.
  *
  * @example
- * const result = arrIntersection([1, 2, 3], [2, 3, 4], [3, 2, 5]);
+ * const result = arrayIntersection([1, 2, 3], [2, 3, 4], [3, 2, 5]);
  * console.log(result); // Output: [2, 3]
  */
-export const arrIntersection = <T>(...arrays: T[][]): Array<T> => intersectionInternal(false, ...arrays);
+export const arrayIntersection = <T>(...arrays: T[][]): T[] => intersectionInternal(false, ...arrays);
 
 /**
  * Find the intersection of multiple arrays using deep equality comparison.
@@ -65,7 +66,7 @@ export const arrIntersection = <T>(...arrays: T[][]): Array<T> => intersectionIn
  * @returns {T[]} An array containing elements that are present in all arrays.
  *
  * @example
- * const result = arrIntersectionDeep([{ id: 1 }, { id: 2 }], [{ id: 2 }, { id: 3 }], [{ id: 2 }]);
+ * const result = arrayIntersectionDeep([{ id: 1 }, { id: 2 }], [{ id: 2 }, { id: 3 }], [{ id: 2 }]);
  * console.log(result); // Output: [{ id: 2 }]
  */
-export const arrIntersectionDeep = <T>(...arrays: T[][]): Array<T> => intersectionInternal(true, ...arrays);
+export const arrayIntersectionDeep = <T>(...arrays: T[][]): T[] => intersectionInternal(true, ...arrays);

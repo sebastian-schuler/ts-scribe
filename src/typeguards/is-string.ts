@@ -11,8 +11,8 @@
  * isString(['a', 'b']);   // false
  */
 export function isString(value: unknown): value is string {
-  return (
-    typeof value === 'string' ||
-    (typeof value === 'object' && value !== null && Object.prototype.toString.call(value) === '[object String]')
-  );
+	return (
+		typeof value === 'string' ||
+		(typeof value === 'object' && value !== null && Object.prototype.toString.call(value) === '[object String]')
+	);
 }

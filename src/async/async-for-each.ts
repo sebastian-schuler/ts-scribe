@@ -35,32 +35,34 @@ import { isDefined } from '../typeguards/is-defined.js';
  * }, 2); // Logs 1, 2, 3, 4 with a maximum of 2 concurrent tasks
  */
 export async function asyncForEach<T>(
-  array: T[],
-  callback: (element: T, index: number, array: T[]) => Promise<void>,
-  limit?: number,
+	array: T[],
+	callback: (element: T, index: number, array: T[]) => Promise<void>,
+	limit?: number,
 ): Promise<void> {
-  if (!isDefined(array)) throw new Error(`Input array must not be null or undefined`);
-  if (!limit) limit = array.length;
-  const promises: Promise<void>[] = [];
-  const executing: Promise<void>[] = [];
+	if (!isDefined(array)) throw new Error(`Input array must not be null or undefined`);
+	limit ??= array.length;
+	const promises: Array<Promise<void>> = [];
+	const executing: Array<Promise<void>> = [];
 
-  for (let index = 0; index < array.length; index++) {
-    const p = callback(array[index], index, array);
-    promises.push(p);
+	for (let index = 0; index < array.length; index++) {
+		const p = callback(array[index], index, array);
+		promises.push(p);
 
-    if (limit <= array.length) {
-      const e = p.then(() => {
-        const idx = executing.indexOf(e);
-        if (idx !== -1) {
-          executing.splice(idx, 1);
-        }
-      });
-      executing.push(e);
-      if (executing.length >= limit) {
-        await Promise.race(executing);
-      }
-    }
-  }
+		if (limit <= array.length) {
+			// eslint-disable-next-line promise/prefer-await-to-then
+			const executingPromise = p.then(() => {
+				const idx = executing.indexOf(executingPromise);
+				if (idx !== -1) {
+					void executing.splice(idx, 1);
+				}
+			});
+			executing.push(executingPromise);
+			if (executing.length >= limit) {
+				// eslint-disable-next-line no-await-in-loop
+				await Promise.race(executing);
+			}
+		}
+	}
 
-  await Promise.all(promises);
+	await Promise.all(promises);
 }

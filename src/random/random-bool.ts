@@ -9,6 +9,6 @@
  * randomBool(0.9);      // ~90% chance of returning true
  * randomBool(0.1);      // ~10% chance of returning true
  */
-export const randomBool = (probability: number = 0.5): boolean => {
-  return Math.random() < probability;
+export const randomBool = (probability = 0.5): boolean => {
+	return Math.random() < probability;
 };

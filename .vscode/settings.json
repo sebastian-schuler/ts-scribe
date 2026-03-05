@@ -1,0 +1,32 @@
+{
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "xo.enable": true,
+    "xo.format.enable": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "samverschueren.linter-xo"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "samverschueren.linter-xo"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "samverschueren.linter-xo"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "samverschueren.linter-xo"
+    },
+    "xo.debounce": 100,
+    "xo.options": {
+        "ignores": [
+            "dist",
+            "node_modules",
+            "coverage",
+            "build",
+            "docs",
+            "examples",
+            "scripts",
+            "tests/**/*.test.ts",
+            "tests/"
+        ]
+    }
+}

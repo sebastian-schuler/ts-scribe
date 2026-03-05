@@ -1,22 +1,22 @@
 /**
  * Converts a given string to camelCase format.
  *
- * @param {string | undefined} str - The input string to convert.
+ * @param {string | undefined} text - The input string to convert.
  * @returns {string} The camelCase version of the input string, or an empty string if input is falsy.
  *
  * @example
- * strCamelCase('Hello world');           // "helloWorld"
- * strCamelCase('  foo_bar-baz  ');       // "fooBarBaz"
- * strCamelCase('XMLHttpRequest');        // "xmlHttpRequest"
- * strCamelCase(undefined);               // ""
+ * toCamelCase('Hello world');           // "helloWorld"
+ * toCamelCase('  foo_bar-baz  ');       // "fooBarBaz"
+ * toCamelCase('XMLHttpRequest');        // "xmlHttpRequest"
+ * toCamelCase(undefined);               // ""
  */
-export function strCamelCase(str: string | undefined): string {
-  if (!str) return '';
+export function toCamelCase(text: string | undefined): string {
+	if (!text) return '';
 
-  return String(str)
-    .replace(/^[^A-Za-z0-9]*|[^A-Za-z0-9]*$/g, '')
-    .replace(/[^A-Za-z0-9]+/g, '$')
-    .replace(/([a-z])([A-Z])/g, (m, a, b) => `${a}$${b}`)
-    .toLowerCase()
-    .replace(/(\$)(\w)/g, (m, a, b) => b.toUpperCase());
+	return String(text)
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
+		.replaceAll(/[^A-Za-z\d]+/g, '$')
+		.replaceAll(/([a-z])([A-Z])/g, (m, a, b) => `${a}$${b}`)
+		.toLowerCase()
+		.replaceAll(/(\$)(\w)/g, (_m: string, _a: string, b: string) => b.toUpperCase());
 }

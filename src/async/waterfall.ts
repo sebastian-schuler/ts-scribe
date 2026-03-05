@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-type Task<T> = (callback: (error: Error | null, result?: T) => void) => void;
+export type Task<T> = (callback: (error: Error | undefined, result?: T) => void) => void;
 
 /**
  * Executes an array of asynchronous tasks in sequence. Each task is a function that takes a callback with an error or result,
@@ -38,8 +36,21 @@ type Task<T> = (callback: (error: Error | null, result?: T) => void) => void;
  *   console.error(error); // In case of an error in any task
  * });
  */
-export function waterfall<T>(tasks: Task<T>[]): Promise<T> {
-  return tasks.reduce((prevTask, currentTask) => {
-    return prevTask.then(currentTask);
-  }, Promise.resolve() as Promise<any>);
+export async function waterfall<T>(tasks: Array<Task<T>>): Promise<T> {
+	let result: T | undefined;
+
+	for (const task of tasks) {
+		// eslint-disable-next-line no-await-in-loop -- Tasks must execute sequentially
+		result = await new Promise<T>((resolve, reject) => {
+			task((error, taskResult) => {
+				if (error) {
+					reject(error);
+				} else {
+					resolve(taskResult as T);
+				}
+			});
+		});
+	}
+
+	return result as T;
 }

@@ -37,73 +37,75 @@
  * // If fetchUser fails for any id, that result will be the errorValue
  */
 export async function asyncMap<T, R, E = undefined>(
-  array: T[],
-  callback: (item: T, index: number, array: T[]) => Promise<R>,
-  options: {
-    concurrency?: number;
-    continueOnError?: boolean;
-    errorValue?: E;
-  } = {},
-): Promise<(R | E)[]> {
-  const { concurrency = Infinity, continueOnError = false, errorValue = undefined as E } = options;
+	array: T[],
+	callback: (item: T, index: number, array: T[]) => Promise<R>,
+	options: {
+		concurrency?: number;
+		continueOnError?: boolean;
+		errorValue?: E;
+	} = {},
+): Promise<Array<R | E>> {
+	const { concurrency = Infinity, continueOnError = false, errorValue = undefined as E } = options;
 
-  if (concurrency !== Infinity && (concurrency <= 0 || Number.isInteger(concurrency) === false)) {
-    throw new RangeError(`Option 'concurrency' needs to be an integer above greater than o.`);
-  }
+	if (concurrency !== Infinity && (concurrency <= 0 || !Number.isInteger(concurrency))) {
+		throw new RangeError(`Option 'concurrency' needs to be an integer above greater than o.`);
+	}
 
-  if (array.length === 0) {
-    return [];
-  }
+	if (array.length === 0) {
+		return [];
+	}
 
-  if (concurrency === Infinity || concurrency >= array.length) {
-    if (continueOnError) {
-      // Process all items, but catch errors individually
-      const promises = array.map(async (item, index, arr) => {
-        try {
-          return await callback(item, index, arr);
-        } catch (error) {
-          return errorValue;
-        }
-      });
-      return Promise.all(promises);
-    } else {
-      return Promise.all(array.map(callback));
-    }
-  }
+	if (concurrency === Infinity || concurrency >= array.length) {
+		if (continueOnError) {
+			// Process all items, but catch errors individually
+			const promises = array.map(async (item, index, array_) => {
+				try {
+					return await callback(item, index, array_);
+				} catch {
+					return errorValue;
+				}
+			});
+			return Promise.all(promises);
+		}
 
-  // For limited concurrency, process in batches
-  const results: (R | E)[] = new Array(array.length);
-  let currentIndex = 0;
+		return Promise.all(array.map(async (item, index, array_) => callback(item, index, array_)));
+	}
 
-  // Process items in batches based on concurrency limit
-  async function processQueue(): Promise<void> {
-    const index = currentIndex++;
+	// For limited concurrency, process in batches
+	const results: Array<R | E> = Array.from({ length: array.length });
+	let currentIndex = 0;
 
-    // Exit if all items processed
-    if (index >= array.length) {
-      return;
-    }
+	// Process items in batches based on concurrency limit
+	async function processQueue(): Promise<void> {
+		const index = currentIndex++;
 
-    // Process current item with error handling
-    try {
-      results[index] = await callback(array[index], index, array);
-    } catch (error) {
-      if (continueOnError) {
-        // Use the specified error value
-        results[index] = errorValue;
-      } else {
-        // If any promise rejects and we're not continuing on error, propagate
-        throw error;
-      }
-    }
+		// Exit if all items processed
+		if (index >= array.length) {
+			return;
+		}
 
-    return processQueue();
-  }
+		// Process current item with error handling
+		try {
+			results[index] = await callback(array[index], index, array);
+		} catch (error) {
+			if (continueOnError) {
+				// Use the specified error value
+				results[index] = errorValue;
+			} else {
+				// If any promise rejects and we're not continuing on error, propagate
+				throw error;
+			}
+		}
 
-  // Create initial batch of promises based on concurrency limit
-  const workers = new Array(Math.min(concurrency, array.length)).fill(null).map(() => processQueue());
+		return processQueue();
+	}
 
-  await Promise.all(workers);
+	// Create initial batch of promises based on concurrency limit
+	const workers = Array.from({ length: Math.min(concurrency, array.length) })
+		.fill(null)
+		.map(async () => processQueue());
 
-  return results;
+	await Promise.all(workers);
+
+	return results;
 }

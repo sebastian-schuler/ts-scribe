@@ -3,41 +3,47 @@
  * This function cleans nested objects and arrays, ensuring that no properties
  * or elements are left with the value `undefined`.
  *
- * @param {T} obj - The object or array to prune.
+ * @param {T} object - The object or array to prune.
  * @returns {T} The pruned object or array with `undefined` values removed.
  *
  * @template T - The type of the object to be pruned, which extends an object.
  *
  * @example
- * objectPrune({ a: 1, b: undefined, c: { d: undefined } }); // Returns: { a: 1, c: {} }
+ * pruneObject({ a: 1, b: undefined, c: { d: undefined } }); // Returns: { a: 1, c: {} }
  *
- * objectPrune([1, undefined, { a: undefined }, [undefined]]); // Returns: [1, {}]
+ * pruneObject([1, undefined, { a: undefined }, [undefined]]); // Returns: [1, {}]
  *
- * objectPrune([undefined, undefined]); // Returns: []
+ * pruneObject([undefined, undefined]); // Returns: []
  *
- * objectPrune({ date: new Date() }); // Returns: { date: DateInstance }
+ * pruneObject({ date: new Date() }); // Returns: { date: DateInstance }
  */
-export const objectPrune = <T extends object>(obj: T): T => {
-  // Iterate if object is an array
-  if (Array.isArray(obj)) {
-    return obj.map((value) => objectPrune(value)).filter((value) => value !== undefined) as T;
-  }
+export const pruneObject = <T>(object: T): T => {
+	return pruneValue(object) as T;
+};
 
-  // Keep property if not an object
-  if (typeof obj !== 'object' || obj === null || obj instanceof Date) {
-    return obj;
-  }
+const pruneValue = (value: unknown): unknown => {
+	// Iterate if object is an array
+	if (Array.isArray(value)) {
+		return value
+			.map((item) => pruneValue(item))
+			.filter((item): item is Exclude<unknown, undefined> => item !== undefined);
+	}
 
-  // Recursively clean object
-  const result = {} as T;
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      const value = objectPrune(obj[key]!);
-      if (value !== undefined) {
-        result[key] = value;
-      }
-    }
-  }
+	// Keep property if not an object
+	if (typeof value !== 'object' || value === null || value instanceof Date) {
+		return value;
+	}
 
-  return result;
+	// Recursively clean object
+	const result: Record<string, unknown> = {};
+	for (const key in value) {
+		if (Object.hasOwn(value, key)) {
+			const prunedValue = pruneValue((value as Record<string, unknown>)[key]);
+			if (prunedValue !== undefined) {
+				result[key] = prunedValue;
+			}
+		}
+	}
+
+	return result;
 };

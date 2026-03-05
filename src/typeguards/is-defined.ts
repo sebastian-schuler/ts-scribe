@@ -14,6 +14,6 @@
  * isDefined(undefined);   // false
  * isDefined(NaN);         // false
  */
-export function isDefined<T>(arg: T): arg is Exclude<T, null | undefined> {
-  return arg !== null && arg !== undefined && Number.isNaN(arg) === false;
+export function isDefined<T>(arg: T): arg is Exclude<T, undefined> {
+	return arg !== null && arg !== undefined && !Number.isNaN(arg);
 }

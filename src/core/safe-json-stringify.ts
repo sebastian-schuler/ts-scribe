@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 type Replacer = (key: string, value: unknown) => unknown;
-type VisitedSet = WeakSet<object>;
+type VisitedSet = WeakSet<Record<string, unknown>>;
 
 /**
  * Safely serializes a JavaScript value to a JSON string, avoiding runtime errors that commonly occur
@@ -38,38 +41,44 @@ type VisitedSet = WeakSet<object>;
  * // }
  */
 export function safeJsonStringify(
-  data: unknown,
-  replacer?: Replacer | (string | number)[] | null,
-  space?: string | number,
+	data: unknown,
+	replacer?: Replacer | Array<string | number>,
+	space?: string | number,
 ): string {
-  const cleaned = ensureProperties(data);
-  return JSON.stringify(cleaned, replacer as any, space);
+	const cleaned = ensureProperties(data);
+	try {
+		return JSON.stringify(cleaned, replacer as any, space);
+	} catch (error) {
+		// Fallback for edge cases (e.g., replacer throwing, unexpected serialization errors)
+		return JSON.stringify(formatThrowsMessage(error));
+	}
 }
 
 /**
  * Formats an error thrown during property access.
  */
-function formatThrowsMessage(err: unknown): string {
-  let message = '?';
-  if (err && typeof err === 'object' && 'message' in err && typeof err.message === 'string') {
-    message = err.message;
-  } else if (typeof err === 'string') {
-    message = err;
-  } else {
-    message = String(err);
-  }
-  return `[Throws: ${message}]`;
+function formatThrowsMessage(error: unknown): string {
+	let message = '?';
+	if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
+		message = error.message;
+	} else if (typeof error === 'string') {
+		message = error;
+	} else {
+		message = String(error);
+	}
+
+	return `[Throws: ${message}]`;
 }
 
 /**
  * Safely retrieves a property from an object, catching getter errors.
  */
-function safeGet(obj: object, prop: PropertyKey): unknown {
-  try {
-    return (obj as any)[prop];
-  } catch (err) {
-    return formatThrowsMessage(err);
-  }
+function safeGet(object: Record<string, unknown>, prop: PropertyKey): unknown {
+	try {
+		return (object as any)[prop];
+	} catch (error) {
+		return formatThrowsMessage(error);
+	}
 }
 
 /**
@@ -77,56 +86,62 @@ function safeGet(obj: object, prop: PropertyKey): unknown {
  * getters, and errors.
  */
 function ensureProperties(value: unknown, visited: VisitedSet = new WeakSet()): unknown {
-  if (value === null || typeof value !== 'object') {
-    return value;
-  }
+	// Handle BigInt (JSON.stringify cannot serialize BigInt)
+	if (typeof value === 'bigint') {
+		return `[BigInt: ${value.toString()}]`;
+	}
 
-  // Handle circular reference
-  if (visited.has(value)) {
-    return '[Circular]';
-  }
+	if (value === null || typeof value !== 'object') {
+		return value;
+	}
 
-  visited.add(value);
+	// Handle circular reference
+	if (visited.has(value as Record<string, unknown>)) {
+		return '[Circular]';
+	}
 
-  try {
-    // Handle toJSON (per JSON.stringify spec)
-    if (typeof (value as any).toJSON === 'function') {
-      let jsonValue: unknown;
-      try {
-        jsonValue = (value as any).toJSON();
-      } catch (err) {
-        return formatThrowsMessage(err);
-      }
-      // Recurse on the returned value
-      return ensureProperties(jsonValue, visited);
-    }
+	visited.add(value as Record<string, unknown>);
 
-    // Arrays
-    if (Array.isArray(value)) {
-      return value.map((item) => ensureProperties(item, visited));
-    }
+	try {
+		// Handle toJSON (per JSON.stringify spec)
+		if (typeof (value as any).toJSON === 'function') {
+			let jsonValue: unknown;
+			try {
+				jsonValue = (value as any).toJSON();
+			} catch (error) {
+				return formatThrowsMessage(error);
+			}
 
-    const obj = value as Record<string, unknown>;
+			// Recurse on the returned value
+			return ensureProperties(jsonValue, visited);
+		}
 
-    // Plain objects: iterate *own enumerable* properties (like JSON.stringify)
-    const result: Record<string | symbol, unknown> = {};
+		// Arrays
+		if (Array.isArray(value)) {
+			return value.map((item) => ensureProperties(item, visited));
+		}
 
-    // Use for...in + hasOwn for perf + correctness (avoids 'Object.keys' allocation)
-    for (const prop in obj) {
-      // Skip symbols (prop is always string in for...in, but be explicit)
-      if (typeof prop !== 'string') continue;
+		const object = value as Record<string, unknown>;
 
-      // Prevent double-processing if shadowed (unlikely, but safe)
-      if (Object.hasOwn(result, prop)) continue;
+		// Plain objects: iterate *own enumerable* properties (like JSON.stringify)
+		const result: Record<string | symbol, unknown> = {};
 
-      // access 'value[prop]', not '(value as any)[prop]' on proto
-      // ensures getters are called on correct 'this'
-      const rawValue = safeGet(value, prop);
-      result[prop] = ensureProperties(rawValue, visited);
-    }
+		// Use for...in + hasOwn for perf + correctness (avoids 'Object.keys' allocation)
+		for (const prop in object) {
+			// Skip symbols (prop is always string in for...in, but be explicit)
+			if (typeof prop !== 'string') continue;
 
-    return result;
-  } finally {
-    visited.delete(value);
-  }
+			// Prevent double-processing if shadowed (unlikely, but safe)
+			if (Object.hasOwn(result, prop)) continue;
+
+			// Access 'value[prop]', not '(value as any)[prop]' on proto
+			// ensures getters are called on correct 'this'
+			const rawValue = safeGet(object, prop);
+			result[prop] = ensureProperties(rawValue, visited);
+		}
+
+		return result;
+	} finally {
+		visited.delete(value as Record<string, unknown>);
+	}
 }

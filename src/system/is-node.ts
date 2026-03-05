@@ -1,3 +1,6 @@
+/* eslint-disable n/prefer-global/process */
+/* eslint-disable no-eq-null */
+/* eslint-disable eqeqeq */
 /**
  * Determines whether the current environment is Node.js.
  *
@@ -9,5 +12,4 @@
  * @example
  * isNode(); // true in Node.js, false in browsers or other non-Node environments
  */
-export const isNode = (): boolean =>
-  typeof process !== 'undefined' && process.versions != null && process.versions.node != null;
+export const isNode = (): boolean => typeof process !== 'undefined' && process.versions?.node != null;

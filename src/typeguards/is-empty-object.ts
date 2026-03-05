@@ -13,9 +13,10 @@
  * isEmptyObject(undefined);        // false
  * isEmptyObject('string');         // false
  */
-export function isEmptyObject(obj: unknown): boolean {
-  if (!obj || typeof obj !== 'object' || Array.isArray(obj)) {
-    return false; // Not an object or an array
-  }
-  return Object.keys(obj).length === 0;
+export function isEmptyObject(object: unknown): boolean {
+	if (!object || typeof object !== 'object' || Array.isArray(object)) {
+		return false; // Not an object or an array
+	}
+
+	return Object.keys(object).length === 0;
 }

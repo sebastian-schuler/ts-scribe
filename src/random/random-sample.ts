@@ -12,15 +12,16 @@
  * randomSample([1, 2, 3, 4, 5], 2); // might return [3, 1]
  * randomSample(['a', 'b', 'c']);   // returns one random element, e.g. ['b']
  */
-export const randomSample = <T>(arr: T[], size: number = 1): T[] => {
-  if (size < 0) return [];
-  if (size > arr.length) return arr;
-  const result = [];
-  const copy = [...arr];
-  for (let i = 0; i < size; i++) {
-    const randomIndex = Math.floor(Math.random() * copy.length);
-    result.push(copy[randomIndex]);
-    copy.splice(randomIndex, 1);
-  }
-  return result;
+export const randomSample = <T>(array: T[], size = 1): T[] => {
+	if (size < 0) return [];
+	if (size > array.length) return array;
+	const result = [];
+	const copy = [...array];
+	for (let i = 0; i < size; i++) {
+		const randomIndex = Math.floor(Math.random() * copy.length);
+		result.push(copy[randomIndex]);
+		copy.splice(randomIndex, 1);
+	}
+
+	return result;
 };

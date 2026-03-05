@@ -2,7 +2,7 @@
  * Truncates a string to a specified maximum length, optionally adding an ellipsis
  * and preserving whole words when truncating.
  *
- * @param {string} str - The string to truncate.
+ * @param {string} text - The string to truncate.
  * @param {number} maxLength - The maximum length of the string, including the ellipsis.
  * @param {Object} [options] - Optional configuration for truncation.
  * @param {string} [options.ellipsis='...'] - The string to append to indicate truncation. Default is '...'.
@@ -12,42 +12,42 @@
  * @throws {Error} If `maxLength` is less than or equal to the length of the ellipsis.
  *
  * @example
- * strTruncate('This is a long string that should be truncated', 20); // "This is a long..."
- * strTruncate('This is a long string that should be truncated', 20, { preserveWords: true }); // "This is a long..."
- * strTruncate('Short text', 20); // "Short text"
- * strTruncate('Short text', 5); // "Short..."
+ * truncateString('This is a long string that should be truncated', 20); // "This is a long..."
+ * truncateString('This is a long string that should be truncated', 20, { preserveWords: true }); // "This is a long..."
+ * truncateString('Short text', 20); // "Short text"
+ * truncateString('Short text', 5); // "Short..."
  */
-export function strTruncate(
-  str: string,
-  maxLength: number,
-  options?: { ellipsis?: string; preserveWords?: boolean },
+export function truncateString(
+	text: string,
+	maxLength: number,
+	options?: { ellipsis?: string; preserveWords?: boolean },
 ): string {
-  const { ellipsis = '...', preserveWords = false } = options || {};
+	const { ellipsis = '...', preserveWords = false } = options ?? {};
 
-  // Ensure maxLength is valid
-  if (maxLength <= ellipsis.length) {
-    throw new Error('maxLength must be greater than the length of the ellipsis.');
-  }
+	// Ensure maxLength is valid
+	if (maxLength <= ellipsis.length) {
+		throw new Error('maxLength must be greater than the length of the ellipsis.');
+	}
 
-  // If string length exceeds maxLength, truncate and append ellipsis
-  if (str.length > maxLength) {
-    let truncated = str;
+	// If string length exceeds maxLength, truncate and append ellipsis
+	if (text.length > maxLength) {
+		let truncated = text;
 
-    if (preserveWords) {
-      // Find the last space within the truncated string to avoid cutting words
-      const lastSpaceIndex = truncated.slice(0, maxLength - ellipsis.length).lastIndexOf(' ');
+		if (preserveWords) {
+			// Find the last space within the truncated string to avoid cutting words
+			const lastSpaceIndex = truncated.slice(0, maxLength - ellipsis.length).lastIndexOf(' ');
 
-      // If a space exists, truncate at the last space, otherwise keep the original truncation
-      if (lastSpaceIndex !== -1) {
-        truncated = truncated.slice(0, lastSpaceIndex) + ellipsis;
-      }
-    } else {
-      // If preserveWords is false, truncate at the maxLength
-      truncated = truncated.slice(0, maxLength - ellipsis.length) + ellipsis;
-    }
+			// If a space exists, truncate at the last space, otherwise keep the original truncation
+			if (lastSpaceIndex !== -1) {
+				truncated = truncated.slice(0, lastSpaceIndex) + ellipsis;
+			}
+		} else {
+			// If preserveWords is false, truncate at the maxLength
+			truncated = truncated.slice(0, maxLength - ellipsis.length) + ellipsis;
+		}
 
-    return truncated;
-  }
+		return truncated;
+	}
 
-  return str;
+	return text;
 }

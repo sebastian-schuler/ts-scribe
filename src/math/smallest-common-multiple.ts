@@ -15,7 +15,12 @@ import { getGcd } from './greatest-common-divisor.js';
  * smallestCommonMultiple(12, 15, 20); // Returns 60
  */
 export const smallestCommonMultiple = (...values: number[]): number => {
-  return values.reduce((gcd, num) => getScm(gcd, num));
+	let result = values[0];
+	for (const number_ of values.slice(1)) {
+		result = getScm(result, number_);
+	}
+
+	return result;
 };
 
 export const getScm = (a: number, b: number): number => (a * b) / getGcd(a, b);

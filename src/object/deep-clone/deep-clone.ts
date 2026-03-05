@@ -1,8 +1,8 @@
 import { rfdc } from './rfdc.js';
 
 type Options = {
-  circleRefs?: boolean;
-  protoProps?: boolean;
+	circleRefs?: boolean;
+	protoProps?: boolean;
 };
 
 /**
@@ -31,9 +31,9 @@ type Options = {
  * const clonedObj = objectDeepClone(obj, { circleRefs: true, protoProps: true });
  * console.log(clonedObj); // A deep clone with the same structure and prototype properties.
  */
-export function objectDeepClone<T>(obj: T, options?: Options): T {
-  return rfdc({
-    circles: options?.circleRefs ?? false,
-    proto: options?.protoProps ?? false,
-  })(obj);
+export function objectDeepClone<T>(object: T, options?: Options): T {
+	return rfdc({
+		circles: options?.circleRefs ?? false,
+		proto: options?.protoProps ?? false,
+	})(object) as T;
 }

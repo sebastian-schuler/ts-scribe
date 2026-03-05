@@ -25,7 +25,7 @@
     "build:types:esm": "tsc --emitDeclarationOnly --project tsconfig.esm.json --declaration --outDir dist",
     "build:types:cjs": "tsc --emitDeclarationOnly --project tsconfig.cjs.json --declaration --outDir dist/cjs",
     "clean": "rm -rf dist",
-    "lint": "eslint src/**/*.{ts}",
+    "lint": "xo",
     "test": "bun test",
     "test:watch": "bun test --watch",
     "changeset": "bunx changeset",
@@ -54,20 +54,11 @@
   },
   "homepage": "https://github.com/sebastian-schuler/ts-scribe#readme",
   "devDependencies": {
-    "@changesets/cli": "^2.28.1",
-    "@eslint/js": "^9.24.0",
-    "@typescript-eslint/eslint-plugin": "^8.29.1",
-    "@typescript-eslint/parser": "^8.29.1",
+    "@changesets/cli": "^2.29.8",
     "bun-types": "latest",
-    "eslint": "^9.24.0",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^7.2.1",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.29.1"
+    "globals": "^17.3.0",
+    "typescript": "^5.9.3",
+    "xo": "^1.2.3"
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"

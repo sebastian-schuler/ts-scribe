@@ -12,7 +12,17 @@
  * greatestCommonDivisor(9, 12, 15, 18);  // Returns 3
  */
 export const greatestCommonDivisor = (...values: number[]): number => {
-  return values.reduce((gcd, num) => getGcd(gcd, num));
+	if (values.length === 0) {
+		throw new TypeError('Reduce of empty array with no initial value');
+	}
+
+	let gcd = values[0];
+
+	for (let index = 1; index < values.length; index++) {
+		gcd = getGcd(gcd, values[index]);
+	}
+
+	return gcd;
 };
 
 export const getGcd = (a: number, b: number): number => (b === 0 ? a : getGcd(b, a % b));

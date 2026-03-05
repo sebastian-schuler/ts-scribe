@@ -2,7 +2,7 @@
  * Creates a new object by removing specified keys from the original object.
  * This function avoids mutating the original object by creating a shallow copy.
  *
- * @param {T} obj - The object from which keys will be removed.
+ * @param {T} object - The object from which keys will be removed.
  * @param {K[]} keys - The array of keys to remove from the object.
  * @returns {Omit<T, K>} A new object with the specified keys removed.
  *
@@ -18,14 +18,18 @@
  * const updatedUser = objectRemoveKeys(user, ['age']);
  * console.log(updatedUser); // { name: 'Alice', country: 'USA' }
  */
-export function objectRemoveKeys<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-  // Create a shallow copy of the object to avoid mutating the original object
-  const newObj = { ...obj };
+export function objectRemoveKeys<T extends Record<string, unknown>, K extends keyof T>(
+	object: T,
+	keys: K[],
+): Omit<T, K> {
+	// Create a shallow copy of the object to avoid mutating the original object
+	const newObject = { ...object };
 
-  // Loop through the provided keys and delete them from the new object
-  for (const key of keys) {
-    delete newObj[key];
-  }
+	// Loop through the provided keys and delete them from the new object
+	for (const key of keys) {
+		// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+		delete newObject[key];
+	}
 
-  return newObj;
+	return newObject;
 }
