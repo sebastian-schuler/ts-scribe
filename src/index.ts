@@ -39,7 +39,7 @@ export {
 	objectDeepFreeze,
 	flattenObject,
 	pruneObject,
-	objectRemoveKeys,
+	removeObjectKeys,
 } from './object/index.js';
 
 // Random
@@ -81,5 +81,3 @@ export type {
 	TypeOfType,
 	UnionToIntersection,
 } from './types/common-types.js';
-
-export { deepmerge, deepmergeInto, deepmergeCustom, deepmergeIntoCustom } from 'deepmerge-ts';

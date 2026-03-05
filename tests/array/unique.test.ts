@@ -54,7 +54,9 @@ describe('arrayUnique', () => {
 		const inputArray = [null, undefined, null, undefined, null];
 		const expectedOutput = [null, undefined];
 
+		// @ts-expect-error - Testing handling of null and undefined
 		const result = arrayUnique(inputArray);
+		// @ts-expect-error - Testing handling of null and undefined
 		expect(result).toEqual(expectedOutput);
 	});
 

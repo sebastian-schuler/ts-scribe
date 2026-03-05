@@ -56,11 +56,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "bun-types": "latest",
-    "globals": "^17.3.0",
     "typescript": "^5.9.3",
     "xo": "^1.2.3"
-  },
-  "dependencies": {
-    "deepmerge-ts": "^7.1.5"
   }
 }

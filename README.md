@@ -69,11 +69,7 @@ bun add ts-scribe
 - `objectDeepFreeze`: Deep freezes an object recursively.
 - `flattenObject`: Flattens an object into dot notation.
 - `pruneObject`: Removes properties with undefined values.
-- `objectRemoveKeys`: Removes specified keys from an object.
-
-#### Deepmerge
-
-Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts), check their documentation for more details.
+- `removeObjectKeys`: Removes specified keys from an object.
 
 ### Random
 
@@ -131,9 +127,7 @@ Exposes the API of [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts
 
 ## Credits
 
-- [objectDeepClone](https://github.com/davidmarkclements/rfdc/tree/master)
 - [semaphore](https://github.com/Shakeskeyboarde)
-- [deepmerge-ts](https://github.com/RebeccaStevens/deepmerge-ts)
 
 ## License
 

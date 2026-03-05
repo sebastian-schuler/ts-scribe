@@ -78,6 +78,7 @@ describe('maybe', () => {
 		const test = maybe(1);
 		expect(test.ok).toBe(true);
 		expect(test.empty).toBe(false);
+		// @ts-expect-error - value should be number
 		expect(test.error).toBe(undefined);
 		expect(test.value).toBe(1);
 		expect(maybe(1)).not.toBe(test);

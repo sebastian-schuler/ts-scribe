@@ -59,7 +59,9 @@ describe('deepFreeze', () => {
 
 	it('should handle arrays', () => {
 		const object = [{ key: 4 }, { key: 1 }, { key: 2 }];
+		// @ts-expect-error - Testing handling of array input
 		const frozenObject = objectDeepFreeze(object);
+		// @ts-expect-error - Testing handling of array input
 		expect(Object.isFrozen(frozenObject.at(0))).toBe(true);
 	});
 });

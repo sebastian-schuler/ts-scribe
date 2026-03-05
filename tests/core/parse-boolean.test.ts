@@ -19,6 +19,7 @@ describe('parseBoolean function', () => {
 	});
 
 	it('should return false when value is null', () => {
+		// @ts-expect-error - Testing handling of null value
 		expect(parseBoolean(null)).toBe(false);
 	});
 
@@ -31,6 +32,7 @@ describe('parseBoolean function', () => {
 	});
 
 	it('should return default value when value is null and default value is provided', () => {
+		// @ts-expect-error - Testing handling of null value
 		expect(parseBoolean(null, true)).toBe(true);
 	});
 

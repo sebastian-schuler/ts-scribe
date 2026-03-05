@@ -11,14 +11,14 @@
  *
  * @example
  * const original = { a: 1, b: 2, c: 3 };
- * const result = objectRemoveKeys(original, ['b', 'c']);
+ * const result = removeObjectKeys(original, ['b', 'c']);
  * console.log(result); // { a: 1 }
  *
  * const user = { name: 'Alice', age: 25, country: 'USA' };
- * const updatedUser = objectRemoveKeys(user, ['age']);
+ * const updatedUser = removeObjectKeys(user, ['age']);
  * console.log(updatedUser); // { name: 'Alice', country: 'USA' }
  */
-export function objectRemoveKeys<T extends Record<string, unknown>, K extends keyof T>(
+export function removeObjectKeys<T extends Record<string, unknown>, K extends keyof T>(
 	object: T,
 	keys: K[],
 ): Omit<T, K> {
