@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from 'bun:test';
+import { describe, expect, test } from 'bun:test';
 import { asyncMap } from '../../src/index.js';
 
 describe('asyncMap', () => {
@@ -96,14 +96,21 @@ describe('asyncMap', () => {
 		expect(maxRunning).toBeLessThanOrEqual(maxConcurrent);
 	});
 
-	test('should handle Promise.all fallback for high concurrency', async () => {
+	test('should process all items at once when concurrency exceeds array length', async () => {
 		const input = [1, 2, 3, 4];
-		const promiseAllSpy = spyOn(Promise, 'all');
+		let running = 0;
+		let maxRunning = 0;
 
-		await asyncMap(input, async (x) => x * 2, { concurrency: 10 });
+		const result = await asyncMap(input, async (x) => {
+			running++;
+			maxRunning = Math.max(maxRunning, running);
+			await new Promise((resolve) => setTimeout(resolve, 10));
+			running--;
+			return x * 2;
+		}, { concurrency: 10 });
 
-		// There should be one call to Promise.all from the Promise.all(array.map(callback)) branch
-		expect(promiseAllSpy).toHaveBeenCalledTimes(1);
+		expect(result).toEqual([2, 4, 6, 8]);
+		expect(maxRunning).toBe(input.length);
 	});
 
 	test('should process all items even when some throw with continueOnError', async () => {
