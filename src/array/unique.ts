@@ -12,13 +12,13 @@ import { type Primitive } from '../types/common-types.js';
  * @returns {T[]} A new array containing only unique values from the input array
  *
  * @example
- * arrayUnique([1, 2, 2, 3, 3, 3, 4])
+ * uniqueArray([1, 2, 2, 3, 3, 3, 4])
  * // => [1, 2, 3, 4]
  *
  * @example
- * arrayUnique(['a', 'b', 'a', 'c'])
+ * uniqueArray(['a', 'b', 'a', 'c'])
  * // => ['a', 'b', 'c']
  */
-export function arrayUnique<T extends Primitive>(array: T[]): T[] {
+export function uniqueArray<T extends Primitive>(array: T[]): T[] {
 	return [...new Set(array)];
 }

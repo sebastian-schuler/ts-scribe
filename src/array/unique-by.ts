@@ -18,14 +18,14 @@ type KeyExtractor<T, K> = (item: T) => K;
  *   { id: 1, name: 'Alice' }
  * ];
  *
- * const uniqueArr = arrayUniqueBy(arr, item => item.id);
+ * const uniqueArr = uniqueArrayBy(arr, item => item.id);
  * console.log(uniqueArr);
  * // Output: [
  * //   { id: 1, name: 'Alice' },
  * //   { id: 2, name: 'Bob' }
  * // ]
  */
-export function arrayUniqueBy<T, K>(array: T[], keyFunc: KeyExtractor<T, K>): T[] {
+export function uniqueArrayBy<T, K>(array: T[], keyFunc: KeyExtractor<T, K>): T[] {
 	const uniqueKeys = new Set();
 	return array.filter((item) => {
 		const key = keyFunc(item);

@@ -7,12 +7,12 @@ export {
 	arrayGroupBy,
 	arrayIntersection,
 	arrayIntersectionDeep,
-	arrayPluck,
+	pluckArray,
 	arrayPowerset,
-	arrayShuffle,
-	arrayUniqueBy,
+	shuffleArray,
+	uniqueArrayBy,
 	toArray,
-	arrayUnique,
+	uniqueArray,
 } from './array/index.js';
 
 // Async

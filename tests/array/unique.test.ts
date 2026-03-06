@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'bun:test';
-import { arrayUnique } from '../../src/array/index.js';
+import { uniqueArray } from '../../src/array/index.js';
 
-describe('arrayUnique', () => {
+describe('uniqueArray', () => {
 	it('should remove duplicate numbers from an array', () => {
 		const inputArray = [1, 2, 2, 3, 3, 3, 4];
 		const expectedOutput = [1, 2, 3, 4];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -14,7 +14,7 @@ describe('arrayUnique', () => {
 		const inputArray = ['a', 'b', 'a', 'c', 'b'];
 		const expectedOutput = ['a', 'b', 'c'];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -22,7 +22,7 @@ describe('arrayUnique', () => {
 		const inputArray: number[] = [];
 		const expectedOutput: number[] = [];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -30,7 +30,7 @@ describe('arrayUnique', () => {
 		const inputArray = [1, 2, 3, 4, 5];
 		const expectedOutput = [1, 2, 3, 4, 5];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -38,7 +38,7 @@ describe('arrayUnique', () => {
 		const inputArray = [5, 5, 5, 5, 5];
 		const expectedOutput = [5];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -46,7 +46,7 @@ describe('arrayUnique', () => {
 		const inputArray = [true, false, true, false, true];
 		const expectedOutput = [true, false];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -55,7 +55,7 @@ describe('arrayUnique', () => {
 		const expectedOutput = [null, undefined];
 
 		// @ts-expect-error - Testing handling of null and undefined
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		// @ts-expect-error - Testing handling of null and undefined
 		expect(result).toEqual(expectedOutput);
 	});
@@ -64,7 +64,7 @@ describe('arrayUnique', () => {
 		const inputArray = [3, 1, 2, 3, 1, 4];
 		const expectedOutput = [3, 1, 2, 4];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -72,7 +72,7 @@ describe('arrayUnique', () => {
 		const inputArray = [42];
 		const expectedOutput = [42];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -80,7 +80,7 @@ describe('arrayUnique', () => {
 		const inputArray = [1n, 2n, 1n, 3n, 2n];
 		const expectedOutput = [1n, 2n, 3n];
 
-		const result = arrayUnique(inputArray);
+		const result = uniqueArray(inputArray);
 		expect(result).toEqual(expectedOutput);
 	});
 });

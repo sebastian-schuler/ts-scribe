@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { arrayPluck } from '../../src/array/index.js';
+import { pluckArray } from '../../src/array/index.js';
 
 type Stooge = {
 	name: string;
@@ -14,23 +14,23 @@ describe('pluckArray', () => {
 	];
 
 	it('should return an array of names', () => {
-		const names: string[] = arrayPluck(stooges, 'name');
+		const names: string[] = pluckArray(stooges, 'name');
 		expect(names).toEqual(['moe', 'larry', 'curly']);
 	});
 
 	it('should return an array of ages', () => {
-		const ages: number[] = arrayPluck(stooges, 'age');
+		const ages: number[] = pluckArray(stooges, 'age');
 		expect(ages).toEqual([40, 50, 60]);
 	});
 
 	it('should return an empty array for an empty input array', () => {
 		const emptyArray: Stooge[] = [];
-		const result: string[] = arrayPluck(emptyArray, 'name');
+		const result: string[] = pluckArray(emptyArray, 'name');
 		expect(result).toEqual([]);
 	});
 
 	it('should handle non-existing keys by returning undefined', () => {
-		const result: Array<string | undefined> = arrayPluck(stooges, 'nonExistingKey' as any);
+		const result: Array<string | undefined> = pluckArray(stooges, 'nonExistingKey' as any);
 		expect(result).toEqual([undefined, undefined, undefined]);
 	});
 });

@@ -5,9 +5,9 @@
  * By default, the empty set is excluded, but you can control this behavior with the `ignoreEmpty` parameter.
  *
  * @category Array
- * @param {Array<T>} array - The input array for which the powerset is to be generated.
- * @param {boolean} [ignoreEmpty=true] - A flag that controls whether the empty subset is included in the result. Default is `true` (exclude empty set).
- * @returns {Array<T>[]} An array of arrays representing all subsets of the input array.
+ * @param array - The input array for which the powerset is to be generated.
+ * @param ignoreEmpty - A flag that controls whether the empty subset is included in the result. Default is `true` (exclude empty set).
+ * @returns An array of arrays representing all subsets of the input array.
  *
  * @example
  * const result = arrayPowerset([1, 2, 3]);

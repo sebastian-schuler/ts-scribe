@@ -29,16 +29,16 @@ bun add ts-scribe
 
 ### Array
 
-- `arrayUnique`: Given an array of primitive values, returns a new array with duplicates removed.
+- `uniqueArray`: Given an array of primitive values, returns a new array with duplicates removed.
 - `arrayChunk`: Splits an array into chunks of a specified size.
 - `arrayDifference`: Returns the difference between two arrays.
 - `arrayGroupBy`: Groups an array of objects by a specified key.
 - `arrayIntersection`: Returns the intersection of two arrays.
 - `arrayIntersectionDeep`: Deep intersection between arrays of objects or values.
-- `arrayPluck`: Extracts a list of property values from an array of objects.
+- `pluckArray`: Extracts a list of property values from an array of objects.
 - `arrayPowerset`: Returns the powerset of an array.
-- `arrayShuffle`: Shuffles an array randomly.
-- `arrayUniqueBy`: Returns an array of unique values based on a specified key.
+- `shuffleArray`: Shuffles an array randomly.
+- `uniqueArrayBy`: Returns an array of unique values based on a specified key.
 - `toArray`: Converts almost anything into an array.
 
 ### Async
