@@ -1,0 +1,130 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>TS-Scribe - v0.6.0</title><meta name="description" content="Documentation for TS-Scribe"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css?cache=1772833806919"/><link rel="stylesheet" href="assets/highlight.css?cache=1772833806919"/><script defer src="assets/main.js?cache=1772833806919"></script><script async src="assets/icons.js?cache=1772833806919" id="tsd-icons-script"></script><script async src="assets/search.js?cache=1772833806919" id="tsd-search-script"></script><script async src="assets/navigation.js?cache=1772833806919" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">TS-Scribe - v0.6.0</a><div id="tsd-toolbar-links"><a href="https://github.com/sebastian-schuler/ts-scribe">GitHub</a><a href="https://www.npmjs.com/package/ts-scribe">npm</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>TS-Scribe - v0.6.0</h1></div><div class="tsd-panel tsd-typography"><h1 id="ts-scribe" class="tsd-anchor-link">TS-Scribe<a href="#ts-scribe" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p><a href="https://www.npmjs.com/package/ts-scribe"><img src="https://img.shields.io/npm/v/ts-scribe" alt="npm"></a>
+<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/install/381931" title="Install size for ts-scribe"></a>
+<a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/bundle/9868" title="Bundle size for ts-scribe"></a>
+<a href="https://github.com/voxpelli/badges-cjs-esm"><img src="https://img.shields.io/badge/module%20type-cjs%2Besm-brightgreen" alt="Module type: CJS+ESM"></a></p>
+<p>A TypeScript utility library tailored for Node.js and Bun development. It provides a rich set of utility functions and advanced types to enhance productivity and code quality.</p>
+<h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">ts-scribe</span>
+</code><button type="button">Copy</button></pre>
+
+<pre><code class="bash"><span class="hl-0">bun</span><span class="hl-1"> </span><span class="hl-2">add</span><span class="hl-1"> </span><span class="hl-2">ts-scribe</span>
+</code><button type="button">Copy</button></pre>
+
+<h2 id="functions" class="tsd-anchor-link">Functions<a href="#functions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="core" class="tsd-anchor-link">Core<a href="#core" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>run</code>: Helper to run a function or block of code in a cleaner way.</li>
+<li><code>parseBoolean</code>: Parses various values into a boolean.</li>
+<li><code>parseNumber</code>: Parses various values into a number.</li>
+<li><code>safeJsonParse</code>: Safely parses a string without throwing.</li>
+<li><code>safeJsonStringify</code>: Safely stringifies a JSON object without throwing (handles issues like circular references).</li>
+</ul>
+<h3 id="array" class="tsd-anchor-link">Array<a href="#array" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>arrayUnique</code>: Given an array of primitive values, returns a new array with duplicates removed.</li>
+<li><code>arrayChunk</code>: Splits an array into chunks of a specified size.</li>
+<li><code>arrayDifference</code>: Returns the difference between two arrays.</li>
+<li><code>arrayGroupBy</code>: Groups an array of objects by a specified key.</li>
+<li><code>arrayIntersection</code>: Returns the intersection of two arrays.</li>
+<li><code>arrayIntersectionDeep</code>: Deep intersection between arrays of objects or values.</li>
+<li><code>arrayPluck</code>: Extracts a list of property values from an array of objects.</li>
+<li><code>arrayPowerset</code>: Returns the powerset of an array.</li>
+<li><code>arrayShuffle</code>: Shuffles an array randomly.</li>
+<li><code>arrayUniqueBy</code>: Returns an array of unique values based on a specified key.</li>
+<li><code>toArray</code>: Converts almost anything into an array.</li>
+</ul>
+<h3 id="async" class="tsd-anchor-link">Async<a href="#async" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>asyncForEach</code>: Runs async operations over an array in parallel.</li>
+<li><code>asyncMap</code>: Similar to asyncForEach but with the behavior of Array.map function.</li>
+<li><code>debounce</code>: Debounces a function or promise.</li>
+<li><code>maybe</code>: Maybe monad for null-safe operations.</li>
+<li><code>retry</code>: Retries a promise a specified number of times.</li>
+<li><code>sleep</code>: Pauses execution for a specified time.</li>
+<li><code>waterfall</code>: Chains functions that pass results to each other.</li>
+<li><code>memoize</code>: Caches the results of function calls based on their arguments.</li>
+</ul>
+<h3 id="list" class="tsd-anchor-link">List<a href="#list" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>SortedList</code>: Maintains a sorted list.</li>
+<li><code>WeightedList</code>: Selects items based on weight/probability.</li>
+</ul>
+<h3 id="math" class="tsd-anchor-link">Math<a href="#math" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>clamp</code>: Clamps a number between min and max.</li>
+<li><code>greatestCommonDivisor</code>: Finds the GCD of multiple numbers.</li>
+<li><code>smallestCommonMultiple</code>: Finds the LCM of multiple numbers.</li>
+</ul>
+<h3 id="object" class="tsd-anchor-link">Object<a href="#object" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>objectDeepClone</code>: Deeply clones an object.</li>
+<li><code>objectDeepEquals</code>: Deeply compares two objects or arrays.</li>
+<li><code>objectDeepFreeze</code>: Deep freezes an object recursively.</li>
+<li><code>flattenObject</code>: Flattens an object into dot notation.</li>
+<li><code>pruneObject</code>: Removes properties with undefined values.</li>
+<li><code>removeObjectKeys</code>: Removes specified keys from an object.</li>
+<li><code>pickObjectKeys</code>: Creates a new object by picking specified keys from the original object.</li>
+<li><code>omitObjectKeys</code>: Creates a new object by omitting specified keys from the original object.</li>
+</ul>
+<h3 id="random" class="tsd-anchor-link">Random<a href="#random" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>randomBool</code>: Generates a random boolean, optionally biased.</li>
+<li><code>randomInt</code>: Generates a random integer in a given range.</li>
+<li><code>randomSample</code>: Randomly samples values from an array.</li>
+<li><code>randomString</code>: Generates a random string of given length/charset.</li>
+</ul>
+<h3 id="string" class="tsd-anchor-link">String<a href="#string" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>toCamelCase</code>: Converts a string to camelCase.</li>
+<li><code>toDotCase</code>: Converts a string to dot.case.</li>
+<li><code>toHeaderCase</code>: Converts a string to Header Case.</li>
+<li><code>toKebabCase</code>: Converts a string to kebab-case.</li>
+<li><code>toPascalCase</code>: Converts a string to PascalCase.</li>
+<li><code>toSnakeCase</code>: Converts a string to snake_case.</li>
+<li><code>truncateString</code>: Truncates a string with configurable options.</li>
+<li><code>slugifyString</code>: Slugifies a string, converting it into a URL-friendly format with customizable options.</li>
+</ul>
+<h3 id="system" class="tsd-anchor-link">System<a href="#system" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>isBrowser</code>: Returns <code>true</code> if running in a browser environment.</li>
+<li><code>isNode</code>: Returns <code>true</code> if running in Node.js.</li>
+<li><code>getEnvironment</code>: Returns 'Browser', 'Bun', 'Node', or 'Unknown' depending on the context it's run in.</li>
+</ul>
+<h3 id="typeguards" class="tsd-anchor-link">Typeguards<a href="#typeguards" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>isDefined</code>: Checks if a value is not null/undefined/NaN.</li>
+<li><code>isEmptyObject</code>: Checks if an object has no own properties.</li>
+<li><code>isEmptyValue</code>: Checks for null, undefined, NaN, empty string/array/object.</li>
+<li><code>isNumber</code>: Validates numeric values or strings that can be parsed as numbers.</li>
+<li><code>isString</code>: Validates if a value is a string.</li>
+</ul>
+<h2 id="types" class="tsd-anchor-link">Types<a href="#types" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ul>
+<li><code>Primitive</code>: JavaScript primitive types.</li>
+<li><code>Nullish</code>: Represents <code>null | undefined</code>.</li>
+<li><code>NonNullish</code>: Excludes <code>null | undefined</code>.</li>
+<li><code>Mandatory&lt;T&gt;</code>: Removes nullish from all properties of <code>T</code>.</li>
+<li><code>Nestable&lt;T&gt;</code>: A type that can nest recursively.</li>
+<li><code>GenericFunction</code>: A generic function type.</li>
+<li><code>TypeOfString</code>: Valid <code>typeof</code> operator string values.</li>
+<li><code>TypeOfType&lt;T&gt;</code>: Infers the <code>typeof</code> type string from a value.</li>
+<li><code>UnionToIntersection&lt;U&gt;</code>: Converts a union to an intersection.</li>
+<li><code>SmartPartial&lt;T&gt;</code>: Only makes properties optional if their type includes <code>undefined</code>.</li>
+<li><code>Simplify&lt;T&gt;</code>: Flattens complex types for better readability.</li>
+<li><code>OverloadUnion&lt;T&gt;</code>: Turns a union of functions into a single overloaded function type.</li>
+<li><code>DeepReadonly&lt;T&gt;</code>: Deep version of <code>Readonly&lt;T&gt;</code>.</li>
+<li><code>DeepPartial&lt;T&gt;</code>: Deep version of <code>Partial&lt;T&gt;</code>.</li>
+<li><code>Serializable</code>: Represents a type that can be serialized to a JSON-compatible format.</li>
+</ul>
+<h3 id="development" class="tsd-anchor-link">Development<a href="#development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li><code>benchmark</code>: Wrap around a function to benchmark it's performance without affecting app behavior.</li>
+</ul>
+<h2 id="credits" class="tsd-anchor-link">Credits<a href="#credits" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ul>
+<li><a href="https://github.com/Shakeskeyboarde">semaphore</a></li>
+</ul>
+<h2 id="license" class="tsd-anchor-link">License<a href="#license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>MIT</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#ts-scribe"><span>TS-<wbr/>Scribe</span></a><ul><li><a href="#installation"><span>Installation</span></a></li><li><a href="#functions"><span>Functions</span></a></li><li><ul><li><a href="#core"><span>Core</span></a></li><li><a href="#array"><span>Array</span></a></li><li><a href="#async"><span>Async</span></a></li><li><a href="#list"><span>List</span></a></li><li><a href="#math"><span>Math</span></a></li><li><a href="#object"><span>Object</span></a></li><li><a href="#random"><span>Random</span></a></li><li><a href="#string"><span>String</span></a></li><li><a href="#system"><span>System</span></a></li><li><a href="#typeguards"><span>Typeguards</span></a></li></ul></li><li><a href="#types"><span>Types</span></a></li><li><ul><li><a href="#development"><span>Development</span></a></li></ul></li><li><a href="#credits"><span>Credits</span></a></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav id="tsd-sidebar-links" class="tsd-navigation"><a href="https://github.com/sebastian-schuler/ts-scribe/issues">Report Issue</a><a href="https://github.com/sebastian-schuler/ts-scribe" class="tsd-nav-link">GitHub</a><a href="https://www.npmjs.com/package/ts-scribe" class="tsd-nav-link">npm</a></nav><nav class="tsd-navigation"><a href="modules.html">TS-Scribe - v0.6.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
