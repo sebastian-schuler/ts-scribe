@@ -5,7 +5,8 @@
  * up to the specified number of elements. If the original array can't be
  * evenly divided, the last chunk will contain the remaining elements.
  *
- * @param {T[]} arr - The array to chunk.
+ * @category Array
+ * @param {T[]} array - The array to chunk.
  * @param {number} size - The size of each chunk.
  * @returns {T[][]} An array of smaller arrays, each containing up to the specified size.
  *

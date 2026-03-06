@@ -2,6 +2,7 @@
  * Truncates a string to a specified maximum length, optionally adding an ellipsis
  * and preserving whole words when truncating.
  *
+ * @category String
  * @param {string} text - The string to truncate.
  * @param {number} maxLength - The maximum length of the string, including the ellipsis.
  * @param {Object} [options] - Optional configuration for truncation.

@@ -6,6 +6,7 @@ import { getGcd } from './greatest-common-divisor.js';
  * between the greatest common divisor (GCD) and SCM.
  * The formula used is: `SCM(a, b) = |a * b| / GCD(a, b)`.
  *
+ * @category Math
  * @param {...number[]} values - A list of numbers to find the SCM of.
  * @returns {number} The smallest common multiple of the provided numbers.
  *

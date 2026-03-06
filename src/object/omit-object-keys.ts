@@ -2,6 +2,7 @@
  * Creates a new object by excluding specified keys from the original object.
  * This function avoids mutating the original object by creating a new object.
  *
+ * @category Object
  * @param {T} object - The object from which keys will be omitted.
  * @param {K[]} keys - The array of keys to omit from the object.
  * @returns {Omit<T, K>} A new object with the specified keys excluded.

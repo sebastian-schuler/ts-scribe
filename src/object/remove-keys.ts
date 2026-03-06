@@ -2,6 +2,7 @@
  * Creates a new object by removing specified keys from the original object.
  * This function avoids mutating the original object by creating a shallow copy.
  *
+ * @category Object
  * @param {T} object - The object from which keys will be removed.
  * @param {K[]} keys - The array of keys to remove from the object.
  * @returns {Omit<T, K>} A new object with the specified keys removed.

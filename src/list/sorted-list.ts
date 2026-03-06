@@ -19,6 +19,7 @@ type SortedListOptions<ValueType> = {
 /**
  * A binary sorted list.
  * This list keeps items sorted according to a custom compare function or the default comparison (based on string value).
+ * @category List
  */
 class SortedList<ValueType> {
 	public static readonly defaultCompare = (a_: any, b_: any): number => {

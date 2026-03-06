@@ -16,8 +16,8 @@ export {
 } from './array/index.js';
 
 // Async
-export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall, Semaphore } from './async/index.js';
-export type { Maybe, RetryHandler, RetryOptions } from './async/index.js';
+export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall, Semaphore, memoize } from './async/index.js';
+export type { Maybe } from './async/index.js';
 
 // Core
 export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify } from './core/index.js';
@@ -27,7 +27,6 @@ export { benchmark } from './development/index.js';
 
 // List
 export { SortedList, WeightedList } from './list/index.js';
-export type { SortedListCompare, SortedListOptions } from './list/index.js';
 
 // Math
 export { clamp, greatestCommonDivisor, smallestCommonMultiple } from './math/index.js';

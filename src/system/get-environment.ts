@@ -3,6 +3,7 @@ import process from 'node:process';
 /**
  * Detects the current runtime environment.
  *
+ * @category System
  * @returns {string} A string indicating the environment. Possible values: 'Browser', 'Node', 'Bun', 'Unknown'.
  */
 export function getEnvironment(): 'Browser' | 'Node' | 'Bun' | 'Unknown' {

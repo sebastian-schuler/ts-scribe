@@ -35,6 +35,7 @@ class Lock {
  * A semaphore is a concurrency control mechanism that limits the number of asynchronous tasks accessing a shared resource simultaneously.
  *
  * The `acquire()` and `release()` methods manage the state, while `available`, `waiting`, and `size` return the state information.
+ * @category Async
  */
 export class Semaphore {
 	readonly #size: number;

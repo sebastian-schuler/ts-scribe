@@ -157,6 +157,7 @@ function deepEqualsRecursive(object1: Nestable, object2: Nestable, valueRefs?: R
  * This function performs a recursive comparison to check if the two objects are equivalent, including all nested properties or elements.
  * It returns `true` if the objects are deeply equal, and `false` otherwise.
  *
+ * @category Object
  * @param {Nestable} object1 - The first object or nested structure to compare.
  * @param {Nestable} object2 - The second object or nested structure to compare.
  * @returns {boolean} `true` if the objects are deeply equal, `false` otherwise.

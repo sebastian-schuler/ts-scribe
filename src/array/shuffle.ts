@@ -4,6 +4,7 @@
  * The function creates a new array and performs an in-place shuffle using the Fisher-Yates algorithm.
  * This ensures that the shuffled array has a uniform random distribution of elements.
  *
+ * @category Array
  * @param {T[]} array - The input array to shuffle.
  * @returns {T[]} A new array with the elements shuffled randomly.
  *

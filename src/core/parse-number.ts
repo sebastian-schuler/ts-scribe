@@ -3,6 +3,7 @@
  * The function handles multiple input types (string, number, null, or undefined) and can convert
  * the input into either an integer or a float. If the input cannot be parsed, it returns a default value.
  *
+ * @category Core
  * @param {string | number | null | undefined} value - The value to be parsed into a number.
  * @param {number} defaultValue - The default value to return if the value cannot be parsed.
  * @param {'int' | 'float'} [type='float'] - The type of number to return, either 'int' or 'float'. Defaults to 'float'.

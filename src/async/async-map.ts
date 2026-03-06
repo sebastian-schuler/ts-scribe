@@ -2,6 +2,7 @@
  * Maps over an array with an asynchronous callback function and returns a promise that resolves
  * to an array of results.
  *
+ * @category Async
  * @template T - The type of elements in the input array
  * @template R - The type of elements in the result array
  * @template E - The type of the error value (defaults to undefined)

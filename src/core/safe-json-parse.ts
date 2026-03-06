@@ -1,6 +1,7 @@
 /**
  * Safely parses a JSON string, returning a fallback value if parsing fails.
  *
+ * @category Core
  * @template T - The expected return type after parsing.
  *
  * @param {string} text - The JSON string to parse.

@@ -19,6 +19,7 @@ type Options = {
  * console.log(clone); // { a: 1, b: { c: 2 } }
  * ```
  *
+ * @category Object
  * @param {T} obj - The object to deep clone.
  * @param {Options} [options] - Optional configuration options for the cloning process:
  *   - `circleRefs` (boolean): Whether to preserve circular references in the object. Default is `false`.
@@ -35,5 +36,5 @@ export function objectDeepClone<T>(object: T, options?: Options): T {
 	return rfdc({
 		circles: options?.circleRefs ?? false,
 		proto: options?.protoProps ?? false,
-	})(object) as T;
+	})(object);
 }

@@ -27,6 +27,7 @@ type BenchmarkOptions<T> = {
 /**
  * A function that benchmarks another function by measuring its execution time and the size of its result.
  *
+ * @category Development
  * @template T - The type of the result returned by the benchmarked function.
  *
  * @param fn - The function to benchmark. It can return either a synchronous or asynchronous result.

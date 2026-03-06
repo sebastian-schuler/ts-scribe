@@ -2,6 +2,8 @@ export { asyncForEach } from './async-for-each.js';
 export { debounce } from './debounced.js';
 export { maybe } from './maybe.js';
 export type { Maybe } from './maybe.js';
+export { memoize } from './memoize/index.js';
+export type { MemoizeOptions, MemoizedFunction, CacheStats } from './memoize/types.js';
 export { retry } from './retry.js';
 export type { RetryHandler, RetryOptions } from './retry.js';
 export { Semaphore } from './semaphore.js';

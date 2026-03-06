@@ -4,6 +4,7 @@
  * The function checks if the input value is an array-like or iterable object (like a string, Set, or Map).
  * If so, it returns the value as an array. If the value is not iterable, it returns an array containing the value.
  *
+ * @category Array
  * @param {TValue} value - The value to convert into an array.
  * @returns {(TValue extends ArrayLike<infer TElement> | Iterable<infer TElement> ? TElement : TValue)[]}
  *  An array containing the elements of the iterable if the value is iterable, or the value itself if it's not iterable.

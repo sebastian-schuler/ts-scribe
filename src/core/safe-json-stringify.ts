@@ -15,6 +15,7 @@ type VisitedSet = WeakSet<Record<string, unknown>>;
  *
  * The resulting structure is then passed to `JSON.stringify`, preserving standard replacer and space behavior.
  *
+ * @category Core
  * @param {unknown} data - The value to serialize. Can be any JavaScript value: objects, arrays, primitives, `null`, etc.
  * @param {((key: string, value: unknown) => unknown) | (string | number)[] | null} [replacer] -
  *   Optional replacer function or array of keys to include (same as `JSON.stringify`).

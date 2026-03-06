@@ -1,6 +1,6 @@
 /**
  * Converts a given string to PascalCase.
- *
+ * @category String
  * @param {string | undefined} text - The input string to convert.
  * @returns {string} The PascalCase version of the input string, or an empty string if input is falsy.
  *

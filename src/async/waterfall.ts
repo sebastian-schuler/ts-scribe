@@ -1,3 +1,7 @@
+/**
+ * Task type for waterfall function.
+ * @category Async
+ */
 export type Task<T> = (callback: (error: Error | undefined, result?: T) => void) => void;
 
 /**
@@ -22,6 +26,7 @@ export type Task<T> = (callback: (error: Error | undefined, result?: T) => void)
  *
  * ---
  *
+ * @category Async
  * @param {Task<T>[]} tasks - An array of asynchronous tasks to run in sequence.
  * Each task should follow the `Task` signature, which is a function that takes a callback.
  * @returns {Promise<T>} A Promise that resolves with the result of the last task in the sequence.

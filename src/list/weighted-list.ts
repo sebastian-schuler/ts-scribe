@@ -11,6 +11,7 @@ type InputEntry<T> = {
 
 /**
  * A WeightedList can be used as an easy way to calculate probabilities based on weights, relative to other items inside the list.
+ * @category List
  */
 export class WeightedList<T> {
 	public length = 0;

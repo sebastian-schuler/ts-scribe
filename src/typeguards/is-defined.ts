@@ -1,6 +1,7 @@
 /**
  * Checks if a value is neither `null`, `undefined`, nor `NaN`.
  *
+ * @category Typeguards
  * @template T - The type of the argument to check.
  * @param {T} arg - The value to check.
  * @returns {arg is Exclude<T, null | undefined>} `true` if the value is defined (not `null`, `undefined`, or `NaN`), otherwise `false`.

@@ -14,6 +14,7 @@
  * console.log(result); // [1, 2]
  * ```
  *
+ * @category Array
  * @param {...T[][]} arrays - One or more arrays to compare.
  *
  * @returns {T[]} A new array containing elements from the first array that are not in any of the other arrays.

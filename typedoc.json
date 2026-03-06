@@ -1,0 +1,80 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "./src/index.ts"
+    ],
+    "out": "docs",
+    "plugin": [],
+    "name": "TS-Scribe",
+    "includeVersion": true,
+    "readme": "README.md",
+    "navigationLinks": {
+        "GitHub": "https://github.com/sebastian-schuler/ts-scribe",
+        "npm": "https://www.npmjs.com/package/ts-scribe"
+    },
+    "sidebarLinks": {
+        "Report Issue": "https://github.com/sebastian-schuler/ts-scribe/issues"
+    },
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeExternals": true,
+    "excludeInternal": true,
+    "categorizeByGroup": true,
+    "categoryOrder": [
+        "Core",
+        "Array",
+        "Async",
+        "Object",
+        "String",
+        "Math",
+        "Random",
+        "List",
+        "System",
+        "Typeguards",
+        "Types",
+        "Development",
+        "*"
+    ],
+    "defaultCategory": "Other",
+    "groupOrder": [
+        "Functions",
+        "Type Aliases",
+        "Classes",
+        "Interfaces",
+        "Variables",
+        "*"
+    ],
+    "sort": [
+        "kind",
+        "alphabetical"
+    ],
+    "kindSortOrder": [
+        "Function",
+        "TypeAlias",
+        "Interface",
+        "Class",
+        "Variable"
+    ],
+    "visibilityFilters": {
+        "protected": false,
+        "private": false,
+        "inherited": true,
+        "external": false
+    },
+    "searchInComments": true,
+    "searchInDocuments": true,
+    "cleanOutputDir": true,
+    "navigation": {
+        "includeCategories": true,
+        "includeGroups": true,
+        "includeFolders": false
+    },
+    "hideGenerator": false,
+    "githubPages": true,
+    "cacheBust": true,
+    "validation": {
+        "notExported": true,
+        "invalidLink": true,
+        "notDocumented": false
+    }
+}

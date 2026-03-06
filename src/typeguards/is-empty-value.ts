@@ -5,6 +5,7 @@
  * - It is an empty array.
  * - It is an empty object (no enumerable properties).
  *
+ * @category Typeguards
  * @param {unknown} value - The value to check.
  * @returns {boolean} `true` if the value is considered empty based on the criteria above, otherwise `false`.
  *

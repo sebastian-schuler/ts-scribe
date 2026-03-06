@@ -50,6 +50,7 @@ bun add ts-scribe
 - `retry`: Retries a promise a specified number of times.
 - `sleep`: Pauses execution for a specified time.
 - `waterfall`: Chains functions that pass results to each other.
+- `memoize`: Caches the results of function calls based on their arguments.
 
 ### List
 

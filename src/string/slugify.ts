@@ -1,8 +1,4 @@
-/**
- * Options for customizing the slugification process.
- * @interface SlugifyOptions
- */
-export type SlugifyOptions = {
+type SlugifyOptions = {
 	/**
 	 * Character to replace spaces and non-alphanumeric characters with.
 	 * @default '-'
@@ -29,14 +25,43 @@ export type SlugifyOptions = {
 };
 
 /**
- * Slugifies an input string, optionally applying customization based on the provided options.
+ * Converts a string into a URL-friendly slug by removing accents, replacing spaces and special characters,
+ * and optionally converting to lowercase. Perfect for generating SEO-friendly URLs, filenames, and identifiers.
+ *
+ * @category String
  * @param {string} input - The input string to slugify.
  * @param {SlugifyOptions} [options={}] - Options to customize the slugification process.
  * @returns {string} The slugified version of the input string.
  *
  * @example
+ * // Basic usage (strict mode by default)
+ * slugifyString("Hello World!")
+ * // Returns "Hello-World"
+ *
+ * @example
+ * // With lowercase and custom replacement
  * slugifyString("Hello World! How are you?", { lowercase: true, replacement: "-" })
  * // Returns "hello-world-how-are-you"
+ *
+ * @example
+ * // Remove accents and special characters
+ * slugifyString("Café Münchën", { lowercase: true })
+ * // Returns "cafe-munchen"
+ *
+ * @example
+ * // Custom replacement character
+ * slugifyString("TypeScript is Great", { replacement: "_", lowercase: true })
+ * // Returns "typescript_is_great"
+ *
+ * @example
+ * // Remove specific characters with custom regex
+ * slugifyString("Product #42 (New!)", { remove: /[#()!]/g, lowercase: true })
+ * // Returns "product-42-new"
+ *
+ * @example
+ * // Non-strict mode (only replaces spaces)
+ * slugifyString("Hello@World.com", { strict: false })
+ * // Returns "Hello@World.com"
  */
 export function slugifyString(input: string, options: SlugifyOptions = {}): string {
 	const { replacement = '-', remove, lowercase = false, strict = true } = options;

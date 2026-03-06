@@ -1,6 +1,7 @@
 /**
  * Determines whether a given value is a string.
  *
+ * @category Typeguards
  * @param {unknown} value - The value to check.
  * @returns {value is string} `true` if the value is of type string, otherwise `false`.
  *

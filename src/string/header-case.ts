@@ -1,6 +1,7 @@
 /**
  * Converts a given string to Header-Case (also known as Title Case with spaces).
  *
+ * @category String
  * @param {string | undefined} str - The input string to convert.
  * @returns {string} The Header-Case version of the input string, or an empty string if input is falsy.
  *

@@ -46,6 +46,7 @@ const intersectionInternal = <T>(deep = false, ...arrays: T[][]): T[] => {
  * This function returns a new array containing the elements that are present
  * in all provided arrays. Strict equality (===) is used to compare elements.
  *
+ * @category Array
  * @param {T[][]} arrays - The arrays to find the intersection of.
  * @returns {T[]} An array containing elements that are present in all arrays.
  *
@@ -62,6 +63,7 @@ export const arrayIntersection = <T>(...arrays: T[][]): T[] => intersectionInter
  * in all provided arrays, where deep equality is used to compare elements.
  * Deep equality comparison ensures that objects are compared by value, not by reference.
  *
+ * @category Array
  * @param {T[][]} arrays - The arrays to find the intersection of.
  * @returns {T[]} An array containing elements that are present in all arrays.
  *

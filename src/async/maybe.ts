@@ -94,6 +94,7 @@ type MaybeNotOk<TypedNext> = MaybeBase<TypedNext> & {
  * Create derivative monads using the `else*`, `map`, and `filter` methods.
  * The `else*` methods are no-ops if `ok` property is true. The `map` and
  * `filter` methods are no-ops if the `ok` property is false.
+ * @category Async
  * @type {Maybe<TypedNext>}
  */
 type Maybe<TypedNext> = MaybeNotOk<TypedNext> | MaybeOk<TypedNext>;
@@ -150,6 +151,7 @@ const createEmpty = (error: NonNullish | undefined | null): MaybeNotOk<never> =>
 
 /**
  * Get a monad for the `init` value.
+ * @category Async
  * @param init - A value, or value factory.
  * @returns {Maybe<TypedValue>} A monad instance.
  */

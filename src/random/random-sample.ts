@@ -1,6 +1,7 @@
 /**
  * Returns a random sample of unique elements from the given array.
  *
+ * @category Random
  * @template T - The type of elements in the input array.
  * @param {T[]} arr - The array to sample from.
  * @param {number} [size=1] - The number of elements to sample. Defaults to 1.

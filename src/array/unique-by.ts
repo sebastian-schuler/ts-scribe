@@ -6,6 +6,7 @@ type KeyExtractor<T, K> = (item: T) => K;
  * The function uses the provided key extractor function to determine uniqueness of each element.
  * If an element's key has been encountered before, it will be excluded from the result.
  *
+ * @category Array
  * @param {T[]} array - The array to filter for unique elements.
  * @param {KeyExtractor<T, K>} keyFunc - A function that extracts the key from each element to determine uniqueness.
  * @returns {T[]} A new array with only the unique elements based on the key.

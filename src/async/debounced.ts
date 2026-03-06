@@ -19,6 +19,7 @@ import { type GenericFunction } from '../types/common-types.js';
  * // This prevents calling the function too frequently during rapid input changes.
  * ```
  *
+ * @category Async
  * @param wait - The number of milliseconds to wait before invoking the function after the last call.
  * @param fn - The function to debounce.
  * @param immediate - If true, the function will be triggered at the beginning of the debounce period.

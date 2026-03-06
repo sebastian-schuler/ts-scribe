@@ -9,6 +9,7 @@ import { isString } from '../typeguards/is-string.js';
  * - If the value is a string, it is converted to lowercase and compared against the values `'true'`, `'1'`, `'false'`, and `'0'`.
  * - If the value is `null` or `undefined`, the provided `defaultValue` is returned or `false` if no `defaultValue` is provided.
  *
+ * @category Core
  * @param {string | boolean | number | null | undefined} value - The value to be parsed as a boolean.
  * @param {boolean} [defaultValue=false] - The default value to return if the input is `null`, `undefined`, or cannot be parsed. Defaults to `false`.
  * @returns {boolean} The parsed boolean value.

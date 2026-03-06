@@ -3,6 +3,7 @@
  * This function cleans nested objects and arrays, ensuring that no properties
  * or elements are left with the value `undefined`.
  *
+ * @category Object
  * @param {T} object - The object or array to prune.
  * @returns {T} The pruned object or array with `undefined` values removed.
  *

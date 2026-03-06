@@ -1,6 +1,7 @@
 /**
  * Determines whether a given value is a valid number or a numeric string that can be converted to a finite number.
  *
+ * @category Typeguards
  * @param {unknown} value - The value to check.
  * @returns {value is number} `true` if the value is a number or a numeric string (e.g., "42", "3.14") that can be parsed into a finite number, otherwise `false`.
  *

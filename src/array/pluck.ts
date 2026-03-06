@@ -4,6 +4,7 @@
  * This function maps over an array of objects and returns a new array containing
  * the values of the specified key from each object.
  *
+ * @category Array
  * @param {T[]} array - The array of objects to pluck values from.
  * @param {K} key - The key whose values are to be extracted.
  * @returns {T[K][]} An array of values for the specified key from each object in the array.

@@ -3,6 +3,7 @@
  *
  * Checks for the existence of `window` and `document` objects to infer a browser context.
  *
+ * @category System
  * @returns {boolean} `true` if running in a browser environment, otherwise `false`.
  *
  * @example

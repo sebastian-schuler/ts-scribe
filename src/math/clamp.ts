@@ -4,6 +4,7 @@
  * If the value is greater than the `max`, it returns the `max`.
  * Otherwise, it returns the value itself.
  *
+ * @category Math
  * @param {number} value - The number to be clamped.
  * @param {number} min - The minimum value in the range.
  * @param {number} max - The maximum value in the range.

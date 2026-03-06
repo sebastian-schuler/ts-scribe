@@ -5,6 +5,7 @@ import { type DeepReadonly } from '../types/common-types.js';
  * This function ensures that not only the object itself is frozen, but all nested objects and arrays are also frozen.
  * It also makes sure that any changes to the object's properties will result in an error (in strict mode).
  *
+ * @category Object
  * @param {T} object - The object to deeply freeze.
  * @returns {DeepReadonly<T>} A deep-frozen version of the object, where all properties are recursively frozen.
  *

@@ -12,6 +12,7 @@
  *
  * ---
  *
+ * @category Async
  * @param {number} ms - The number of milliseconds to pause execution.
  * @returns {Promise<void>} A Promise that resolves after the specified time has passed.
  *

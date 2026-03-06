@@ -3,6 +3,7 @@
  * The function uses the Euclidean algorithm to calculate the GCD of the given set of values.
  * It iteratively reduces the set of values to find the greatest common divisor.
  *
+ * @category Math
  * @param {...number[]} values - A list of numbers to find the GCD of.
  * @returns {number} The greatest common divisor of the provided numbers.
  *

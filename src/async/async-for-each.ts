@@ -21,6 +21,7 @@ import { isDefined } from '../typeguards/is-defined.js';
  *
  * ---
  *
+ * @category Async
  * @param {T[]} array - The array of elements to iterate over.
  * @param {(element: T, index: number, array: T[]) => Promise<void>} callback - The asynchronous callback function
  * that will be executed for each element. It should return a Promise.

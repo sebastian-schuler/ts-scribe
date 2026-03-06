@@ -1,6 +1,7 @@
 /**
  * Generates a random integer between the specified `min` and `max` values, inclusive.
  *
+ * @category Random
  * @param {number} [min=0] - The minimum integer value (inclusive). Defaults to 0.
  * @param {number} [max=Number.MAX_VALUE] - The maximum integer value (inclusive). Defaults to Number.MAX_VALUE.
  * @returns {number} A random integer between `min` and `max` (inclusive). Returns `NaN` if `min` is greater than `max`.

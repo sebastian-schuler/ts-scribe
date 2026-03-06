@@ -7,6 +7,7 @@
  * Checks for the presence of the `process` object and its `versions.node` property,
  * which are specific to the Node.js runtime.
  *
+ * @category System
  * @returns {boolean} `true` if running in a Node.js environment, otherwise `false`.
  *
  * @example

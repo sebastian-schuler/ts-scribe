@@ -1,6 +1,7 @@
 /**
  * Generates a random string of the specified length, with options to include numbers and symbols.
  *
+ * @category Random
  * @param {number} length - The length of the generated string.
  * @param {Object} options - Configuration options for the string generation.
  * @param {boolean} [options.includeNumbers=false] - Whether to include numeric characters (0–9). Defaults to `false`.

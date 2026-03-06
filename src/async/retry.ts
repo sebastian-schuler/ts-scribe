@@ -99,6 +99,7 @@ async function sleep(delay: number): Promise<void> {
  * Retries are based on the provided `options` which can define how many retries,
  * delays between retries, and whether retries should continue based on the error.
  *
+ * @category Async
  * @param handler - The function to retry. It should return a value or a promise that resolves to a value.
  * @param options - The configuration options for retrying.
  * @returns {Promise<TypedValue>} The result of the `handler` after it successfully completes.

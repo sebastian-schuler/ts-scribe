@@ -1,6 +1,7 @@
 /**
  * Converts a given string to camelCase format.
  *
+ * @category String
  * @param {string | undefined} text - The input string to convert.
  * @returns {string} The camelCase version of the input string, or an empty string if input is falsy.
  *

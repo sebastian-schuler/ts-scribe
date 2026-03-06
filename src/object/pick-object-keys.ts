@@ -2,6 +2,7 @@
  * Creates a new object containing only the specified keys from the original object.
  * This function avoids mutating the original object by creating a new object.
  *
+ * @category Object
  * @param {T} object - The object from which keys will be picked.
  * @param {K[]} keys - The array of keys to pick from the object.
  * @returns {Pick<T, K>} A new object containing only the specified keys.

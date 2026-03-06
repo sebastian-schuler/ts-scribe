@@ -1,6 +1,7 @@
 /**
  * Returns a random boolean value based on the given probability.
  *
+ * @category Random
  * @param {number} [probability=0.5] - A number between 0 and 1 representing the probability of returning `true`.
  * @returns {boolean} `true` with the given probability, otherwise `false`.
  *

@@ -1,6 +1,6 @@
 /**
  * Converts a given string to snake_case.
- *
+ * @category String
  * @param {string | undefined} text - The input string to convert.
  * @returns {string} The snake_case version of the input string, or an empty string if input is falsy.
  *

@@ -3,6 +3,7 @@
  * This function recursively flattens the object, including arrays, to produce a key-value map where the keys
  * represent the path to the original value, separated by dots.
  *
+ * @category Object
  * @param object - The object or array to flatten.
  * @param prefix - The prefix to use for nested keys (used recursively).
  * @returns A new object with flattened keys and values.
