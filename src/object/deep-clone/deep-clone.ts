@@ -20,7 +20,7 @@ type Options = {
  * ```
  *
  * @category Object
- * @param {T} obj - The object to deep clone.
+ * @param {T} object - The object to deep clone.
  * @param {Options} [options] - Optional configuration options for the cloning process:
  *   - `circleRefs` (boolean): Whether to preserve circular references in the object. Default is `false`.
  *   - `protoProps` (boolean): Whether to clone prototype properties of the object. Default is `false`.
