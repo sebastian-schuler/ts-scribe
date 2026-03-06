@@ -54,7 +54,7 @@
   "bugs": {
     "url": "https://github.com/sebastian-schuler/ts-scribe/issues"
   },
-  "homepage": "https://github.com/sebastian-schuler/ts-scribe#readme",
+  "homepage": "https://sebastian-schuler.github.io/ts-scribe/",
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "bun-types": "latest",
