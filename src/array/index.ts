@@ -2,6 +2,7 @@ export { arrayChunk } from './chunk.js';
 export { arrayDifference } from './difference.js';
 export { arrayGroupBy } from './group-by.js';
 export { arrayIntersection, arrayIntersectionDeep } from './intersection.js';
+export { partitionArray } from './partition.js';
 export { pluckArray } from './pluck.js';
 export { arrayPowerset } from './powerset.js';
 export { toArray } from './to-array.js';

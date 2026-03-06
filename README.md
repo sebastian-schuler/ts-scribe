@@ -40,6 +40,7 @@ bun add ts-scribe
 - `shuffleArray`: Shuffles an array randomly.
 - `uniqueArrayBy`: Returns an array of unique values based on a specified key.
 - `toArray`: Converts almost anything into an array.
+- `partitionArray`: Partitions an array into two arrays based on a predicate function.
 
 ### Async
 

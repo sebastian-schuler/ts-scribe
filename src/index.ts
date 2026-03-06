@@ -13,6 +13,7 @@ export {
 	uniqueArrayBy,
 	toArray,
 	uniqueArray,
+	partitionArray,
 } from './array/index.js';
 
 // Async
