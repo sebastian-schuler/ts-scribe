@@ -2,7 +2,7 @@
  * Converts a given string to Header-Case (also known as Title Case with spaces).
  *
  * @category String
- * @param {string | undefined} str - The input string to convert.
+ * @param {string | undefined} text - The input string to convert.
  * @returns {string} The Header-Case version of the input string, or an empty string if input is falsy.
  *
  * @example
@@ -11,10 +11,10 @@
  * toHeaderCase('  someInputValue'); // "Some Input Value"
  * toHeaderCase(undefined);          // ""
  */
-export function toHeaderCase(string_: string | undefined): string {
-	if (!string_) return '';
+export function toHeaderCase(text: string | undefined): string {
+	if (!text) return '';
 
-	return String(string_)
+	return String(text)
 		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
 		.replaceAll(/([a-z])([A-Z])/g, (m: string, a: string, b: string) => `${a}_${b.toLowerCase()}`)
 		.replaceAll(/[^A-Za-z\d]+|_+/g, ' ')

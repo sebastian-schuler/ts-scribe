@@ -3,9 +3,9 @@
  *
  * @category Random
  * @param {number} length - The length of the generated string.
- * @param {Object} options - Configuration options for the string generation.
- * @param {boolean} [options.includeNumbers=false] - Whether to include numeric characters (0–9). Defaults to `false`.
- * @param {boolean} [options.includeSymbols=false] - Whether to include symbol characters (e.g., !@#$...). Defaults to `false`.
+ * @param {Object} config - Configuration options for the string generation.
+ * @param {boolean} [config.includeNumbers=false] - Whether to include numeric characters (0–9). Defaults to `false`.
+ * @param {boolean} [config.includeSymbols=false] - Whether to include symbol characters (e.g., !@#$...). Defaults to `false`.
  * @returns {string} A randomly generated string containing uppercase and lowercase letters, and optionally numbers and symbols.
  *
  * @example

@@ -2,7 +2,7 @@
  * Checks if a given value is an empty object (i.e., an object with no properties).
  *
  * @category Typeguards
- * @param {unknown} obj - The value to check.
+ * @param {unknown} object - The value to check.
  * @returns {boolean} `true` if the value is an object and has no properties, otherwise `false`.
  *                    Returns `false` for `null`, `undefined`, or non-object values, as well as arrays.
  *

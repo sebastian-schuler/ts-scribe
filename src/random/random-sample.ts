@@ -3,11 +3,11 @@
  *
  * @category Random
  * @template T - The type of elements in the input array.
- * @param {T[]} arr - The array to sample from.
- * @param {number} [size=1] - The number of elements to sample. Defaults to 1.
- * @returns {T[]} A new array containing `size` randomly selected unique elements from the input array.
- *                If `size` is greater than the length of `arr`, the original array is returned.
- *                If `size` is less than 0, an empty array is returned.
+ * @param array - The array to sample from.
+ * @param size - The number of elements to sample. Defaults to 1.
+ * @returns A new array containing `size` randomly selected unique elements from the input array.
+ *          If `size` is greater than the length of the array, the original array is returned.
+ *          If `size` is less than 0, an empty array is returned.
  *
  * @example
  * randomSample([1, 2, 3, 4, 5], 2); // might return [3, 1]

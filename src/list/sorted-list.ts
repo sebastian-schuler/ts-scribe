@@ -36,9 +36,13 @@ class SortedList<ValueType> {
 	/**
 	 * Constructs a binary sorted list which is initially empty or populated with initial values.
 	 * @param options Options for the list such as comparison function or duplicate allowance.
-	 * @param values Optional initial values to populate the list.
 	 */
 	public constructor(options?: SortedListCompare<ValueType> | SortedListOptions<ValueType>);
+	/**
+	 * Constructs a binary sorted list which is initially populated with the provided values.
+	 * @param values An iterable of initial values to populate the list with.
+	 * @param options Options for the list such as comparison function or duplicate allowance.
+	 */
 	public constructor(
 		values: Iterable<ValueType>,
 		options?: SortedListCompare<ValueType> | SortedListOptions<ValueType>,
