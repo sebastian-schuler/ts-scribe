@@ -70,6 +70,8 @@ bun add ts-scribe
 - `flattenObject`: Flattens an object into dot notation.
 - `pruneObject`: Removes properties with undefined values.
 - `removeObjectKeys`: Removes specified keys from an object.
+- `pickObjectKeys`: Creates a new object by picking specified keys from the original object.
+- `omitObjectKeys`: Creates a new object by omitting specified keys from the original object.
 
 ### Random
 

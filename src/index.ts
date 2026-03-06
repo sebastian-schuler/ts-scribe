@@ -40,6 +40,8 @@ export {
 	flattenObject,
 	pruneObject,
 	removeObjectKeys,
+	pickObjectKeys,
+	omitObjectKeys,
 } from './object/index.js';
 
 // Random
