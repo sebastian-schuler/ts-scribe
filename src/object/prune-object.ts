@@ -1,10 +1,47 @@
 /**
+ * Options for configuring the behaviour of {@link pruneObject}.
+ */
+export type PruneObjectOptions = {
+	/**
+	 * Recursively prune nested objects and arrays.
+	 * @default true
+	 */
+	deep?: boolean;
+	/**
+	 * Remove `undefined` items from arrays.
+	 * When `false`, arrays are returned as-is without any modification.
+	 * @default true
+	 */
+	arrays?: boolean;
+	/**
+	 * Preserve `Date` instances without recursing into them.
+	 * When `false`, `Date` objects are treated as plain objects (and typically become `{}`).
+	 * @default true
+	 */
+	preserveDate?: boolean;
+	/**
+	 * Preserve `RegExp` instances without recursing into them.
+	 * When `false`, `RegExp` objects are treated as plain objects (and typically become `{}`).
+	 * @default true
+	 */
+	preserveRegExp?: boolean;
+};
+
+const defaults: Required<PruneObjectOptions> = {
+	deep: true,
+	arrays: true,
+	preserveDate: true,
+	preserveRegExp: true,
+};
+
+/**
  * Recursively removes `undefined` values from an object or array.
  * This function cleans nested objects and arrays, ensuring that no properties
  * or elements are left with the value `undefined`.
  *
  * @category Object
  * @param {T} object - The object or array to prune.
+ * @param {PruneObjectOptions} [options] - Configuration options.
  * @returns {T} The pruned object or array with `undefined` values removed.
  *
  * @template T - The type of the object to be pruned, which extends an object.
@@ -17,32 +54,42 @@
  * pruneObject([undefined, undefined]); // Returns: []
  *
  * pruneObject({ date: new Date() }); // Returns: { date: DateInstance }
+ *
+ * pruneObject({ a: { b: undefined } }, { deep: false }); // Returns: { a: { b: undefined } }
+ *
+ * pruneObject({ a: [1, undefined] }, { arrays: false }); // Returns: { a: [1, undefined] }
  */
-export const pruneObject = <T>(object: T): T => {
-	return pruneValue(object) as T;
+export const pruneObject = <T>(object: T, options?: PruneObjectOptions): T => {
+	return pruneValue(object, { ...defaults, ...options }) as T;
 };
 
-const pruneValue = (value: unknown): unknown => {
-	// Iterate if object is an array
+const pruneValue = (value: unknown, options: Required<PruneObjectOptions>): unknown => {
 	if (Array.isArray(value)) {
-		return value
-			.map((item) => pruneValue(item))
-			.filter((item): item is Exclude<unknown, undefined> => item !== undefined);
+		if (!options.arrays) return value;
+
+		// Single-pass loop avoids an intermediate mapped array
+		const items: unknown[] = [];
+		for (const item of value as unknown[]) {
+			const pruned = options.deep ? pruneValue(item, options) : item;
+			if (pruned !== undefined) items.push(pruned);
+		}
+
+		return items;
 	}
 
-	// Keep property if not an object
-	if (typeof value !== 'object' || value === null || value instanceof Date) {
-		return value;
-	}
+	// Cheap typeof guard first before instanceof checks
+	if (typeof value !== 'object' || value === null) return value;
+	if (options.preserveDate && value instanceof Date) return value;
+	if (options.preserveRegExp && value instanceof RegExp) return value;
 
-	// Recursively clean object
+	// Object.keys() only iterates own enumerable string-keyed properties,
+	// equivalent to for...in + hasOwn but without the prototype walk
 	const result: Record<string, unknown> = {};
-	for (const key in value) {
-		if (Object.hasOwn(value, key)) {
-			const prunedValue = pruneValue((value as Record<string, unknown>)[key]);
-			if (prunedValue !== undefined) {
-				result[key] = prunedValue;
-			}
+	for (const key of Object.keys(value)) {
+		const child = (value as Record<string, unknown>)[key];
+		const pruned = options.deep ? pruneValue(child, options) : child;
+		if (pruned !== undefined) {
+			result[key] = pruned;
 		}
 	}
 
