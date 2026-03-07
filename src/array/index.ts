@@ -1,4 +1,4 @@
-export { arrayChunk } from './chunk.js';
+export { chunkArray } from './chunk.js';
 export { arrayDifference } from './difference.js';
 export { arrayGroupBy } from './group-by.js';
 export { arrayIntersection, arrayIntersectionDeep } from './intersection.js';

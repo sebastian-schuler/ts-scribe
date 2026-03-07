@@ -2,7 +2,7 @@
 
 // Array
 export {
-	arrayChunk,
+	chunkArray,
 	arrayDifference,
 	arrayGroupBy,
 	arrayIntersection,

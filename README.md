@@ -30,7 +30,7 @@ bun add ts-scribe
 ### Array
 
 - `uniqueArray`: Given an array of primitive values, returns a new array with duplicates removed.
-- `arrayChunk`: Splits an array into chunks of a specified size.
+- `chunkArray`: Splits an array into chunks of a specified size.
 - `arrayDifference`: Returns the difference between two arrays.
 - `arrayGroupBy`: Groups an array of objects by a specified key.
 - `arrayIntersection`: Returns the intersection of two arrays.

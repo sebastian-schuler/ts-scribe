@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'bun:test';
-import { arrayChunk } from '../../src/array/index.js';
+import { chunkArray } from '../../src/array/index.js';
 
-describe('arrayChunk', () => {
+describe('chunkArray', () => {
 	it('should chunk the array into subarrays of specified size', () => {
 		const inputArray = [1, 2, 3, 4, 5];
 		const size = 2;
 		const expectedOutput = [[1, 2], [3, 4], [5]];
 
-		const result = arrayChunk(inputArray, size);
+		const result = chunkArray(inputArray, size);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -16,7 +16,7 @@ describe('arrayChunk', () => {
 		const size = 2;
 		const expectedOutput: number[][] = [];
 
-		const result = arrayChunk(inputArray, size);
+		const result = chunkArray(inputArray, size);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -25,7 +25,7 @@ describe('arrayChunk', () => {
 		const size = 5;
 		const expectedOutput = [[1, 2, 3]];
 
-		const result = arrayChunk(inputArray, size);
+		const result = chunkArray(inputArray, size);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -34,7 +34,7 @@ describe('arrayChunk', () => {
 		const size = 3;
 		const expectedOutput = [[1, 2, 3]];
 
-		const result = arrayChunk(inputArray, size);
+		const result = chunkArray(inputArray, size);
 		expect(result).toEqual(expectedOutput);
 	});
 
@@ -43,7 +43,7 @@ describe('arrayChunk', () => {
 		const size = 1;
 		const expectedOutput = [[1], [2], [3]];
 
-		const result = arrayChunk(inputArray, size);
+		const result = chunkArray(inputArray, size);
 		expect(result).toEqual(expectedOutput);
 	});
 });
