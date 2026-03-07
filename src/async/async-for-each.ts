@@ -7,63 +7,90 @@ import { isDefined } from '../typeguards/is-defined.js';
  *
  * The function waits for all asynchronous operations to complete before resolving.
  *
- * ---
- * Example:
- * ```ts
- * const numbers = [1, 2, 3, 4, 5];
- * const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
- *
- * await asyncForEach(numbers, async (number, index) => {
- *   await delay(1000);
- *   console.log(`Processed ${number} at index ${index}`);
- * }, 2); // Limits to 2 concurrent operations at a time
- * ```
- *
- * ---
- *
  * @category Async
+ * @template T - The type of elements in the input array
+ *
  * @param {T[]} array - The array of elements to iterate over.
  * @param {(element: T, index: number, array: T[]) => Promise<void>} callback - The asynchronous callback function
- * that will be executed for each element. It should return a Promise.
- * @param {number} [limit] - The maximum number of concurrently executing tasks. If not specified, all tasks
- * will be executed concurrently.
+ * that will be executed for each element.
+ * @param {Object} [options] - Optional configuration
+ * @param {number} [options.concurrency=Infinity] - Maximum number of concurrent operations
+ * @param {boolean} [options.continueOnError=false] - Whether to continue iterating when a callback throws
  * @returns {Promise<void>} A Promise that resolves when all elements have been processed.
  *
  * @example
+ * // Basic usage
  * await asyncForEach([1, 2, 3, 4], async (number) => {
  *   await delay(500);
  *   console.log(number);
- * }, 2); // Logs 1, 2, 3, 4 with a maximum of 2 concurrent tasks
+ * });
+ *
+ * @example
+ * // With limited concurrency
+ * const urls = ['url1', 'url2', 'url3', 'url4', 'url5'];
+ * await asyncForEach(urls, fetchAndSave, { concurrency: 2 });
+ * // Only 2 requests will run at a time
+ *
+ * @example
+ * // With error handling
+ * await asyncForEach(ids, processItem, {
+ *   continueOnError: true,
+ * });
+ * // If processItem throws for any id, iteration continues for the remaining items
  */
 export async function asyncForEach<T>(
 	array: T[],
 	callback: (element: T, index: number, array: T[]) => Promise<void>,
-	limit?: number,
+	options: {
+		concurrency?: number;
+		continueOnError?: boolean;
+	} = {},
 ): Promise<void> {
 	if (!isDefined(array)) throw new Error(`Input array must not be null or undefined`);
-	limit ??= array.length;
-	const promises: Array<Promise<void>> = [];
-	const executing: Array<Promise<void>> = [];
 
-	for (let index = 0; index < array.length; index++) {
-		const p = callback(array[index], index, array);
-		promises.push(p);
+	const { concurrency = Infinity, continueOnError = false } = options;
 
-		if (limit <= array.length) {
-			// eslint-disable-next-line promise/prefer-await-to-then
-			const executingPromise = p.then(() => {
-				const idx = executing.indexOf(executingPromise);
-				if (idx !== -1) {
-					void executing.splice(idx, 1);
-				}
-			});
-			executing.push(executingPromise);
-			if (executing.length >= limit) {
-				// eslint-disable-next-line no-await-in-loop
-				await Promise.race(executing);
-			}
-		}
+	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
+		throw new RangeError(`Option 'concurrency' must be a positive integer greater than 0.`);
 	}
 
-	await Promise.all(promises);
+	if (array.length === 0) return;
+
+	if (concurrency === Infinity || concurrency >= array.length) {
+		if (continueOnError) {
+			await Promise.all(
+				array.map(async (element, index, array_) => {
+					try {
+						await callback(element, index, array_);
+					} catch {
+						// Continue on error
+					}
+				}),
+			);
+		} else {
+			await Promise.all(array.map(async (element, index, array_) => callback(element, index, array_)));
+		}
+
+		return;
+	}
+
+	// For limited concurrency, use a worker-queue so slots are filled as soon as one finishes
+	let currentIndex = 0;
+
+	async function processQueue(): Promise<void> {
+		const index = currentIndex++;
+
+		if (index >= array.length) return;
+
+		try {
+			await callback(array[index], index, array);
+		} catch (error) {
+			if (!continueOnError) throw error;
+		}
+
+		return processQueue();
+	}
+
+	const workers = Array.from({ length: Math.min(concurrency, array.length) }, async () => processQueue());
+	await Promise.all(workers);
 }
