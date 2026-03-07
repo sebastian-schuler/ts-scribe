@@ -1,4 +1,4 @@
-import { isDefined } from '../typeguards/is-defined.js';
+import {isDefined} from '../typeguards/is-defined.js';
 
 /**
  * Asynchronously iterates over an array, executing a provided `callback` function for each element.
@@ -46,27 +46,29 @@ export async function asyncForEach<T>(
 		continueOnError?: boolean;
 	} = {},
 ): Promise<void> {
-	if (!isDefined(array)) throw new Error(`Input array must not be null or undefined`);
-
-	const { concurrency = Infinity, continueOnError = false } = options;
-
-	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
-		throw new RangeError(`Option 'concurrency' must be a positive integer greater than 0.`);
+	if (!isDefined(array)) {
+		throw new Error('Input array must not be null or undefined');
 	}
 
-	if (array.length === 0) return;
+	const {concurrency = Infinity, continueOnError = false} = options;
+
+	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
+		throw new RangeError('Option \'concurrency\' must be a positive integer greater than 0.');
+	}
+
+	if (array.length === 0) {
+		return;
+	}
 
 	if (concurrency === Infinity || concurrency >= array.length) {
 		if (continueOnError) {
-			await Promise.all(
-				array.map(async (element, index, array_) => {
-					try {
-						await callback(element, index, array_);
-					} catch {
-						// Continue on error
-					}
-				}),
-			);
+			await Promise.all(array.map(async (element, index, array_) => {
+				try {
+					await callback(element, index, array_);
+				} catch {
+					// Continue on error
+				}
+			}));
 		} else {
 			await Promise.all(array.map(async (element, index, array_) => callback(element, index, array_)));
 		}
@@ -80,17 +82,21 @@ export async function asyncForEach<T>(
 	async function processQueue(): Promise<void> {
 		const index = currentIndex++;
 
-		if (index >= array.length) return;
+		if (index >= array.length) {
+			return;
+		}
 
 		try {
 			await callback(array[index], index, array);
 		} catch (error) {
-			if (!continueOnError) throw error;
+			if (!continueOnError) {
+				throw error;
+			}
 		}
 
 		return processQueue();
 	}
 
-	const workers = Array.from({ length: Math.min(concurrency, array.length) }, async () => processQueue());
+	const workers = Array.from({length: Math.min(concurrency, array.length)}, async () => processQueue());
 	await Promise.all(workers);
 }

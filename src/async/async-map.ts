@@ -46,10 +46,10 @@ export async function asyncMap<T, R, E = undefined>(
 		errorValue?: E;
 	} = {},
 ): Promise<Array<R | E>> {
-	const { concurrency = Infinity, continueOnError = false, errorValue = undefined as E } = options;
+	const {concurrency = Infinity, continueOnError = false, errorValue = undefined as E} = options;
 
 	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
-		throw new RangeError(`Option 'concurrency' must be a positive integer greater than 0.`);
+		throw new RangeError('Option \'concurrency\' must be a positive integer greater than 0.');
 	}
 
 	if (array.length === 0) {
@@ -73,7 +73,7 @@ export async function asyncMap<T, R, E = undefined>(
 	}
 
 	// For limited concurrency, process in batches
-	const results: Array<R | E> = Array.from({ length: array.length });
+	const results: Array<R | E> = Array.from({length: array.length});
 	let currentIndex = 0;
 
 	// Process items in batches based on concurrency limit
@@ -102,7 +102,7 @@ export async function asyncMap<T, R, E = undefined>(
 	}
 
 	// Create initial batch of promises based on concurrency limit
-	const workers = Array.from({ length: Math.min(concurrency, array.length) })
+	const workers = Array.from({length: Math.min(concurrency, array.length)})
 		.fill(null)
 		.map(async () => processQueue());
 
