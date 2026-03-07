@@ -48,8 +48,8 @@ export async function asyncMap<T, R, E = undefined>(
 ): Promise<Array<R | E>> {
 	const { concurrency = Infinity, continueOnError = false, errorValue = undefined as E } = options;
 
-	if (concurrency !== Infinity && (concurrency <= 0 || !Number.isInteger(concurrency))) {
-		throw new RangeError(`Option 'concurrency' needs to be an integer above greater than o.`);
+	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
+		throw new RangeError(`Option 'concurrency' must be a positive integer greater than 0.`);
 	}
 
 	if (array.length === 0) {
