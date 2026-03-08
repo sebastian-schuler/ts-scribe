@@ -6,3 +6,4 @@ export { flattenObject } from './flatten-object.js';
 export { removeObjectKeys } from './remove-keys.js';
 export { pickObjectKeys } from './pick-object-keys.js';
 export { omitObjectKeys } from './omit-object-keys.js';
+export { maskObject, type MaskObjectOptions } from './mask.js';

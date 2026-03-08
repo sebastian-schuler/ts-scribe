@@ -43,7 +43,9 @@ export {
 	removeObjectKeys,
 	pickObjectKeys,
 	omitObjectKeys,
+	maskObject,
 } from './object/index.js';
+export type { PruneObjectOptions, MaskObjectOptions } from './object/index.js';
 
 // Random
 export { randomBool, randomInt, randomSample, randomString } from './random/index.js';

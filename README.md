@@ -75,6 +75,7 @@ bun add ts-scribe
 - `removeObjectKeys`: Removes specified keys from an object.
 - `pickObjectKeys`: Creates a new object by picking specified keys from the original object.
 - `omitObjectKeys`: Creates a new object by omitting specified keys from the original object.
+- `maskObject`: Recursively masks sensitive properties in objects/arrays based on keys or custom predicates. Handles circular references, deep nesting, and special object types (Date, RegExp, Error, etc.).
 
 ### Random
 
