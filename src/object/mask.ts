@@ -2,6 +2,8 @@ import { safeJsonStringify } from '../core/safe-json-stringify.js';
 
 /**
  * Options for masking sensitive properties in objects.
+ *
+ * @category Object
  */
 export type MaskObjectOptions = {
 	/**
@@ -108,33 +110,63 @@ function isSpecialObjectType(value: unknown): boolean {
  * It handles circular references, special object types (Date, RegExp, Error, etc.), and deeply
  * nested structures. Non-sensitive values are preserved as-is.
  *
- * @template T - The type of the object/array
- * @param object - The object or array to mask
- * @param options - Configuration options for masking behavior
- * @returns A new object with masked properties (original if no masking needed)
+ * @category Object
+ * @param object - The object or array to mask.
+ * @param options - Configuration options for masking behavior.
+ * @returns A new object with masked properties (returns original if no masking needed).
+ *
+ * @template T - The type of the object or array being masked.
  *
  * @example
  * // Mask by key list
- * maskObject(
- *   { name: 'John', email: 'john@example.com', ssn: '123-45-6789' },
- *   { keys: ['ssn', 'email'] }
- * )
- * // { name: 'John', email: 'j***@example.com', ssn: '***' }
+ * const user = {
+ *   name: 'John',
+ *   email: 'john@example.com',
+ *   ssn: '123-45-6789'
+ * };
+ * const masked = maskObject(user, { keys: ['ssn', 'email'] });
+ * console.log(masked);
+ * // Output: {
+ * //   name: 'John',
+ * //   email: 'j***@example.com',
+ * //   ssn: '***'
+ * // }
  *
  * @example
  * // Mask with predicate function
- * maskObject(userData, {
+ * const userData = {
+ *   username: 'john_doe',
+ *   password: 'secret123',
+ *   apiToken: 'sk_live_xyz'
+ * };
+ * const masked = maskObject(userData, {
  *   isSensitive: (key, value, path) =>
  *     key.toLowerCase().includes('password') ||
  *     key.toLowerCase().includes('token')
- * })
+ * });
+ * console.log(masked);
+ * // Output: {
+ * //   username: 'john_doe',
+ * //   password: '*****',
+ * //   apiToken: '******'
+ * // }
  *
  * @example
  * // Skip descending into specific objects (e.g., GeoJSON features)
- * maskObject(data, {
+ * const data = {
+ *   apiKey: 'secret123',
+ *   geometry: {
+ *     type: 'Feature',
+ *     coordinates: [10, 20],
+ *     properties: { secret: 'should-not-mask' }
+ *   }
+ * };
+ * const masked = maskObject(data, {
  *   keys: ['apiKey'],
  *   shouldSkip: (value) => value?.type === 'Feature'
- * })
+ * });
+ * console.log(masked);
+ * // Output: apiKey is masked, but geometry object is preserved as-is
  *
  * @example
  * // Mask entire GeoJSON geometries without descending
@@ -142,21 +174,35 @@ function isSpecialObjectType(value: unknown): boolean {
  *   v?.type && v?.coordinates &&
  *   ['Point', 'LineString', 'Polygon'].includes(v.type);
  *
- * maskObject(geoData, {
- *   keys: ['secretData'],
+ * const geoData = {
+ *   name: 'Location',
+ *   geometry: {
+ *     type: 'Point',
+ *     coordinates: [125.6, 10.1]
+ *   }
+ * };
+ * const masked = maskObject(geoData, {
  *   isSensitive: (key, value) => key === 'geometry' && isGeoJSON(value)
- * })
+ * });
+ * console.log(masked);
+ * // Output: { name: 'Location', geometry: '***' }
  *
  * @example
  * // Custom masking function
- * maskObject(data, {
+ * const data = {
+ *   ssn: '123-45-6789',
+ *   email: 'john@example.com'
+ * };
+ * const masked = maskObject(data, {
  *   keys: ['ssn', 'email'],
  *   maskFn: (value, key) => {
  *     if (key === 'ssn') return '***-**-' + String(value).slice(-4);
  *     if (key === 'email') return String(value).replace(/(.{1}).*@/, '$1***@');
  *     return '***';
  *   }
- * })
+ * });
+ * console.log(masked);
+ * // Output: { ssn: '***-**-6789', email: 'j***@example.com' }
  *
  * @remarks
  * **Performance Considerations:**
