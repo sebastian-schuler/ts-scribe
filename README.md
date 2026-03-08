@@ -53,6 +53,7 @@ bun add ts-scribe
 - `sleep`: Pauses execution for a specified time.
 - `waterfall`: Chains functions that pass results to each other.
 - `memoize`: Caches the results of function calls based on their arguments.
+- `semaphore`: Controls access to a resource with a specified concurrency limit.
 
 ### List
 

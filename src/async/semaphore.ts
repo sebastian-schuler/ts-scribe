@@ -4,7 +4,8 @@
  */
 
 /**
- * A lock that can be released. This is used with a semaphore to limit the number of concurrent operations.
+ * A lock returned by {@link Semaphore.acquire}. Call {@link Lock.release} to free the slot
+ * and allow the next waiting operation to proceed.
  */
 class Lock {
 	#released = false;
@@ -12,7 +13,7 @@ class Lock {
 
 	/**
 	 * Creates a new lock instance.
-	 * @param onRelease - A callback to be executed when the lock is released.
+	 * @param onRelease A callback invoked once when the lock is released.
 	 */
 	constructor(onRelease: () => void) {
 		this.#onRelease = onRelease;
@@ -20,8 +21,8 @@ class Lock {
 	}
 
 	/**
-	 * Release the lock. This should only be called once.
-	 * Once released, the lock cannot be released again.
+	 * Releases the lock and allows the next waiting operation to proceed.
+	 * Subsequent calls are no-ops; the lock can only be released once.
 	 */
 	release(): void {
 		if (this.#released) return;
@@ -32,9 +33,15 @@ class Lock {
 }
 
 /**
- * A semaphore is a concurrency control mechanism that limits the number of asynchronous tasks accessing a shared resource simultaneously.
+ * A concurrency control mechanism that limits the number of asynchronous tasks accessing
+ * a shared resource simultaneously.
  *
- * The `acquire()` and `release()` methods manage the state, while `available`, `waiting`, and `size` return the state information.
+ * Use {@link Semaphore.acquire} to obtain a {@link Lock} before starting a task, then call
+ * `lock.release()` when the task finishes to free the slot for the next waiting operation.
+ *
+ * The {@link Semaphore.available} and {@link Semaphore.waiting} getters expose the current
+ * state, and {@link Semaphore.size} returns the configured concurrency limit.
+ *
  * @category Async
  */
 export class Semaphore {
@@ -43,10 +50,10 @@ export class Semaphore {
 	readonly #waiting: Array<() => void> = [];
 
 	/**
-	 * A semaphore that limits the number of concurrent operations.
-	 * @param size The maximum number of concurrent operations.
+	 * Creates a new semaphore with the given concurrency limit.
+	 * @param size The maximum number of operations that may run concurrently. Values less than 1 are treated as 1.
 	 *
-	 * Example:
+	 * @example
 	 * ```ts
 	 * const semaphore = new Semaphore(3);
 	 * const promises: Promise<void>[] = [];
@@ -59,7 +66,7 @@ export class Semaphore {
 	 *
 	 * await Promise.all(promises);
 	 * ```
-	 * The loop runs 10 asynchronous tasks, but only the first 3 will run immediately, and only 3 will ever be running simultaneously.
+	 * The loop runs 10 asynchronous tasks, but only 3 will ever run simultaneously.
 	 */
 	constructor(size: number) {
 		this.#size = Math.max(1, Math.trunc(size));
@@ -68,9 +75,9 @@ export class Semaphore {
 	}
 
 	/**
-	 * Acquire a lock. This will block until a lock is available.
-	 * When a lock is acquired, the caller must release it after completing the operation.
-	 * @returns {Promise<Lock>} A promise that resolves to a `Lock` object.
+	 * Acquires a lock, blocking until one becomes available.
+	 * The caller **must** release the returned lock after the operation completes.
+	 * @returns A promise that resolves to a `Lock` once a slot is available.
 	 */
 	async acquire(): Promise<Lock> {
 		return new Promise((resolve) => {
@@ -90,8 +97,7 @@ export class Semaphore {
 	}
 
 	/**
-	 * Call the next waiting operation if there is an available lock.
-	 * This will shift the first waiting task and grant it a lock if one is available.
+	 * Advances the queue by granting a lock to the next waiting operation, if a slot is available.
 	 */
 	#next(): void {
 		if (this.#available <= 0) return;
@@ -100,24 +106,21 @@ export class Semaphore {
 	}
 
 	/**
-	 * The maximum number of concurrent operations that can be acquired by the semaphore.
-	 * @returns {number} The maximum number of concurrent operations.
+	 * The configured concurrency limit — the maximum number of locks that can be held simultaneously.
 	 */
 	get size(): number {
 		return this.#size;
 	}
 
 	/**
-	 * The number of available operations that can be acquired without blocking.
-	 * @returns {number} The number of available operations.
+	 * The number of slots currently available; operations acquired without blocking.
 	 */
 	get available(): number {
 		return this.#available;
 	}
 
 	/**
-	 * The number of operations currently waiting for a lock.
-	 * @returns {number} The number of operations in the waiting queue.
+	 * The number of operations currently waiting for a slot to become available.
 	 */
 	get waiting(): number {
 		return this.#waiting.length;
