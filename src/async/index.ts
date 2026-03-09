@@ -6,7 +6,7 @@ export { memoize } from './memoize/index.js';
 export type { MemoizeOptions, MemoizedFunction, CacheStats } from './memoize/types.js';
 export { retry } from './retry.js';
 export type { RetryHandler, RetryOptions } from './retry.js';
-export { Semaphore } from './semaphore.js';
+export { Semaphore, SemaphoreLock } from './semaphore.js';
 export { sleep } from './sleep.js';
 export { waterfall } from './waterfall.js';
 export { asyncMap } from './async-map.js';

@@ -73,7 +73,7 @@
     "githubPages": true,
     "cacheBust": true,
     "validation": {
-        "notExported": true,
+        "notExported": false,
         "invalidLink": true,
         "notDocumented": false
     }

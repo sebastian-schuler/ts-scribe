@@ -17,7 +17,18 @@ export {
 } from './array/index.js';
 
 // Async
-export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall, Semaphore, memoize } from './async/index.js';
+export {
+	asyncForEach,
+	asyncMap,
+	debounce,
+	maybe,
+	retry,
+	sleep,
+	waterfall,
+	Semaphore,
+	SemaphoreLock,
+	memoize,
+} from './async/index.js';
 export type { Maybe } from './async/index.js';
 
 // Core

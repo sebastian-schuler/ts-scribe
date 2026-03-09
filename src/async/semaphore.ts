@@ -4,10 +4,10 @@
  */
 
 /**
- * A lock returned by {@link Semaphore.acquire}. Call {@link Lock.release} to free the slot
+ * A lock returned by {@link Semaphore.acquire}. Call {@link SemaphoreLock.release} to free the slot
  * and allow the next waiting operation to proceed.
  */
-class Lock {
+export class SemaphoreLock {
 	#released = false;
 	readonly #onRelease: () => void;
 
@@ -36,7 +36,7 @@ class Lock {
  * A concurrency control mechanism that limits the number of asynchronous tasks accessing
  * a shared resource simultaneously.
  *
- * Use {@link Semaphore.acquire} to obtain a {@link Lock} before starting a task, then call
+ * Use {@link Semaphore.acquire} to obtain a {@link SemaphoreLock} before starting a task, then call
  * `lock.release()` when the task finishes to free the slot for the next waiting operation.
  *
  * The {@link Semaphore.available} and {@link Semaphore.waiting} getters expose the current
@@ -77,15 +77,15 @@ export class Semaphore {
 	/**
 	 * Acquires a lock, blocking until one becomes available.
 	 * The caller **must** release the returned lock after the operation completes.
-	 * @returns A promise that resolves to a `Lock` once a slot is available.
+	 * @returns A promise that resolves to a `SemaphoreLock` once a slot is available.
 	 */
-	async acquire(): Promise<Lock> {
+	async acquire(): Promise<SemaphoreLock> {
 		return new Promise((resolve) => {
 			this.#waiting.push(() => {
 				this.#available -= 1;
 
 				resolve(
-					new Lock(() => {
+					new SemaphoreLock(() => {
 						this.#available += 1;
 						this.#next();
 					}),
