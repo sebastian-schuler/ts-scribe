@@ -70,6 +70,7 @@ export {
 	toPascalCase,
 	slugifyString,
 	toSnakeCase,
+	interpolateString,
 	truncateString,
 } from './string/index.js';
 

@@ -1,4 +1,5 @@
 export { toCamelCase } from './camel-case.js';
+export { interpolateString } from './interpolate.js';
 export { toDotCase } from './dot-case.js';
 export { toHeaderCase } from './header-case.js';
 export { toKebabCase } from './kebab-case.js';
