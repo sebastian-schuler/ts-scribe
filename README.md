@@ -22,6 +22,7 @@ bun add ts-scribe
 ### Core
 
 - `getIn`: Safely retrieves a nested value from an object using a path array, with support for Maps and Arrays.
+- `setIn`: Immutably sets a nested value using a path array, creating missing containers as needed (supports Maps and Arrays).
 - `run`: Helper to run a function or block of code in a cleaner way.
 - `parseBoolean`: Parses various values into a boolean.
 - `parseNumber`: Parses various values into a number.

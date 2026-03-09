@@ -21,8 +21,8 @@ export { asyncForEach, asyncMap, debounce, maybe, retry, sleep, waterfall, Semap
 export type { Maybe } from './async/index.js';
 
 // Core
-export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify, getIn } from './core/index.js';
-export type { DeepGet } from './core/index.js';
+export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify, getIn, setIn } from './core/index.js';
+export type { DeepGet, DeepSet } from './core/index.js';
 
 // Development
 export { benchmark } from './development/index.js';
