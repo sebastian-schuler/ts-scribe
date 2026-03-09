@@ -1,4 +1,6 @@
 export { asyncForEach } from './async-for-each.js';
+export { asyncFilter } from './async-filter.js';
+export { asyncMap } from './async-map.js';
 export { debounce } from './debounced.js';
 export { maybe } from './maybe.js';
 export type { Maybe } from './maybe.js';
@@ -9,4 +11,3 @@ export type { RetryHandler, RetryOptions } from './retry.js';
 export { Semaphore, SemaphoreLock } from './semaphore.js';
 export { sleep } from './sleep.js';
 export { waterfall } from './waterfall.js';
-export { asyncMap } from './async-map.js';

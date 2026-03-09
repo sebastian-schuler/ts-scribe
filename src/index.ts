@@ -19,6 +19,7 @@ export {
 // Async
 export {
 	asyncForEach,
+	asyncFilter,
 	asyncMap,
 	debounce,
 	maybe,
