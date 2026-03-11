@@ -39,7 +39,7 @@ describe('arrayPowerset', () => {
 
 	it('should return an empty array if the input array is empty and ignoreEmpty is set to true', () => {
 		const inputArray: number[] = [];
-		const expectedOutput: number[][] = [[]];
+		const expectedOutput: number[][] = [];
 		const result = arrayPowerset(inputArray);
 
 		expectContainEqual(expectedOutput, result);
@@ -49,6 +49,30 @@ describe('arrayPowerset', () => {
 		const inputArray: number[] = [];
 		const expectedOutput: number[][] = [[]];
 		const result = arrayPowerset(inputArray, false);
+
+		expectContainEqual(expectedOutput, result);
+	});
+
+	it('should return a single subset for a single-element array with ignoreEmpty set to true', () => {
+		const inputArray = [42];
+		const expectedOutput = [[42]];
+		const result = arrayPowerset(inputArray);
+
+		expectContainEqual(expectedOutput, result);
+	});
+
+	it('should return two subsets for a single-element array with ignoreEmpty set to false', () => {
+		const inputArray = [42];
+		const expectedOutput = [[], [42]];
+		const result = arrayPowerset(inputArray, false);
+
+		expectContainEqual(expectedOutput, result);
+	});
+
+	it('should produce duplicate subsets for arrays with duplicate elements', () => {
+		const inputArray = [1, 1];
+		const expectedOutput = [[1], [1], [1, 1]];
+		const result = arrayPowerset(inputArray);
 
 		expectContainEqual(expectedOutput, result);
 	});
