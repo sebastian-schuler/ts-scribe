@@ -72,7 +72,6 @@ export {
 	objectDeepFreeze,
 	flattenObject,
 	pruneObject,
-	removeObjectKeys,
 	pickObjectKeys,
 	omitObjectKeys,
 	maskObject,
