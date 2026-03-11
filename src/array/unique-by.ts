@@ -26,7 +26,7 @@ type KeyExtractor<T, K> = (item: T) => K;
  * // ]
  */
 export function arrayUniqueBy<T, K>(array: T[], keyFunc: KeyExtractor<T, K>): T[] {
-	const uniqueKeys = new Set();
+	const uniqueKeys = new Set<K>();
 	return array.filter((item) => {
 		const key = keyFunc(item);
 		if (!uniqueKeys.has(key)) {
