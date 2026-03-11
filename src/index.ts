@@ -88,7 +88,7 @@ export {
 	toHeaderCase,
 	toKebabCase,
 	toPascalCase,
-	slugifyString,
+	slugify,
 	toSnakeCase,
 	interpolateString,
 	truncateString,

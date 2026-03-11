@@ -35,35 +35,35 @@ type SlugifyOptions = {
  *
  * @example
  * // Basic usage (strict mode by default)
- * slugifyString("Hello World!")
+ * slugify("Hello World!")
  * // Returns "Hello-World"
  *
  * @example
  * // With lowercase and custom replacement
- * slugifyString("Hello World! How are you?", { lowercase: true, replacement: "-" })
+ * slugify("Hello World! How are you?", { lowercase: true, replacement: "-" })
  * // Returns "hello-world-how-are-you"
  *
  * @example
  * // Remove accents and special characters
- * slugifyString("Café Münchën", { lowercase: true })
+ * slugify("Café Münchën", { lowercase: true })
  * // Returns "cafe-munchen"
  *
  * @example
  * // Custom replacement character
- * slugifyString("TypeScript is Great", { replacement: "_", lowercase: true })
+ * slugify("TypeScript is Great", { replacement: "_", lowercase: true })
  * // Returns "typescript_is_great"
  *
  * @example
  * // Remove specific characters with custom regex
- * slugifyString("Product #42 (New!)", { remove: /[#()!]/g, lowercase: true })
+ * slugify("Product #42 (New!)", { remove: /[#()!]/g, lowercase: true })
  * // Returns "product-42-new"
  *
  * @example
  * // Non-strict mode (only replaces spaces)
- * slugifyString("Hello@World.com", { strict: false })
+ * slugify("Hello@World.com", { strict: false })
  * // Returns "Hello@World.com"
  */
-export function slugifyString(input: string, options: SlugifyOptions = {}): string {
+export function slugify(input: string, options: SlugifyOptions = {}): string {
 	const { replacement = '-', remove, lowercase = false, strict = true } = options;
 
 	let slug = input.normalize('NFKD').replaceAll(/[\u0300-\u036F]/g, ''); // Remove accents

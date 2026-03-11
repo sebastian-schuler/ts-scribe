@@ -4,6 +4,6 @@ export { toDotCase } from './dot-case.js';
 export { toHeaderCase } from './header-case.js';
 export { toKebabCase } from './kebab-case.js';
 export { toPascalCase } from './pascal-case.js';
-export { slugifyString } from './slugify.js';
+export { slugify } from './slugify.js';
 export { toSnakeCase } from './snake-case.js';
 export { truncateString } from './truncate.js';

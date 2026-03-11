@@ -94,7 +94,7 @@ bun add ts-scribe
 - `toPascalCase`: Converts a string to PascalCase.
 - `toSnakeCase`: Converts a string to snake_case.
 - `truncateString`: Truncates a string with configurable options.
-- `slugifyString`: Slugifies a string, converting it into a URL-friendly format with customizable options.
+- `slugify`: Slugifies a string, converting it into a URL-friendly format with customizable options.
 
 ### System
 
