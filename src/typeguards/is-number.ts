@@ -14,7 +14,7 @@
  * isNumber('');           // false
  * isNumber(null);         // false
  */
-export const isNumber = (value: unknown): value is number => {
+export const isNumber = (value: unknown): value is number | string => {
 	if (typeof value === 'number' && !Number.isNaN(value) && Number.isFinite(value)) return true;
 	if (typeof value === 'string') {
 		const parsed = Number.parseFloat(value);
