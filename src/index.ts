@@ -37,10 +37,14 @@ export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify, getIn
 export type { DeepGet, DeepSet } from './core/index.js';
 
 // Development
-export { benchmark, traceFunction } from './development/index.js';
+export { benchmark, createPerfTimer, traceFunction } from './development/index.js';
 export type {
 	BenchmarkInfo,
 	BenchmarkOptions,
+	CreatePerfTimerOptions,
+	PerfTimer,
+	PerfTimerLap,
+	PerfTimerResult,
 	TraceCallInfo,
 	TraceOptions,
 	TracedFunction,

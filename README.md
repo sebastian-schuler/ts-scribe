@@ -133,6 +133,7 @@ bun add ts-scribe
 
 - `benchmark`: Wrap around a function to benchmark it's performance without affecting app behavior.
 - `traceFunction`: Wrap around a function to trace its calls, arguments, return values, and execution time without affecting app behavior.
+- `createPerfTimer`: Create a performance timer to measure execution time of code blocks with lap support.
 
 ## Credits
 
