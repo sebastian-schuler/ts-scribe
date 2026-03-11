@@ -15,7 +15,7 @@
  */
 export const randomSample = <T>(array: T[], size = 1): T[] => {
 	if (size < 0) return [];
-	if (size > array.length) return array;
+	if (size > array.length) return [...array];
 	const result = [];
 	const copy = [...array];
 	for (let i = 0; i < size; i++) {
