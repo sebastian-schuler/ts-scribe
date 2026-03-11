@@ -37,7 +37,7 @@ import { type CacheEntry, type CacheStats, type MemoizedFunction, type MemoizeOp
  * console.log(fetchUser.size()); // Get cache size
  * ```
  *
- * @category Async
+ * @category Core
  * @param fn - The function to memoize. Can be synchronous or asynchronous.
  * @param options - Configuration options for memoization behavior.
  * @returns A memoized version of the function with cache management methods.

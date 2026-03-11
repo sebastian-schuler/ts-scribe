@@ -28,7 +28,6 @@ export {
 	waterfall,
 	Semaphore,
 	SemaphoreLock,
-	memoize,
 } from './async/index.js';
 export type { Maybe } from './async/index.js';
 
@@ -42,8 +41,16 @@ export {
 	getIn,
 	setIn,
 	jsonByteSize,
+	memoize,
 } from './core/index.js';
-export type { DeepGet, DeepSet, JsonByteSizeAccuracy } from './core/index.js';
+export type {
+	DeepGet,
+	DeepSet,
+	JsonByteSizeAccuracy,
+	MemoizeOptions,
+	MemoizedFunction,
+	CacheStats,
+} from './core/index.js';
 
 // Development
 export { benchmark, createPerfTimer, traceFunction } from './development/index.js';

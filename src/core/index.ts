@@ -9,3 +9,5 @@ export { parseNumber } from './parse-number.js';
 export { run } from './run.js';
 export { safeJsonParse } from './safe-json-parse.js';
 export { safeJsonStringify } from './safe-json-stringify.js';
+export { memoize } from './memoize/index.js';
+export type { MemoizeOptions, MemoizedFunction, CacheStats } from './memoize/types.js';

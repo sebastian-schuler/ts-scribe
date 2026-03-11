@@ -28,6 +28,7 @@ bun add ts-scribe
 - `parseNumber`: Parses various values into a number.
 - `safeJsonParse`: Safely parses a string without throwing.
 - `safeJsonStringify`: Safely stringifies a JSON object without throwing (handles issues like circular references).
+- `memoize`: Caches the results of function calls based on their arguments.
 
 ### Array
 
@@ -53,7 +54,6 @@ bun add ts-scribe
 - `retry`: Retries a promise a specified number of times.
 - `sleep`: Pauses execution for a specified time.
 - `waterfall`: Chains functions that pass results to each other.
-- `memoize`: Caches the results of function calls based on their arguments.
 - `semaphore`: Controls access to a resource with a specified concurrency limit.
 
 ### List
