@@ -115,13 +115,12 @@ export function memoize<Args extends unknown[], ReturnType>(
 	}
 
 	/**
-	 * Update LRU order by moving accessed key to the end.
-	 * Only updates when cache is at capacity for performance.
+	 * Approximate LRU: re-insert the accessed entry so it sits at the Map tail
+	 * (most-recently-used position). Skipped when the cache is below 90 % of
+	 * maxSize to avoid the overhead of a delete+set on every hit.
 	 */
 	function updateLru(key: string, entry: CacheEntry<ReturnType>): void {
-		// Only maintain LRU order when at or near capacity
 		if (maxSize && cache.size >= maxSize * 0.9) {
-			// Re-insert to move to end (most recently used)
 			cache.delete(key);
 			cache.set(key, entry);
 		}

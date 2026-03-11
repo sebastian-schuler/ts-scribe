@@ -98,7 +98,7 @@ export {
 	slugify,
 	toSnakeCase,
 	interpolateString,
-	truncateString,
+	truncate,
 } from './string/index.js';
 
 // System

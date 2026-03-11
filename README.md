@@ -93,7 +93,7 @@ bun add ts-scribe
 - `toKebabCase`: Converts a string to kebab-case.
 - `toPascalCase`: Converts a string to PascalCase.
 - `toSnakeCase`: Converts a string to snake_case.
-- `truncateString`: Truncates a string with configurable options.
+- `truncate`: Truncates a string with configurable options.
 - `slugify`: Slugifies a string, converting it into a URL-friendly format with customizable options.
 
 ### System

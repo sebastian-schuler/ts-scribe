@@ -11,8 +11,18 @@ export type MemoizeOptions<Args extends unknown[]> = {
 	keyResolver?: (...args: Args) => string;
 
 	/**
-	 * Maximum number of cache entries. When exceeded, the least recently used (LRU) entry is removed.
+	 * Maximum number of cache entries. When exceeded, the oldest entry is removed.
 	 * If not provided, cache size is unlimited.
+	 *
+	 * @remarks
+	 * Eviction uses an **approximate LRU** strategy for performance. Access order is only
+	 * updated when the cache is at or above 90 % of `maxSize`. Below that threshold, entries
+	 * are evicted in insertion order (FIFO), not true least-recently-used order. This is a
+	 * deliberate trade-off: avoid paying the cost of a Map re-insert on every cache hit when
+	 * the cache still has plenty of headroom.
+	 *
+	 * If your workload has a small working set relative to `maxSize` and strict LRU ordering
+	 * matters, set `maxSize` closer to the number of distinct argument combinations you expect.
 	 */
 	maxSize?: number;
 

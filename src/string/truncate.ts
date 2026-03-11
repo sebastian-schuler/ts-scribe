@@ -15,13 +15,13 @@
  * @throws {Error} If `maxLength` is less than or equal to the length of the ellipsis.
  *
  * @example
- * truncateString('This is a long string that should be truncated', 20); // "This is a long str..."
- * truncateString('This is a long string that should be truncated', 20, { preserveWords: true }); // "This is a long..."
- * truncateString('Supercalifragilistic', 10, { preserveWords: true }); // "Supercali..." (no space — hard truncation)
- * truncateString('Short text', 20); // "Short text"
- * truncateString('Short text', 6); // "Sho..."
+ * truncate('This is a long string that should be truncated', 20); // "This is a long str..."
+ * truncate('This is a long string that should be truncated', 20, { preserveWords: true }); // "This is a long..."
+ * truncate('Supercalifragilistic', 10, { preserveWords: true }); // "Supercali..." (no space — hard truncation)
+ * truncate('Short text', 20); // "Short text"
+ * truncate('Short text', 6); // "Sho..."
  */
-export function truncateString(
+export function truncate(
 	text: string,
 	maxLength: number,
 	options?: { ellipsis?: string; preserveWords?: boolean },
