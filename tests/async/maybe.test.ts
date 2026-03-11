@@ -272,7 +272,6 @@ describe('maybe', () => {
 		const empty3 = maybe(undefined);
 		const empty4 = maybe.empty();
 
-		// @ts-expect-error - accessing private symbol
 		expect(empty1).toBe(empty2);
 		expect(empty2).toBe(empty3);
 		expect(empty3).toBe(empty4);

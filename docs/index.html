@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>TS-Scribe - v0.6.3</title><meta name="description" content="Documentation for TS-Scribe"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css?cache=1773229187759"/><link rel="stylesheet" href="assets/highlight.css?cache=1773229187759"/><script defer src="assets/main.js?cache=1773229187759"></script><script async src="assets/icons.js?cache=1773229187759" id="tsd-icons-script"></script><script async src="assets/search.js?cache=1773229187759" id="tsd-search-script"></script><script async src="assets/navigation.js?cache=1773229187759" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">TS-Scribe - v0.6.3</a><div id="tsd-toolbar-links"><a href="https://github.com/sebastian-schuler/ts-scribe">GitHub</a><a href="https://www.npmjs.com/package/ts-scribe">npm</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>TS-Scribe - v0.6.3</h1></div><div class="tsd-panel tsd-typography"><h1 id="ts-scribe" class="tsd-anchor-link">TS-Scribe<a href="#ts-scribe" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>TS-Scribe - v0.6.3</title><meta name="description" content="Documentation for TS-Scribe"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css?cache=1773267807482"/><link rel="stylesheet" href="assets/highlight.css?cache=1773267807482"/><script defer src="assets/main.js?cache=1773267807482"></script><script async src="assets/icons.js?cache=1773267807482" id="tsd-icons-script"></script><script async src="assets/search.js?cache=1773267807482" id="tsd-search-script"></script><script async src="assets/navigation.js?cache=1773267807482" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">TS-Scribe - v0.6.3</a><div id="tsd-toolbar-links"><a href="https://github.com/sebastian-schuler/ts-scribe">GitHub</a><a href="https://www.npmjs.com/package/ts-scribe">npm</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>TS-Scribe - v0.6.3</h1></div><div class="tsd-panel tsd-typography"><h1 id="ts-scribe" class="tsd-anchor-link">TS-Scribe<a href="#ts-scribe" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
 <p><a href="https://www.npmjs.com/package/ts-scribe"><img src="https://img.shields.io/npm/v/ts-scribe" alt="npm"></a>
 <a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/install/235263" title="Install size for ts-scribe"></a>
 <a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/bundle/47710" title="Bundle size for ts-scribe"></a>
@@ -21,21 +21,22 @@
 <li><code>parseNumber</code>: Parses various values into a number.</li>
 <li><code>safeJsonParse</code>: Safely parses a string without throwing.</li>
 <li><code>safeJsonStringify</code>: Safely stringifies a JSON object without throwing (handles issues like circular references).</li>
+<li><code>memoize</code>: Caches the results of function calls based on their arguments.</li>
 </ul>
 <h3 id="array" class="tsd-anchor-link">Array<a href="#array" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
-<li><code>uniqueArray</code>: Given an array of primitive values, returns a new array with duplicates removed.</li>
-<li><code>chunkArray</code>: Splits an array into chunks of a specified size.</li>
+<li><code>arrayUnique</code>: Given an array of primitive values, returns a new array with duplicates removed.</li>
+<li><code>arrayChunk</code>: Splits an array into chunks of a specified size.</li>
 <li><code>arrayDifference</code>: Returns the difference between two arrays.</li>
 <li><code>arrayGroupBy</code>: Groups an array of objects by a specified key.</li>
 <li><code>arrayIntersection</code>: Returns the intersection of two arrays.</li>
 <li><code>arrayIntersectionDeep</code>: Deep intersection between arrays of objects or values.</li>
-<li><code>pluckArray</code>: Extracts a list of property values from an array of objects.</li>
+<li><code>arrayPluck</code>: Extracts a list of property values from an array of objects.</li>
 <li><code>arrayPowerset</code>: Returns the powerset of an array.</li>
-<li><code>shuffleArray</code>: Shuffles an array randomly.</li>
-<li><code>uniqueArrayBy</code>: Returns an array of unique values based on a specified key.</li>
+<li><code>arrayShuffle</code>: Shuffles an array randomly.</li>
+<li><code>arrayUniqueBy</code>: Returns an array of unique values based on a specified key.</li>
 <li><code>toArray</code>: Converts almost anything into an array.</li>
-<li><code>partitionArray</code>: Partitions an array into two arrays based on a predicate function.</li>
+<li><code>arrayPartition</code>: Partitions an array into two arrays based on a predicate function.</li>
 </ul>
 <h3 id="async" class="tsd-anchor-link">Async<a href="#async" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
@@ -46,7 +47,6 @@
 <li><code>retry</code>: Retries a promise a specified number of times.</li>
 <li><code>sleep</code>: Pauses execution for a specified time.</li>
 <li><code>waterfall</code>: Chains functions that pass results to each other.</li>
-<li><code>memoize</code>: Caches the results of function calls based on their arguments.</li>
 <li><code>semaphore</code>: Controls access to a resource with a specified concurrency limit.</li>
 </ul>
 <h3 id="list" class="tsd-anchor-link">List<a href="#list" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
@@ -65,12 +65,11 @@
 <li><code>objectDeepClone</code>: Deeply clones an object.</li>
 <li><code>objectDeepEquals</code>: Deeply compares two objects or arrays.</li>
 <li><code>objectDeepFreeze</code>: Deep freezes an object recursively.</li>
-<li><code>flattenObject</code>: Flattens an object into dot notation.</li>
-<li><code>pruneObject</code>: Removes properties with undefined values.</li>
-<li><code>removeObjectKeys</code>: Removes specified keys from an object.</li>
-<li><code>pickObjectKeys</code>: Creates a new object by picking specified keys from the original object.</li>
-<li><code>omitObjectKeys</code>: Creates a new object by omitting specified keys from the original object.</li>
-<li><code>maskObject</code>: Recursively masks sensitive properties in objects/arrays based on keys or custom predicates. Handles circular references, deep nesting, and special object types (Date, RegExp, Error, etc.).</li>
+<li><code>objectFlatten</code>: Flattens an object into dot notation.</li>
+<li><code>objectPrune</code>: Removes properties with undefined values.</li>
+<li><code>objectPickKeys</code>: Creates a new object by picking specified keys from the original object.</li>
+<li><code>objectOmitKeys</code>: Creates a new object by omitting specified keys from the original object.</li>
+<li><code>objectMask</code>: Recursively masks sensitive properties in objects/arrays based on keys or custom predicates. Handles circular references, deep nesting, and special object types (Date, RegExp, Error, etc.).</li>
 </ul>
 <h3 id="random" class="tsd-anchor-link">Random<a href="#random" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
@@ -87,8 +86,8 @@
 <li><code>toKebabCase</code>: Converts a string to kebab-case.</li>
 <li><code>toPascalCase</code>: Converts a string to PascalCase.</li>
 <li><code>toSnakeCase</code>: Converts a string to snake_case.</li>
-<li><code>truncateString</code>: Truncates a string with configurable options.</li>
-<li><code>slugifyString</code>: Slugifies a string, converting it into a URL-friendly format with customizable options.</li>
+<li><code>truncate</code>: Truncates a string with configurable options.</li>
+<li><code>slugify</code>: Slugifies a string, converting it into a URL-friendly format with customizable options.</li>
 </ul>
 <h3 id="system" class="tsd-anchor-link">System<a href="#system" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>

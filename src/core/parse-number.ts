@@ -6,7 +6,7 @@
  * @category Core
  * @param value - The value to be parsed into a number.
  * @param defaultValue - The default value to return if the value cannot be parsed.
- * @param type= - The type of number to return, either 'int' or 'float'. Defaults to 'float'.
+ * @param type - The type of number to return, either 'int' or 'float'. Defaults to 'float'.
  * @param throwInvalid - Whether to throw an error if parsing fails. If `true`, an error is thrown when invalid input is provided.
  * @returns The parsed number, or the default value if parsing fails.
  *
