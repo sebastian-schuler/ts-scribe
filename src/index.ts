@@ -37,8 +37,14 @@ export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify, getIn
 export type { DeepGet, DeepSet } from './core/index.js';
 
 // Development
-export { benchmark } from './development/index.js';
-export type { BenchmarkInfo, BenchmarkOptions } from './development/index.js';
+export { benchmark, traceFunction } from './development/index.js';
+export type {
+	BenchmarkInfo,
+	BenchmarkOptions,
+	TraceCallInfo,
+	TraceOptions,
+	TracedFunction,
+} from './development/index.js';
 
 // List
 export { SortedList, WeightedList } from './list/index.js';

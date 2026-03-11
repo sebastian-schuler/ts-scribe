@@ -132,6 +132,7 @@ bun add ts-scribe
 ### Development
 
 - `benchmark`: Wrap around a function to benchmark it's performance without affecting app behavior.
+- `traceFunction`: Wrap around a function to trace its calls, arguments, return values, and execution time without affecting app behavior.
 
 ## Credits
 
