@@ -7,7 +7,7 @@
  * @param {string} text - The JSON string to parse.
  * @param {T} fallback - The fallback value to return if parsing fails.
  * @param {Object} [options] - Optional settings to customize parsing behavior.
- * @param {(error: unknown) => void} [options.callback] - Optional callback invoked when parsing fails. Receives the error object.
+ * @param {(error: unknown) => void} [options.onError] - Optional callback invoked when parsing fails. Receives the error object.
  * @param {(this: any, key: string, value: any) => any} [options.reviver] - Optional `reviver` function passed to `JSON.parse`.
  * @param {boolean} [options.logError=false] - If true, logs the error and input string to the console.
  *
@@ -16,7 +16,7 @@
  * @example
  * const jsonString = '{ "age": 30 }';
  * const result = safeJsonParse(jsonString, {}, {
- *   callback: (err) => console.warn("Parse failed:", err),
+ *   onError: (err) => console.warn("Parse failed:", err),
  *   logError: true,
  * });
  * // result => { age: 30 }
@@ -30,13 +30,12 @@ export function safeJsonParse<T>(
 	text: string,
 	fallback: T,
 	options?: {
-		callback?: (error: unknown) => void;
-
+		onError?: (error: unknown) => void;
 		reviver?: (this: any, key: string, value: any) => any;
 		logError?: boolean;
 	},
 ): T {
-	const { callback, reviver, logError } = options ?? {};
+	const { onError, reviver, logError } = options ?? {};
 
 	try {
 		return JSON.parse(text, reviver) as T;
@@ -45,8 +44,8 @@ export function safeJsonParse<T>(
 			console.error('Failed to parse JSON:', error, 'Input string:', text);
 		}
 
-		if (callback) {
-			callback(error);
+		if (onError) {
+			onError(error);
 		}
 
 		return fallback;
