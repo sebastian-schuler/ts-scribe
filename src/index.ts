@@ -33,8 +33,17 @@ export {
 export type { Maybe } from './async/index.js';
 
 // Core
-export { parseBoolean, parseNumber, run, safeJsonParse, safeJsonStringify, getIn, setIn } from './core/index.js';
-export type { DeepGet, DeepSet } from './core/index.js';
+export {
+	parseBoolean,
+	parseNumber,
+	run,
+	safeJsonParse,
+	safeJsonStringify,
+	getIn,
+	setIn,
+	jsonByteSize,
+} from './core/index.js';
+export type { DeepGet, DeepSet, JsonByteSizeAccuracy } from './core/index.js';
 
 // Development
 export { benchmark, createPerfTimer, traceFunction } from './development/index.js';

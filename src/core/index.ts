@@ -2,6 +2,8 @@ export { getIn } from './get-in.js';
 export type { DeepGet } from './get-in.js';
 export { setIn } from './set-in.js';
 export type { DeepSet } from './set-in.js';
+export { jsonByteSize } from './json-byte-size.js';
+export type { JsonByteSizeAccuracy } from './json-byte-size.js';
 export { parseBoolean } from './parse-boolean.js';
 export { parseNumber } from './parse-number.js';
 export { run } from './run.js';
