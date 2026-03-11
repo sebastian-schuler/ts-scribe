@@ -167,7 +167,8 @@ export function createPerfTimer(options: CreatePerfTimerOptions = {}): PerfTimer
 			}
 
 			if (log) {
-				console.log(`${prefix} | stop | total: ${totalMs.toFixed(2)}ms | ${laps.length} laps`);
+				const lapWord = laps.length === 1 ? 'lap' : 'laps';
+				console.log(`${prefix} | stop | total: ${totalMs.toFixed(2)}ms | ${laps.length} ${lapWord}`);
 			}
 
 			return result;

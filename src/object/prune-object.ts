@@ -1,5 +1,7 @@
 /**
  * Options for configuring the behaviour of {@link pruneObject}.
+ *
+ * @category Object
  */
 export type PruneObjectOptions = {
 	/**

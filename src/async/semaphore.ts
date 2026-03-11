@@ -6,6 +6,8 @@
 /**
  * A lock returned by {@link Semaphore.acquire}. Call {@link SemaphoreLock.release} to free the slot
  * and allow the next waiting operation to proceed.
+ *
+ * @category Async
  */
 export class SemaphoreLock {
 	#released = false;

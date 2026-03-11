@@ -178,7 +178,7 @@ describe('createPerfTimer', () => {
 		spy.mockRestore();
 	});
 
-	it('log:true stop message should include the number of laps', () => {
+	it('log:true stop message should include the number of laps (plural)', () => {
 		const spy = spyOn(console, 'log').mockImplementation(() => {});
 		const timer = createPerfTimer({ log: true });
 		timer.lap('a');
@@ -186,6 +186,17 @@ describe('createPerfTimer', () => {
 		timer.stop();
 		const stopMessage = spy.mock.calls[2]?.[0] as string;
 		expect(stopMessage).toContain('2 laps');
+		spy.mockRestore();
+	});
+
+	it('log:true stop message should use singular "lap" when there is exactly 1 lap', () => {
+		const spy = spyOn(console, 'log').mockImplementation(() => {});
+		const timer = createPerfTimer({ log: true });
+		timer.lap('only');
+		timer.stop();
+		const stopMessage = spy.mock.calls[1]?.[0] as string;
+		expect(stopMessage).toContain('1 lap');
+		expect(stopMessage).not.toContain('1 laps');
 		spy.mockRestore();
 	});
 
