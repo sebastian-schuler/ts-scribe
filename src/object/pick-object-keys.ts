@@ -12,14 +12,14 @@
  *
  * @example
  * const original = { a: 1, b: 2, c: 3 };
- * const result = pickObjectKeys(original, ['a', 'c']);
+ * const result = objectPickKeys(original, ['a', 'c']);
  * console.log(result); // { a: 1, c: 3 }
  *
  * const user = { name: 'Alice', age: 25, country: 'USA' };
- * const pickedData = pickObjectKeys(user, ['name', 'age']);
+ * const pickedData = objectPickKeys(user, ['name', 'age']);
  * console.log(pickedData); // { name: 'Alice', age: 25 }
  */
-export function pickObjectKeys<T extends object, K extends keyof T>(object: T, keys: K[]): Pick<T, K> {
+export function objectPickKeys<T extends object, K extends keyof T>(object: T, keys: K[]): Pick<T, K> {
 	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	const result: Pick<T, K> = {} as Pick<T, K>;
 

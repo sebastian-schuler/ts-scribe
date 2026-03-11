@@ -124,7 +124,7 @@ function isSpecialObjectType(value: unknown): boolean {
  *   email: 'john@example.com',
  *   ssn: '123-45-6789'
  * };
- * const masked = maskObject(user, { keys: ['ssn', 'email'] });
+ * const masked = objectMask(user, { keys: ['ssn', 'email'] });
  * console.log(masked);
  * // Output: {
  * //   name: 'John',
@@ -139,7 +139,7 @@ function isSpecialObjectType(value: unknown): boolean {
  *   password: 'secret123',
  *   apiToken: 'sk_live_xyz'
  * };
- * const masked = maskObject(userData, {
+ * const masked = objectMask(userData, {
  *   isSensitive: (key, value, path) =>
  *     key.toLowerCase().includes('password') ||
  *     key.toLowerCase().includes('token')
@@ -161,7 +161,7 @@ function isSpecialObjectType(value: unknown): boolean {
  *     properties: { secret: 'should-not-mask' }
  *   }
  * };
- * const masked = maskObject(data, {
+ * const masked = objectMask(data, {
  *   keys: ['apiKey'],
  *   shouldSkip: (value) => value?.type === 'Feature'
  * });
@@ -181,7 +181,7 @@ function isSpecialObjectType(value: unknown): boolean {
  *     coordinates: [125.6, 10.1]
  *   }
  * };
- * const masked = maskObject(geoData, {
+ * const masked = objectMask(geoData, {
  *   isSensitive: (key, value) => key === 'geometry' && isGeoJSON(value)
  * });
  * console.log(masked);
@@ -193,7 +193,7 @@ function isSpecialObjectType(value: unknown): boolean {
  *   ssn: '123-45-6789',
  *   email: 'john@example.com'
  * };
- * const masked = maskObject(data, {
+ * const masked = objectMask(data, {
  *   keys: ['ssn', 'email'],
  *   maskFn: (value, key) => {
  *     if (key === 'ssn') return '***-**-' + String(value).slice(-4);
@@ -220,11 +220,11 @@ function isSpecialObjectType(value: unknown): boolean {
  * - Default maxDepth is 100 to prevent stack overflow on deeply nested objects
  * - Beyond maxDepth, objects are returned unchanged without further processing
  */
-export function maskObject<T extends Record<string, any> | any[]>(
+export function objectMask<T extends Record<string, any> | any[]>(
 	object: T,
 	options?: MaskObjectOptions,
 ): T extends readonly any[] ? readonly any[] : T;
-export function maskObject(object: any, options: MaskObjectOptions = {}): any {
+export function objectMask(object: any, options: MaskObjectOptions = {}): any {
 	const { keys = [], isSensitive, shouldSkip, maskFn, char = '*', maxDepth = 100, maskArrays = true } = options;
 
 	// Track visited objects to handle circular references

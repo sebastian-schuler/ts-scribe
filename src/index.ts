@@ -2,18 +2,18 @@
 
 // Array
 export {
-	chunkArray,
+	arrayChunk,
 	arrayDifference,
 	arrayGroupBy,
 	arrayIntersection,
 	arrayIntersectionDeep,
-	pluckArray,
+	arrayPluck,
 	arrayPowerset,
-	shuffleArray,
-	uniqueArrayBy,
+	arrayShuffle,
+	arrayUniqueBy,
 	toArray,
-	uniqueArray,
-	partitionArray,
+	arrayUnique,
+	arrayPartition,
 } from './array/index.js';
 
 // Async
@@ -70,11 +70,11 @@ export {
 	objectDeepClone,
 	objectDeepEquals,
 	objectDeepFreeze,
-	flattenObject,
-	pruneObject,
-	pickObjectKeys,
-	omitObjectKeys,
-	maskObject,
+	objectFlatten,
+	objectPrune,
+	objectPickKeys,
+	objectOmitKeys,
+	objectMask,
 } from './object/index.js';
 export type { PruneObjectOptions, MaskObjectOptions } from './object/index.js';
 

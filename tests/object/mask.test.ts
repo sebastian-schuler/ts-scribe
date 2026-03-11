@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
-import { maskObject, type MaskObjectOptions } from '../../src/object/index.js';
+import { objectMask, type MaskObjectOptions } from '../../src/object/index.js';
 
-describe('maskObject', () => {
+describe('objectMask', () => {
   it('should mask properties by key list', () => {
     const obj = {
       name: 'John Doe',
@@ -9,7 +9,7 @@ describe('maskObject', () => {
       ssn: '123-45-6789',
     };
 
-    const result = maskObject(obj, { keys: ['ssn', 'email'] });
+    const result = objectMask(obj, { keys: ['ssn', 'email'] });
 
     expect(result.name).toBe('John Doe');
     expect(result.ssn).not.toBe('123-45-6789');
@@ -24,7 +24,7 @@ describe('maskObject', () => {
       token: 'abc123def456',
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       isSensitive: (key) =>
         key.toLowerCase().includes('password') || 
         key.toLowerCase().includes('key') || 
@@ -49,7 +49,7 @@ describe('maskObject', () => {
       },
     };
 
-    const result = maskObject(obj, { keys: ['email', 'card', 'cvv'] });
+    const result = objectMask(obj, { keys: ['email', 'card', 'cvv'] });
 
     expect(result.user.name).toBe('John');
     expect(result.user.email).not.toBe('john@example.com');
@@ -63,7 +63,7 @@ describe('maskObject', () => {
       { id: 2, email: 'user2@example.com', password: 'pass2' },
     ];
 
-    const result = maskObject(obj, { keys: ['email', 'password'] });
+    const result = objectMask(obj, { keys: ['email', 'password'] });
 
     expect(result).toHaveLength(2);
     expect(result[0].id).toBe(1);
@@ -82,7 +82,7 @@ describe('maskObject', () => {
       ],
     };
 
-    const result = maskObject(obj, { keys: ['ssn'] });
+    const result = objectMask(obj, { keys: ['ssn'] });
 
     expect(result.users[0].name).toBe('Alice');
     expect(result.users[0].ssn).not.toBe('111-11-1111');
@@ -96,7 +96,7 @@ describe('maskObject', () => {
       ssn: '123-45-6789',
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['email', 'ssn'],
       maskFn: (value, key) => {
         if (key === 'ssn') return `***-**-${String(value).slice(-4)}`;
@@ -119,7 +119,7 @@ describe('maskObject', () => {
       },
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['email', 'secret'],
       shouldSkip: (value, path) => {
         return typeof value === 'object' && value !== null && 'type' in value && value.type === 'Feature';
@@ -134,7 +134,7 @@ describe('maskObject', () => {
     const obj: any = { name: 'John', email: 'john@example.com' };
     obj.self = obj;
 
-    const result = maskObject(obj, { keys: ['email'] });
+    const result = objectMask(obj, { keys: ['email'] });
 
     expect(result.name).toBe('John');
     expect(result.email).not.toBe('john@example.com');
@@ -152,7 +152,7 @@ describe('maskObject', () => {
       },
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['secret'],
       maxDepth: 2,
     });
@@ -164,8 +164,8 @@ describe('maskObject', () => {
   it('should use custom char for masking', () => {
     const obj = { password: 'secretpass' };
 
-    const resultAsterisk = maskObject(obj, { keys: ['password'], char: '*' });
-    const resultHash = maskObject(obj, { keys: ['password'], char: '#' });
+    const resultAsterisk = objectMask(obj, { keys: ['password'], char: '*' });
+    const resultHash = objectMask(obj, { keys: ['password'], char: '#' });
 
     expect(resultAsterisk.password).toContain('*');
     expect(resultHash.password).toContain('#');
@@ -180,7 +180,7 @@ describe('maskObject', () => {
       falseField: false,
     };
 
-    const result = maskObject(obj, { keys: ['email'] });
+    const result = objectMask(obj, { keys: ['email'] });
 
     expect(result.email).not.toBe('john@example.com');
     expect(result.nullField).toBe(null);
@@ -195,7 +195,7 @@ describe('maskObject', () => {
       email: 'john@example.com',
     };
 
-    const result = maskObject(original, { keys: ['email'] });
+    const result = objectMask(original, { keys: ['email'] });
 
     expect(original.email).toBe('john@example.com');
     expect(result.email).not.toBe('john@example.com');
@@ -213,7 +213,7 @@ describe('maskObject', () => {
       ],
     };
 
-    const result = maskObject(obj, { keys: ['email'] });
+    const result = objectMask(obj, { keys: ['email'] });
 
     // @ts-expect-error - TypeScript will complain about mixed types, but we want to ensure it works at runtime
     expect(result.items[0].email).not.toBe('user1@example.com');
@@ -235,7 +235,7 @@ describe('maskObject', () => {
       tags: ['admin', 'user'],
     };
 
-    const result = maskObject(obj, { keys: ['email', 'phone'] });
+    const result = objectMask(obj, { keys: ['email', 'phone'] });
 
     expect(result.name).toBe('John');
     expect(result.age).toBe(30);
@@ -251,7 +251,7 @@ describe('maskObject', () => {
       name: 'John',
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['email'],
       isSensitive: (key) => key === 'password',
     });
@@ -273,7 +273,7 @@ describe('maskObject', () => {
       },
     };
 
-    maskObject(obj, {
+    objectMask(obj, {
       isSensitive: (key, value, path, depth) => {
         if (key === 'secret') {
           depths.push(depth);
@@ -293,7 +293,7 @@ describe('maskObject', () => {
       items: ['secret1', 'secret2', 'secret3'],
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['items'],
       maskArrays: false,
     });
@@ -319,7 +319,7 @@ describe('maskObject', () => {
       ],
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['apiKey'],
       shouldSkip: (value) => {
         return typeof value === 'object' && value !== null && 'type' in value && 'coordinates' in value;
@@ -339,7 +339,7 @@ describe('maskObject', () => {
       },
     };
 
-    const result = maskObject(obj, { keys: ['secret'] });
+    const result = objectMask(obj, { keys: ['secret'] });
 
     expect(result.empty).toEqual({});
     expect(result.emptyArray).toEqual([]);
@@ -383,7 +383,7 @@ describe('maskObject', () => {
       );
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['apiKey'],
       isSensitive: (key, value) => isGeoJSONGeometry(value),
     });
@@ -403,7 +403,7 @@ describe('maskObject', () => {
     sparse[5] = { email: 'user2@example.com' };
     sparse[10] = { email: 'user3@example.com' };
 
-    const result = maskObject(sparse, { keys: ['email'] });
+    const result = objectMask(sparse, { keys: ['email'] });
 
     expect(result.length).toBe(11);
     expect(result[0].email).not.toBe('user1@example.com');
@@ -421,7 +421,7 @@ describe('maskObject', () => {
       password: 'secret123',
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.name).toBe('John');
     expect(result.createdAt).toBe(date); // Date object preserved
@@ -434,7 +434,7 @@ describe('maskObject', () => {
       secret: 'sensitive',
     };
 
-    const result = maskObject(obj, { keys: ['secret'] });
+    const result = objectMask(obj, { keys: ['secret'] });
 
     expect(result.pattern).toBeInstanceOf(RegExp);
     expect(result.pattern.source).toBe('test-pattern');
@@ -448,7 +448,7 @@ describe('maskObject', () => {
       password: 'secret',
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.error).toBe(error); // Error object preserved
     expect(result.password).not.toBe('secret');
@@ -461,7 +461,7 @@ describe('maskObject', () => {
       password: 'secret',
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.callback).toBe(fn); // Function preserved
     expect(result.password).not.toBe('secret');
@@ -477,7 +477,7 @@ describe('maskObject', () => {
       password: 'secret',
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.nan).toBeNaN();
     expect(result.infinity).toBe(Infinity);
@@ -493,7 +493,7 @@ describe('maskObject', () => {
       password: 'secret',
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.bigNum).toBe(BigInt(9007199254740991));
     expect(result.password).not.toBe('secret');
@@ -507,7 +507,7 @@ describe('maskObject', () => {
       password: 'secret',
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.emptyString).toBe('');
     expect(result.nullValue).toBe(null);
@@ -524,7 +524,7 @@ describe('maskObject', () => {
 
     const obj = createDeep(150);
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['secret'],
       maxDepth: 10,
     });
@@ -544,7 +544,7 @@ describe('maskObject', () => {
     const objB: any = { name: 'B', password: 'secretB', ref: objA };
     objA.ref = objB;
 
-    const result = maskObject(objA, { keys: ['password'] });
+    const result = objectMask(objA, { keys: ['password'] });
 
     expect(result.name).toBe('A');
     expect(result.password).not.toBe('secretA');
@@ -557,7 +557,7 @@ describe('maskObject', () => {
     const arr: any[] = [{ id: 1, password: 'secret1' }, { id: 2, password: 'secret2' }];
     arr.push(arr); // arr[2] points to arr itself
 
-    const result = maskObject(arr, { keys: ['password'] });
+    const result = objectMask(arr, { keys: ['password'] });
 
     expect(result[0].password).not.toBe('secret1');
     expect(result[1].password).not.toBe('secret2');
@@ -572,7 +572,7 @@ describe('maskObject', () => {
     };
     obj[sym] = 'symbol-value';
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.normalProp).toBe('value');
     expect(result.password).not.toBe('secret');
@@ -600,7 +600,7 @@ describe('maskObject', () => {
       },
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['password', 'apiKey', 'token', 'ssn'],
     });
 
@@ -628,7 +628,7 @@ describe('maskObject', () => {
       ],
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result.matrix[0][0].x).toBe(1);
     expect(result.matrix[0][0].password).not.toBe('p1');
@@ -644,7 +644,7 @@ describe('maskObject', () => {
       otherKey: 'other_98765',
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       isSensitive: (key, value) => {
         return typeof value === 'string' && value.startsWith('sk_');
       },
@@ -683,7 +683,7 @@ describe('maskObject', () => {
       'type' in value &&
       'coordinates' in value;
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['apiKey', 'email'],
       isSensitive: (key, value) => key === 'geometry' && isGeoJSONGeometry(value),
     });
@@ -704,7 +704,7 @@ describe('maskObject', () => {
       apiKey: 'secret3',
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['password', 'token', 'apiKey'],
     });
 
@@ -723,7 +723,7 @@ describe('maskObject', () => {
       ],
     };
 
-    const result = maskObject(obj, { keys: ['secret'] });
+    const result = objectMask(obj, { keys: ['secret'] });
 
     expect(result.items).toHaveLength(4);
     expect(result.items[0].id).toBe(0);
@@ -746,7 +746,7 @@ describe('maskObject', () => {
       },
     };
 
-    maskObject(obj, {
+    objectMask(obj, {
       isSensitive: (key, value, path) => {
         if (key === 'secret') {
           capturedPaths.push(path);
@@ -766,7 +766,7 @@ describe('maskObject', () => {
       users: [{ email: 'test1@example.com' }, { email: 'test2@example.com' }],
     };
 
-    maskObject(obj, {
+    objectMask(obj, {
       isSensitive: (key, value, path) => {
         if (key === 'email') {
           capturedPaths.push(path);
@@ -787,7 +787,7 @@ describe('maskObject', () => {
       normal: { password: 'secret2' },
     };
 
-    const result = maskObject(obj, { keys: ['password'] });
+    const result = objectMask(obj, { keys: ['password'] });
 
     expect(result['0'].password).not.toBe('secret0');
     expect(result['1'].password).not.toBe('secret1');
@@ -810,7 +810,7 @@ describe('maskObject', () => {
       },
     };
 
-    const result = maskObject(obj, {
+    const result = objectMask(obj, {
       keys: ['secret'],
       shouldSkip: (value, path, depth) => {
         return typeof value === 'object' && value !== null && 'type' in value && value.type === 'SkipType';

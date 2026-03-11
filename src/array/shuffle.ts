@@ -9,11 +9,11 @@
  * @returns {T[]} A new array with the elements shuffled randomly.
  *
  * @example
- * const shuffledArray = shuffleArray([1, 2, 3, 4, 5]);
+ * const shuffledArray = arrayShuffle([1, 2, 3, 4, 5]);
  * console.log(shuffledArray);
  * // Output: A shuffled array, e.g., [4, 1, 3, 5, 2] (output will be random).
  */
-export function shuffleArray<T>(array: T[]): T[] {
+export function arrayShuffle<T>(array: T[]): T[] {
 	const newArray: T[] = [...array];
 	for (let i = newArray.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));

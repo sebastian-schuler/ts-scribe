@@ -1,11 +1,11 @@
-export { chunkArray } from './chunk.js';
+export { arrayChunk } from './chunk.js';
 export { arrayDifference } from './difference.js';
 export { arrayGroupBy } from './group-by.js';
 export { arrayIntersection, arrayIntersectionDeep } from './intersection.js';
-export { partitionArray } from './partition.js';
-export { pluckArray } from './pluck.js';
+export { arrayPartition } from './partition.js';
+export { arrayPluck } from './pluck.js';
 export { arrayPowerset } from './powerset.js';
 export { toArray } from './to-array.js';
-export { uniqueArrayBy } from './unique-by.js';
-export { shuffleArray } from './shuffle.js';
-export { uniqueArray } from './unique.js';
+export { arrayUniqueBy } from './unique-by.js';
+export { arrayShuffle } from './shuffle.js';
+export { arrayUnique } from './unique.js';

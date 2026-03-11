@@ -12,10 +12,10 @@
  *
  * @example
  * const arr = [1, 2, 3, 4, 5, 6];
- * const chunked = chunkArray(arr, 2);
+ * const chunked = arrayChunk(arr, 2);
  * console.log(chunked); // [[1, 2], [3, 4], [5, 6]]
  */
-export const chunkArray = <T>(array: T[], size: number): T[][] => {
+export const arrayChunk = <T>(array: T[], size: number): T[][] => {
 	const chunks: T[][] = [];
 	for (let i = 0; i < array.length; i += size) {
 		chunks.push(array.slice(i, i + size));

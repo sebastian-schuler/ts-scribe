@@ -11,9 +11,9 @@
  *
  * @example
  * const users = [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }];
- * const names = pluckArray(users, 'name');
+ * const names = arrayPluck(users, 'name');
  * console.log(names); // Output: ['Alice', 'Bob']
  */
-export const pluckArray = <T, K extends keyof T>(array: T[], key: K): Array<T[K]> => {
+export const arrayPluck = <T, K extends keyof T>(array: T[], key: K): Array<T[K]> => {
 	return array.map((item) => item[key]);
 };

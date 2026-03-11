@@ -12,14 +12,14 @@
  *
  * @example
  * const original = { a: 1, b: 2, c: 3 };
- * const result = omitObjectKeys(original, ['b']);
+ * const result = objectOmitKeys(original, ['b']);
  * console.log(result); // { a: 1, c: 3 }
  *
  * const user = { name: 'Alice', age: 25, country: 'USA' };
- * const publicData = omitObjectKeys(user, ['age']);
+ * const publicData = objectOmitKeys(user, ['age']);
  * console.log(publicData); // { name: 'Alice', country: 'USA' }
  */
-export function omitObjectKeys<T extends object, K extends keyof T>(object: T, keys: K[]): Omit<T, K> {
+export function objectOmitKeys<T extends object, K extends keyof T>(object: T, keys: K[]): Omit<T, K> {
 	// Create a shallow copy of the object to avoid mutating the original object
 	const result = { ...object };
 

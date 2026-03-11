@@ -15,11 +15,11 @@
  * @example
  * // Partition mixed types using a type predicate for type narrowing
  * const mixed: Array<string | number> = [1, 'a', 2, 'b'];
- * const [strings, numbers] = partitionArray(mixed, (x): x is string => typeof x === 'string');
+ * const [strings, numbers] = arrayPartition(mixed, (x): x is string => typeof x === 'string');
  * // strings: string[] => ['a', 'b']
  * // numbers: number[] => [1, 2]
  */
-export function partitionArray<T, S extends T>(
+export function arrayPartition<T, S extends T>(
 	array: readonly T[],
 	predicate: (value: T, index: number) => value is S,
 ): [S[], Array<Exclude<T, S>>];
@@ -35,17 +35,17 @@ export function partitionArray<T, S extends T>(
  *
  * @example
  * // Partition numbers into even and odd
- * partitionArray([1, 2, 3, 4, 5], x => x % 2 === 0)
+ * arrayPartition([1, 2, 3, 4, 5], x => x % 2 === 0)
  * // => [[2, 4], [1, 3, 5]]
  *
  * @example
  * // Use the index in the predicate
- * partitionArray(['a', 'b', 'c', 'd'], (_, i) => i % 2 === 0)
+ * arrayPartition(['a', 'b', 'c', 'd'], (_, i) => i % 2 === 0)
  * // => [['a', 'c'], ['b', 'd']]
  */
-export function partitionArray<T>(array: readonly T[], predicate: (value: T, index: number) => boolean): [T[], T[]];
+export function arrayPartition<T>(array: readonly T[], predicate: (value: T, index: number) => boolean): [T[], T[]];
 
-export function partitionArray<T>(array: readonly T[], predicate: (value: T, index: number) => boolean): [T[], T[]] {
+export function arrayPartition<T>(array: readonly T[], predicate: (value: T, index: number) => boolean): [T[], T[]] {
 	const truthy: T[] = [];
 	const falsy: T[] = [];
 

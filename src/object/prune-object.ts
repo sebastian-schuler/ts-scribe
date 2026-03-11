@@ -1,5 +1,5 @@
 /**
- * Options for configuring the behaviour of {@link pruneObject}.
+ * Options for configuring the behaviour of {@link objectPrune}.
  *
  * @category Object
  */
@@ -49,19 +49,19 @@ const defaults: Required<PruneObjectOptions> = {
  * @template T - The type of the object to be pruned, which extends an object.
  *
  * @example
- * pruneObject({ a: 1, b: undefined, c: { d: undefined } }); // Returns: { a: 1, c: {} }
+ * objectPrune({ a: 1, b: undefined, c: { d: undefined } }); // Returns: { a: 1, c: {} }
  *
- * pruneObject([1, undefined, { a: undefined }, [undefined]]); // Returns: [1, {}, []]
+ * objectPrune([1, undefined, { a: undefined }, [undefined]]); // Returns: [1, {}, []]
  *
- * pruneObject([undefined, undefined]); // Returns: []
+ * objectPrune([undefined, undefined]); // Returns: []
  *
- * pruneObject({ date: new Date() }); // Returns: { date: DateInstance }
+ * objectPrune({ date: new Date() }); // Returns: { date: DateInstance }
  *
- * pruneObject({ a: { b: undefined } }, { deep: false }); // Returns: { a: { b: undefined } }
+ * objectPrune({ a: { b: undefined } }, { deep: false }); // Returns: { a: { b: undefined } }
  *
- * pruneObject({ a: [1, undefined] }, { arrays: false }); // Returns: { a: [1, undefined] }
+ * objectPrune({ a: [1, undefined] }, { arrays: false }); // Returns: { a: [1, undefined] }
  */
-export const pruneObject = <T>(object: T, options?: PruneObjectOptions): T => {
+export const objectPrune = <T>(object: T, options?: PruneObjectOptions): T => {
 	return pruneValue(object, { ...defaults, ...options }) as T;
 };
 

@@ -16,7 +16,7 @@
  *   b: { x: 2, y: [3, 4] },
  *   c: { z: { w: 5 } }
  * };
- * const flattened = flattenObject(obj);
+ * const flattened = objectFlatten(obj);
  * console.log(flattened);
  * // Output: {
  * //   'a': 1,
@@ -27,7 +27,7 @@
  * // }
  *
  * const arr = [1, [2, 3], { a: 4 }];
- * const flattenedArr = flattenObject(arr);
+ * const flattenedArr = objectFlatten(arr);
  * console.log(flattenedArr);
  * // Output: {
  * //   '0': 1,
@@ -36,7 +36,7 @@
  * //   '2.a': 4
  * // }
  */
-export const flattenObject = <T>(object: Record<string, unknown>, prefix = ''): Record<string, T> => {
+export const objectFlatten = <T>(object: Record<string, unknown>, prefix = ''): Record<string, T> => {
 	const acc: Record<string, T> = {};
 
 	for (const key of Object.keys(object)) {
@@ -48,13 +48,13 @@ export const flattenObject = <T>(object: Record<string, unknown>, prefix = ''): 
 		if (Array.isArray(value)) {
 			for (const [index, item] of value.entries()) {
 				if (typeof item === 'object' && item !== null) {
-					Object.assign(acc, flattenObject(item as Record<string, unknown>, `${newKey}.${index}`));
+					Object.assign(acc, objectFlatten(item as Record<string, unknown>, `${newKey}.${index}`));
 				} else {
 					acc[`${newKey}.${index}`] = item as T;
 				}
 			}
 		} else if (value && typeof value === 'object') {
-			Object.assign(acc, flattenObject(value as Record<string, unknown>, newKey));
+			Object.assign(acc, objectFlatten(value as Record<string, unknown>, newKey));
 		} else {
 			acc[newKey] = value as T;
 		}

@@ -1,24 +1,24 @@
 import { describe, expect, it } from 'bun:test';
-import { omitObjectKeys } from '../../src/object/index.js';
+import { objectOmitKeys } from '../../src/object/index.js';
 
-describe('omitObjectKeys', () => {
+describe('objectOmitKeys', () => {
 	it('should omit a single key from the object', () => {
 		const object = { a: 1, b: 2, c: 3 };
-		const result = omitObjectKeys(object, ['b']);
+		const result = objectOmitKeys(object, ['b']);
 
 		expect(result).toEqual({ a: 1, c: 3 });
 	});
 
 	it('should omit multiple keys from the object', () => {
 		const object = { a: 1, b: 2, c: 3, d: 4 };
-		const result = omitObjectKeys(object, ['b', 'd']);
+		const result = objectOmitKeys(object, ['b', 'd']);
 
 		expect(result).toEqual({ a: 1, c: 3 });
 	});
 
 	it('should return a copy of the original object if no keys are specified', () => {
 		const object = { a: 1, b: 2, c: 3 };
-		const result = omitObjectKeys(object, []);
+		const result = objectOmitKeys(object, []);
 
 		expect(result).toEqual(object);
 		expect(result).not.toBe(object); // Should be a different reference
@@ -28,7 +28,7 @@ describe('omitObjectKeys', () => {
 		const object = { a: 1, b: 2, c: 3 };
 		const originalObject = { ...object };
 
-		omitObjectKeys(object, ['b']);
+		objectOmitKeys(object, ['b']);
 
 		// Check that the original object is unchanged
 		expect(object).toEqual(originalObject);
@@ -38,7 +38,7 @@ describe('omitObjectKeys', () => {
 		const object = {};
 
 		// @ts-expect-error testing edge case
-		const result = omitObjectKeys(object, ['a']);
+		const result = objectOmitKeys(object, ['a']);
 
 		expect(result).toEqual({});
 	});
@@ -47,7 +47,7 @@ describe('omitObjectKeys', () => {
 		const object = { a: 1, b: 2 };
 
 		// @ts-expect-error testing edge case
-		const result = omitObjectKeys(object, ['c']); // 'c' doesn't exist in the object
+		const result = objectOmitKeys(object, ['c']); // 'c' doesn't exist in the object
 
 		expect(result).toEqual(object);
 	});
@@ -56,7 +56,7 @@ describe('omitObjectKeys', () => {
 		const object = { a: 1, b: 2, c: 3 };
 
 		// @ts-expect-error testing edge case with mixed keys
-		const result = omitObjectKeys(object, ['b', 'd']);
+		const result = objectOmitKeys(object, ['b', 'd']);
 
 		expect(result).toEqual({ a: 1, c: 3 });
 	});
@@ -71,7 +71,7 @@ describe('omitObjectKeys', () => {
 			arr: [1, 2, 3],
 			obj: { nested: true },
 		};
-		const result = omitObjectKeys(object, ['num', 'bool', 'obj']);
+		const result = objectOmitKeys(object, ['num', 'bool', 'obj']);
 
 		expect(result).toEqual({
 			str: 'text',
@@ -83,7 +83,7 @@ describe('omitObjectKeys', () => {
 
 	it('should not alter the type of the object when omitting keys', () => {
 		const object = { a: 1, b: 2, c: 3, d: 4 };
-		const result = omitObjectKeys(object, ['b', 'd']);
+		const result = objectOmitKeys(object, ['b', 'd']);
 
 		// TypeScript should ensure result has only 'a' and 'c'
 		expect(result).toEqual({ a: 1, c: 3 });
@@ -94,14 +94,14 @@ describe('omitObjectKeys', () => {
 		const sym2 = Symbol('key2');
 		const object = { [sym1]: 'value1', [sym2]: 'value2', regular: 'test' };
 
-		const result = omitObjectKeys(object, [sym2] as const);
+		const result = objectOmitKeys(object, [sym2] as const);
 
 		expect(result).toEqual({ [sym1]: 'value1', regular: 'test' });
 	});
 
 	it('should preserve undefined values in remaining keys', () => {
 		const object = { a: 1, b: undefined, c: 3 };
-		const result = omitObjectKeys(object, ['c']);
+		const result = objectOmitKeys(object, ['c']);
 
 		expect(result).toEqual({ a: 1, b: undefined });
 		expect('b' in result).toBe(true);
@@ -110,7 +110,7 @@ describe('omitObjectKeys', () => {
 	it('should create a shallow copy of the object', () => {
 		const nested = { x: 1 };
 		const object = { a: nested, b: 2 };
-		const result = omitObjectKeys(object, ['b']);
+		const result = objectOmitKeys(object, ['b']);
 
 		expect(result).toEqual({ a: nested });
 		expect(result.a).toBe(nested); // Should reference the same nested object
@@ -118,7 +118,7 @@ describe('omitObjectKeys', () => {
 
 	it('should handle duplicate keys in the keys array', () => {
 		const object = { a: 1, b: 2, c: 3 };
-		const result = omitObjectKeys(object, ['b', 'b', 'c']);
+		const result = objectOmitKeys(object, ['b', 'b', 'c']);
 
 		expect(result).toEqual({ a: 1 });
 	});
@@ -129,7 +129,7 @@ describe('omitObjectKeys', () => {
 		object.own = 'own value';
 		object.other = 'other value';
 
-		const result = omitObjectKeys(object, ['other']);
+		const result = objectOmitKeys(object, ['other']);
 
 		// Spread operator only copies own enumerable properties, not inherited
 		expect(result).toEqual({ own: 'own value' });
@@ -143,7 +143,7 @@ describe('omitObjectKeys', () => {
 			enumerable: false,
 		});
 
-		const result = omitObjectKeys(object, ['b']);
+		const result = objectOmitKeys(object, ['b']);
 
 		// Spread operator doesn't copy non-enumerable properties
 		expect(result).toEqual({ a: 1, c: 3 });
@@ -156,14 +156,14 @@ describe('omitObjectKeys', () => {
 		object.b = 2;
 		object.c = 3;
 
-		const result = omitObjectKeys(object, ['b']);
+		const result = objectOmitKeys(object, ['b']);
 
 		expect(result).toEqual({ a: 1, c: 3 });
 	});
 
 	it('should work with arrays', () => {
 		const array = ['a', 'b', 'c'];
-		const result = omitObjectKeys(array, [1] as const);
+		const result = objectOmitKeys(array, [1] as const);
 
         // @ts-expect-error testing edge case with arrays
 		expect(result).toEqual({ 0: 'a', 2: 'c' });
@@ -181,7 +181,7 @@ describe('omitObjectKeys', () => {
 			c: 3,
 		};
 
-		const result = omitObjectKeys(object, ['c']);
+		const result = objectOmitKeys(object, ['c']);
 
 		// Spread operator will call the getter
 		expect(result).toEqual({ a: 1, b: 2 });
@@ -202,7 +202,7 @@ describe('omitObjectKeys', () => {
 		};
 
 		object.b = 2;
-		const result = omitObjectKeys(object, ['c']);
+		const result = objectOmitKeys(object, ['c']);
 
 		expect(result).toEqual({ a: 1, b: 2 });
 	});

@@ -31,18 +31,18 @@ bun add ts-scribe
 
 ### Array
 
-- `uniqueArray`: Given an array of primitive values, returns a new array with duplicates removed.
-- `chunkArray`: Splits an array into chunks of a specified size.
+- `arrayUnique`: Given an array of primitive values, returns a new array with duplicates removed.
+- `arrayChunk`: Splits an array into chunks of a specified size.
 - `arrayDifference`: Returns the difference between two arrays.
 - `arrayGroupBy`: Groups an array of objects by a specified key.
 - `arrayIntersection`: Returns the intersection of two arrays.
 - `arrayIntersectionDeep`: Deep intersection between arrays of objects or values.
-- `pluckArray`: Extracts a list of property values from an array of objects.
+- `arrayPluck`: Extracts a list of property values from an array of objects.
 - `arrayPowerset`: Returns the powerset of an array.
-- `shuffleArray`: Shuffles an array randomly.
-- `uniqueArrayBy`: Returns an array of unique values based on a specified key.
+- `arrayShuffle`: Shuffles an array randomly.
+- `arrayUniqueBy`: Returns an array of unique values based on a specified key.
 - `toArray`: Converts almost anything into an array.
-- `partitionArray`: Partitions an array into two arrays based on a predicate function.
+- `arrayPartition`: Partitions an array into two arrays based on a predicate function.
 
 ### Async
 
@@ -72,11 +72,11 @@ bun add ts-scribe
 - `objectDeepClone`: Deeply clones an object.
 - `objectDeepEquals`: Deeply compares two objects or arrays.
 - `objectDeepFreeze`: Deep freezes an object recursively.
-- `flattenObject`: Flattens an object into dot notation.
-- `pruneObject`: Removes properties with undefined values.
-- `pickObjectKeys`: Creates a new object by picking specified keys from the original object.
-- `omitObjectKeys`: Creates a new object by omitting specified keys from the original object.
-- `maskObject`: Recursively masks sensitive properties in objects/arrays based on keys or custom predicates. Handles circular references, deep nesting, and special object types (Date, RegExp, Error, etc.).
+- `objectFlatten`: Flattens an object into dot notation.
+- `objectPrune`: Removes properties with undefined values.
+- `objectPickKeys`: Creates a new object by picking specified keys from the original object.
+- `objectOmitKeys`: Creates a new object by omitting specified keys from the original object.
+- `objectMask`: Recursively masks sensitive properties in objects/arrays based on keys or custom predicates. Handles circular references, deep nesting, and special object types (Date, RegExp, Error, etc.).
 
 ### Random
 
