@@ -4,7 +4,7 @@ import { debounce } from '../../src/async/index.js';
 describe('debounce', () => {
 	it('calls the function after the wait time', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn);
+		const debounced = debounce(fn, 100);
 		debounced.call(null, null);
 
 		expect(fn).not.toHaveBeenCalled();
@@ -15,7 +15,7 @@ describe('debounce', () => {
 
 	it('resets the wait time if called again', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn);
+		const debounced = debounce(fn, 100);
 
 		debounced.call(null, null);
 		await new Promise((res) => setTimeout(res, 50));
@@ -29,7 +29,7 @@ describe('debounce', () => {
 
 	it('calls function immediately if immediate=true', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn, true);
+		const debounced = debounce(fn, 100, true);
 		debounced.call(null, null);
 
 		expect(fn).toHaveBeenCalledTimes(1);
@@ -41,7 +41,7 @@ describe('debounce', () => {
 
 	it('does not call again if called multiple times immediately with immediate=true', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn, true);
+		const debounced = debounce(fn, 100, true);
 		debounced.call(null, null);
 		debounced.call(null, null);
 		debounced.call(null, null);
@@ -60,7 +60,7 @@ describe('debounce', () => {
 		};
 
 		let calledWithThis = 0;
-		const debounced = debounce(100, context.handler);
+		const debounced = debounce(context.handler, 100);
 
 		debounced.call(context, context);
 		await new Promise((res) => setTimeout(res, 120));
@@ -70,7 +70,7 @@ describe('debounce', () => {
 
 	it('passes arguments correctly to the function', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn);
+		const debounced = debounce(fn, 100);
 		const testArg = { id: 1, name: 'test' };
 
 		debounced.call(null, testArg);
@@ -81,7 +81,7 @@ describe('debounce', () => {
 
 	it('allows multiple debounce cycles with immediate=true', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn, true);
+		const debounced = debounce(fn, 100, true);
 
 		// First cycle
 		debounced.call(null, null);
@@ -97,7 +97,7 @@ describe('debounce', () => {
 
 	it('can debounce after the debounce window has completed', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn);
+		const debounced = debounce(fn, 100);
 
 		// First debounce
 		debounced.call(null, null);
@@ -112,7 +112,7 @@ describe('debounce', () => {
 
 	it('handles zero wait time', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(0, fn);
+		const debounced = debounce(fn, 0);
 		debounced.call(null, null);
 
 		// Even with 0ms wait, should be async
@@ -123,7 +123,7 @@ describe('debounce', () => {
 
 	it('cancels previous timeout when called multiple times', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(200, fn);
+		const debounced = debounce(fn, 200);
 
 		debounced.call(null, null);
 		await new Promise((res) => setTimeout(res, 100));
@@ -141,7 +141,7 @@ describe('debounce', () => {
 
 	it('immediate=false waits even after first call', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn, false);
+		const debounced = debounce(fn, 100, false);
 
 		debounced.call(null, null);
 		expect(fn).not.toHaveBeenCalled();
@@ -161,7 +161,7 @@ describe('debounce', () => {
 			capturedArg = arg;
 		});
 
-		const debounced = debounce(100, fn, true);
+		const debounced = debounce(fn, 100, true);
 		const context = { id: 'ctx' };
 		const argument = { id: 'arg' };
 
@@ -173,7 +173,7 @@ describe('debounce', () => {
 
 	it('only calls function once per debounce cycle with immediate=true', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(100, fn, true);
+		const debounced = debounce(fn, 100, true);
 
 		debounced.call(null, null);
 		debounced.call(null, null);
@@ -188,7 +188,7 @@ describe('debounce', () => {
 
 	it('uses most recent call in large batch of calls', async () => {
 		const fn = jest.fn();
-		const debounced = debounce(50, fn);
+		const debounced = debounce(fn, 50);
 
 		const args = [];
 		for (let i = 0; i < 10; i++) {
@@ -202,5 +202,49 @@ describe('debounce', () => {
 		// Should only call once with the last argument
 		expect(fn).toHaveBeenCalledTimes(1);
 		expect(fn).toHaveBeenCalledWith(9);
+	});
+
+	it('immediate=true fires with the first call argument, not subsequent ones', async () => {
+		const fn = jest.fn();
+		const debounced = debounce(fn, 100, true);
+
+		debounced.call(null, 'first');
+		debounced.call(null, 'second');
+		debounced.call(null, 'third');
+
+		// Should call immediately with only the first argument
+		expect(fn).toHaveBeenCalledTimes(1);
+		expect(fn).toHaveBeenCalledWith('first');
+
+		// After the debounce window, there should be no deferred call
+		await new Promise((res) => setTimeout(res, 120));
+		expect(fn).toHaveBeenCalledTimes(1);
+	});
+
+	it('immediate=true extends window on each call, preventing re-trigger until fully quiet', async () => {
+		const fn = jest.fn();
+		const debounced = debounce(fn, 100, true);
+
+		// First call fires immediately
+		debounced.call(null, null);
+		expect(fn).toHaveBeenCalledTimes(1);
+
+		// Rapid spaced calls keep resetting the window
+		await new Promise((res) => setTimeout(res, 60));
+		debounced.call(null, null);
+		await new Promise((res) => setTimeout(res, 60));
+		debounced.call(null, null);
+
+		// Only 60ms since last call — still inside the 100ms window
+		expect(fn).toHaveBeenCalledTimes(1);
+
+		// Wait for the window to fully expire after the last call
+		await new Promise((res) => setTimeout(res, 120));
+		// Timer expired but should not have triggered a deferred call
+		expect(fn).toHaveBeenCalledTimes(1);
+
+		// A new call should now fire immediately again
+		debounced.call(null, null);
+		expect(fn).toHaveBeenCalledTimes(2);
 	});
 });

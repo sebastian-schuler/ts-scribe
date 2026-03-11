@@ -11,25 +11,25 @@ import { type GenericFunction } from '../types/common-types.js';
  * ---
  * Example:
  * ```ts
- * const handleSearch = debounce(500, (searchTerm) => {
+ * const handleSearch = debounce((searchTerm) => {
  *   console.log('Searching for:', searchTerm);
- * });
+ * }, 500);
  *
  * // In this example, `handleSearch` will only be called after 500ms since the last input
  * // This prevents calling the function too frequently during rapid input changes.
  * ```
  *
  * @category Async
- * @param wait - The number of milliseconds to wait before invoking the function after the last call.
  * @param fn - The function to debounce.
+ * @param wait - The number of milliseconds to wait before invoking the function after the last call.
  * @param immediate - If true, the function will be triggered at the beginning of the debounce period.
  * @returns A debounced version of the input function.
  *
  * @example
- * const debouncedLog = debounce(1000, (msg: string) => console.log(msg), true);
+ * const debouncedLog = debounce((msg: string) => console.log(msg), 1000, true);
  * debouncedLog("Hello"); // Immediately logs "Hello", then waits for 1000ms for further calls
  */
-export function debounce<T, R>(wait: number, fn: GenericFunction<T, R>, immediate = false): (this: T, arg: T) => void {
+export function debounce<T, R>(fn: GenericFunction<T, R>, wait: number, immediate = false): (this: T, arg: T) => void {
 	let timeoutId: NodeJS.Timeout | undefined;
 
 	return function (this: T, ...args: [arg: T]) {
