@@ -1,3 +1,5 @@
+import { isDefined } from '../typeguards/is-defined.js';
+
 /**
  * Maps over an array with an asynchronous callback function and returns a promise that resolves
  * to an array of results.
@@ -46,6 +48,10 @@ export async function asyncMap<T, R, E = undefined>(
 		errorValue?: E;
 	} = {},
 ): Promise<Array<R | E>> {
+	if (!isDefined(array)) {
+		throw new Error('Input array must not be null or undefined');
+	}
+
 	const { concurrency = Infinity, continueOnError = false, errorValue = undefined as E } = options;
 
 	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
