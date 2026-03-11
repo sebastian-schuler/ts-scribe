@@ -17,9 +17,8 @@ describe('waterfall', () => {
 		expect(result).toBe(3);
 	});
 
-	test('should handle an empty array of tasks', async () => {
-		const result = await waterfall<number>([]);
-		expect(result).toBeUndefined();
+	test('should throw when given an empty array of tasks', async () => {
+		await expect(waterfall<number>([])).rejects.toThrow('waterfall requires at least one task');
 	});
 
 	test('should handle a single task', async () => {

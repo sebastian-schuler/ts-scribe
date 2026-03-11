@@ -26,7 +26,8 @@ export type Task<T> = () => Promise<T>;
  *
  * @category Async
  * @param {Task<T>[]} tasks - An array of Promise-returning tasks to run in sequence.
- * @returns {Promise<T | undefined>} A Promise that resolves with the result of the last task, or `undefined` if the array is empty.
+ * @returns {Promise<T>} A Promise that resolves with the result of the last task.
+ * @throws {Error} If `tasks` is empty.
  *
  * @example
  * const task1: Task<string> = () => Promise.resolve('Hello');
@@ -38,7 +39,11 @@ export type Task<T> = () => Promise<T>;
  *   console.error(error); // In case of a rejection in any task
  * });
  */
-export async function waterfall<T>(tasks: Array<Task<T>>): Promise<T | undefined> {
+export async function waterfall<T>(tasks: Array<Task<T>>): Promise<T> {
+	if (tasks.length === 0) {
+		throw new Error('waterfall requires at least one task');
+	}
+
 	let result: T | undefined;
 
 	for (const task of tasks) {
@@ -46,5 +51,5 @@ export async function waterfall<T>(tasks: Array<Task<T>>): Promise<T | undefined
 		result = await task();
 	}
 
-	return result;
+	return result as T;
 }
