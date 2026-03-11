@@ -4,11 +4,11 @@
  * the input into either an integer or a float. If the input cannot be parsed, it returns a default value.
  *
  * @category Core
- * @param {string | number | null | undefined} value - The value to be parsed into a number.
- * @param {number} defaultValue - The default value to return if the value cannot be parsed.
- * @param {'int' | 'float'} [type='float'] - The type of number to return, either 'int' or 'float'. Defaults to 'float'.
- * @param {boolean} [throwInvalid=false] - Whether to throw an error if parsing fails. If `true`, an error is thrown when invalid input is provided.
- * @returns {number} The parsed number, or the default value if parsing fails.
+ * @param value - The value to be parsed into a number.
+ * @param defaultValue - The default value to return if the value cannot be parsed.
+ * @param type= - The type of number to return, either 'int' or 'float'. Defaults to 'float'.
+ * @param throwInvalid - Whether to throw an error if parsing fails. If `true`, an error is thrown when invalid input is provided.
+ * @returns The parsed number, or the default value if parsing fails.
  *
  * @example
  * parseNumber('123'); // Returns 123
@@ -21,7 +21,7 @@
  * parseNumber('12.34', 0, 'int', true); // Throws an error (invalid for 'int')
  */
 export function parseNumber(
-	value: string | number | undefined,
+	value: string | number | null | undefined,
 	defaultValue: number,
 	type: 'int' | 'float' = 'float',
 	throwInvalid = false,

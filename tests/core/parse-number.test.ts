@@ -11,7 +11,6 @@ describe('parseNumber function', () => {
 	});
 
 	it('should return default value when value is null and default value is provided', () => {
-		// @ts-expect-error - Testing handling of null value
 		expect(parseNumber(null, 100, 'int')).toBe(100);
 	});
 

@@ -13,7 +13,7 @@ export type Primitive = bigint | boolean | number | string | symbol | undefined;
  * Useful for ensuring that only nullish values are allowed in specific contexts.
  * @category Utility Types
  */
-export type Nullish = undefined | void;
+export type Nullish = undefined | void | null;
 
 /**
  * Type that allows assignment of any value except for nullish values (`null` or `undefined`).

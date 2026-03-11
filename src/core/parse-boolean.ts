@@ -10,8 +10,8 @@ import { isString } from '../typeguards/is-string.js';
  * - If the value is `null` or `undefined`, the provided `defaultValue` is returned or `false` if no `defaultValue` is provided.
  *
  * @category Core
- * @param {string | boolean | number | null | undefined} value - The value to be parsed as a boolean.
- * @param {boolean} [defaultValue=false] - The default value to return if the input is `null`, `undefined`, or cannot be parsed. Defaults to `false`.
+ * @param value - The value to be parsed as a boolean.
+ * @param defaultValue - The default value to return if the input is `null`, `undefined`, or cannot be parsed. Defaults to `false`.
  * @returns {boolean} The parsed boolean value.
  *
  * @example
@@ -23,7 +23,7 @@ import { isString } from '../typeguards/is-string.js';
  * parseBoolean(undefined, true); // Returns true
  * parseBoolean('some string', false); // Returns false
  */
-export function parseBoolean(value: string | boolean | number | undefined, defaultValue = false): boolean {
+export function parseBoolean(value: string | boolean | number | null | undefined, defaultValue = false): boolean {
 	if (typeof value === 'boolean') return value;
 
 	if (typeof value === 'number') {
