@@ -51,7 +51,7 @@ const defaults: Required<PruneObjectOptions> = {
  * @example
  * pruneObject({ a: 1, b: undefined, c: { d: undefined } }); // Returns: { a: 1, c: {} }
  *
- * pruneObject([1, undefined, { a: undefined }, [undefined]]); // Returns: [1, {}]
+ * pruneObject([1, undefined, { a: undefined }, [undefined]]); // Returns: [1, {}, []]
  *
  * pruneObject([undefined, undefined]); // Returns: []
  *
