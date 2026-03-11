@@ -7,16 +7,19 @@
  * @param {number} maxLength - The maximum length of the string, including the ellipsis.
  * @param {Object} [options] - Optional configuration for truncation.
  * @param {string} [options.ellipsis='...'] - The string to append to indicate truncation. Default is '...'.
- * @param {boolean} [options.preserveWords=false] - Whether to preserve whole words when truncating. Default is `false`.
+ * @param {boolean} [options.preserveWords=false] - Whether to preserve whole words when truncating. When `true`, truncation
+ *   occurs at the last space within the allowed range. If no space exists in that range, it falls back to hard truncation
+ *   at `maxLength` to guarantee the output never exceeds `maxLength`. Default is `false`.
  * @returns {string} The truncated string with an ellipsis if necessary, or the original string if it's within the length limit.
  *
  * @throws {Error} If `maxLength` is less than or equal to the length of the ellipsis.
  *
  * @example
- * truncateString('This is a long string that should be truncated', 20); // "This is a long..."
+ * truncateString('This is a long string that should be truncated', 20); // "This is a long str..."
  * truncateString('This is a long string that should be truncated', 20, { preserveWords: true }); // "This is a long..."
+ * truncateString('Supercalifragilistic', 10, { preserveWords: true }); // "Supercali..." (no space — hard truncation)
  * truncateString('Short text', 20); // "Short text"
- * truncateString('Short text', 5); // "Short..."
+ * truncateString('Short text', 6); // "Sho..."
  */
 export function truncateString(
 	text: string,
@@ -38,10 +41,11 @@ export function truncateString(
 			// Find the last space within the truncated string to avoid cutting words
 			const lastSpaceIndex = truncated.slice(0, maxLength - ellipsis.length).lastIndexOf(' ');
 
-			// If a space exists, truncate at the last space, otherwise keep the original truncation
-			if (lastSpaceIndex !== -1) {
-				truncated = truncated.slice(0, lastSpaceIndex) + ellipsis;
-			}
+			// If a space exists, truncate at the last space, otherwise fall back to hard truncation
+			truncated =
+				lastSpaceIndex === -1
+					? truncated.slice(0, maxLength - ellipsis.length) + ellipsis
+					: truncated.slice(0, lastSpaceIndex) + ellipsis;
 		} else {
 			// If preserveWords is false, truncate at the maxLength
 			truncated = truncated.slice(0, maxLength - ellipsis.length) + ellipsis;

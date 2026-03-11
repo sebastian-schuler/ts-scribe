@@ -57,10 +57,28 @@ describe('truncateString function', () => {
 		expect(result).toBe('Supercalifragilis...');
 	});
 
-	// Test when preserveWords is true with a string without spaces
-	it('should truncate without breaking a word when preserveWords is true and no spaces exist', () => {
+	// Test when preserveWords is true with a string without spaces — falls back to hard truncation
+	it('should fall back to hard truncation when preserveWords is true and no spaces exist in range', () => {
 		const result = truncateString('Reallylongwordinonestring', 20, { preserveWords: true });
-		expect(result).toBe('Reallylongwordinonestring');
+		expect(result).toBe('Reallylongwordino...');
+	});
+
+	// Test when preserveWords is true with a custom ellipsis
+	it('should truncate at last space using a custom ellipsis when preserveWords is true', () => {
+		const result = truncateString('This is a long sentence that might be cut.', 18, { ellipsis: ' …', preserveWords: true });
+		expect(result).toBe('This is a long …');
+	});
+
+	// Test when preserveWords is true, custom ellipsis, and no spaces in range — falls back to hard truncation
+	it('should fall back to hard truncation with custom ellipsis when preserveWords is true and no spaces exist', () => {
+		const result = truncateString('Supercalifragilistic', 10, { ellipsis: ' …', preserveWords: true });
+		expect(result).toBe('Supercal …');
+	});
+
+	// Test when maxLength exactly equals text.length — no truncation
+	it('should return the original string when maxLength equals text length', () => {
+		const result = truncateString('Exact', 5);
+		expect(result).toBe('Exact');
 	});
 
 	// Test with no preserveWords option (defaults to false)
