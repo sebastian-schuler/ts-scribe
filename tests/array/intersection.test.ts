@@ -2,6 +2,19 @@ import { describe, expect, it } from 'bun:test';
 import { arrayIntersection, arrayIntersectionDeep } from '../../src/array/index.js';
 
 describe('arrayIntersection', () => {
+	it('should return an empty array if no arrays are provided', () => {
+		expect(arrayIntersection()).toEqual([]);
+	});
+
+	it('should return an empty array if a single empty array is provided', () => {
+		expect(arrayIntersection([])).toEqual([]);
+	});
+
+	it('should return an empty array if any of the arrays is empty', () => {
+		expect(arrayIntersection([1, 2, 3], [])).toEqual([]);
+		expect(arrayIntersection([], [1, 2, 3])).toEqual([]);
+	});
+
 	it('should return the arrayIntersection of arrays', () => {
 		const array1 = [1, 2, 3, 4];
 		const array2 = [3, 4, 5, 6];
@@ -24,6 +37,12 @@ describe('arrayIntersection', () => {
 		expect(arrayIntersection(array1)).toEqual(array1);
 	});
 
+	it('should return the same array with duplicates if only one array is provided', () => {
+		const array1 = [1, 2, 2, 3];
+
+		expect(arrayIntersection(array1)).toEqual(array1);
+	});
+
 	it('should handle arrays with duplicate elements', () => {
 		const array1 = [1, 2, 2, 3, 4];
 		const array2 = [2, 3, 3, 4, 5];
@@ -33,6 +52,29 @@ describe('arrayIntersection', () => {
 });
 
 describe('arrayIntersectionDeep', () => {
+	it('should return an empty array if no arrays are provided', () => {
+		expect(arrayIntersectionDeep()).toEqual([]);
+	});
+
+	it('should return an empty array if a single empty array is provided', () => {
+		expect(arrayIntersectionDeep([])).toEqual([]);
+	});
+
+	it('should return an empty array if any of the arrays is empty', () => {
+		expect(arrayIntersectionDeep([[1, 2]], [])).toEqual([]);
+		expect(arrayIntersectionDeep([], [[1, 2]])).toEqual([]);
+	});
+
+	it('should return the same array with duplicates if only one array is provided', () => {
+		const array1 = [
+			[1, 2],
+			[1, 2],
+			[3, 4],
+		];
+
+		expect(arrayIntersectionDeep(array1)).toEqual(array1);
+	});
+
 	it('should return the deep arrayIntersection of arrays', () => {
 		const array1 = [
 			[1, 2],

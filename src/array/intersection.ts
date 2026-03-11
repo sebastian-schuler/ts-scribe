@@ -27,7 +27,7 @@ const intersectionInternal = <T>(deep = false, ...arrays: T[][]): T[] => {
 
 	// Reduce the arrays to find the intersection
 	let result: T[] = arrays[0] || [];
-	for (const array of arrays) {
+	for (const array of arrays.slice(1)) {
 		const currentArray = array || [];
 		const currentIntersection = findIntersection(result, currentArray);
 		if (currentIntersection.length === 0) {
