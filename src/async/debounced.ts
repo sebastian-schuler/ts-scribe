@@ -1,5 +1,3 @@
-import { type GenericFunction } from '../types/common-types.js';
-
 /**
  * Creates a debounced version of a function, which will only be invoked after a specified delay
  * has passed since the last time the debounced function was invoked. If `immediate` is true,
@@ -29,10 +27,14 @@ import { type GenericFunction } from '../types/common-types.js';
  * const debouncedLog = debounce((msg: string) => console.log(msg), 1000, true);
  * debouncedLog("Hello"); // Immediately logs "Hello", then waits for 1000ms for further calls
  */
-export function debounce<T, R>(fn: GenericFunction<T, R>, wait: number, immediate = false): (this: T, arg: T) => void {
+export function debounce<T extends unknown[], R>(
+	fn: (...args: T) => R,
+	wait: number,
+	immediate = false,
+): (...args: T) => void {
 	let timeoutId: NodeJS.Timeout | undefined;
 
-	return function (this: T, ...args: [arg: T]) {
+	return function (this: unknown, ...args: T) {
 		const later = () => {
 			timeoutId = undefined;
 			if (!immediate) {

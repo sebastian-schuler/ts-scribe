@@ -5,7 +5,7 @@ describe('debounce', () => {
 	it('calls the function after the wait time', async () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 100);
-		debounced.call(null, null);
+		debounced();
 
 		expect(fn).not.toHaveBeenCalled();
 
@@ -17,9 +17,9 @@ describe('debounce', () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 100);
 
-		debounced.call(null, null);
+		debounced();
 		await new Promise((res) => setTimeout(res, 50));
-		debounced.call(null, null);
+		debounced();
 		await new Promise((res) => setTimeout(res, 50));
 		expect(fn).not.toHaveBeenCalled();
 
@@ -30,7 +30,7 @@ describe('debounce', () => {
 	it('calls function immediately if immediate=true', async () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 100, true);
-		debounced.call(null, null);
+		debounced();
 
 		expect(fn).toHaveBeenCalledTimes(1);
 
@@ -42,9 +42,9 @@ describe('debounce', () => {
 	it('does not call again if called multiple times immediately with immediate=true', async () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 100, true);
-		debounced.call(null, null);
-		debounced.call(null, null);
-		debounced.call(null, null);
+		debounced();
+		debounced();
+		debounced();
 
 		expect(fn).toHaveBeenCalledTimes(1);
 		await new Promise((res) => setTimeout(res, 150));
@@ -62,7 +62,7 @@ describe('debounce', () => {
 		let calledWithThis = 0;
 		const debounced = debounce(context.handler, 100);
 
-		debounced.call(context, context);
+		debounced.call(context);
 		await new Promise((res) => setTimeout(res, 120));
 
 		expect(calledWithThis).toBe(42);
@@ -73,10 +73,20 @@ describe('debounce', () => {
 		const debounced = debounce(fn, 100);
 		const testArg = { id: 1, name: 'test' };
 
-		debounced.call(null, testArg);
+		debounced(testArg);
 		await new Promise((res) => setTimeout(res, 120));
 
 		expect(fn).toHaveBeenCalledWith(testArg);
+	});
+
+	it('forwards multiple arguments to the wrapped function', async () => {
+		const fn = jest.fn();
+		const debounced = debounce(fn, 100);
+
+		debounced('a', 2, true);
+		await new Promise((res) => setTimeout(res, 120));
+
+		expect(fn).toHaveBeenCalledWith('a', 2, true);
 	});
 
 	it('allows multiple debounce cycles with immediate=true', async () => {
@@ -84,14 +94,14 @@ describe('debounce', () => {
 		const debounced = debounce(fn, 100, true);
 
 		// First cycle
-		debounced.call(null, null);
+		debounced();
 		expect(fn).toHaveBeenCalledTimes(1);
 
 		// Wait for debounce window to expire
 		await new Promise((res) => setTimeout(res, 120));
 
 		// Second cycle - should call immediately again
-		debounced.call(null, null);
+		debounced();
 		expect(fn).toHaveBeenCalledTimes(2);
 	});
 
@@ -100,12 +110,12 @@ describe('debounce', () => {
 		const debounced = debounce(fn, 100);
 
 		// First debounce
-		debounced.call(null, null);
+		debounced();
 		await new Promise((res) => setTimeout(res, 120));
 		expect(fn).toHaveBeenCalledTimes(1);
 
 		// Second debounce
-		debounced.call(null, null);
+		debounced();
 		await new Promise((res) => setTimeout(res, 120));
 		expect(fn).toHaveBeenCalledTimes(2);
 	});
@@ -113,7 +123,7 @@ describe('debounce', () => {
 	it('handles zero wait time', async () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 0);
-		debounced.call(null, null);
+		debounced();
 
 		// Even with 0ms wait, should be async
 		expect(fn).not.toHaveBeenCalled();
@@ -125,11 +135,11 @@ describe('debounce', () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 200);
 
-		debounced.call(null, null);
+		debounced();
 		await new Promise((res) => setTimeout(res, 100));
-		debounced.call(null, null);
+		debounced();
 		await new Promise((res) => setTimeout(res, 100));
-		debounced.call(null, null);
+		debounced();
 
 		// Still should not have been called
 		expect(fn).not.toHaveBeenCalled();
@@ -143,7 +153,7 @@ describe('debounce', () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 100, false);
 
-		debounced.call(null, null);
+		debounced();
 		expect(fn).not.toHaveBeenCalled();
 
 		await new Promise((res) => setTimeout(res, 50));
@@ -175,9 +185,9 @@ describe('debounce', () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 100, true);
 
-		debounced.call(null, null);
-		debounced.call(null, null);
-		debounced.call(null, null);
+		debounced();
+		debounced();
+		debounced();
 
 		expect(fn).toHaveBeenCalledTimes(1);
 
@@ -190,10 +200,8 @@ describe('debounce', () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 50);
 
-		const args = [];
 		for (let i = 0; i < 10; i++) {
-			debounced.call(null, i);
-			args.push(i);
+			debounced(i);
 		}
 
 		expect(fn).not.toHaveBeenCalled();
@@ -208,9 +216,9 @@ describe('debounce', () => {
 		const fn = jest.fn();
 		const debounced = debounce(fn, 100, true);
 
-		debounced.call(null, 'first');
-		debounced.call(null, 'second');
-		debounced.call(null, 'third');
+		debounced('first');
+		debounced('second');
+		debounced('third');
 
 		// Should call immediately with only the first argument
 		expect(fn).toHaveBeenCalledTimes(1);
@@ -226,14 +234,14 @@ describe('debounce', () => {
 		const debounced = debounce(fn, 100, true);
 
 		// First call fires immediately
-		debounced.call(null, null);
+		debounced();
 		expect(fn).toHaveBeenCalledTimes(1);
 
 		// Rapid spaced calls keep resetting the window
 		await new Promise((res) => setTimeout(res, 60));
-		debounced.call(null, null);
+		debounced();
 		await new Promise((res) => setTimeout(res, 60));
-		debounced.call(null, null);
+		debounced();
 
 		// Only 60ms since last call — still inside the 100ms window
 		expect(fn).toHaveBeenCalledTimes(1);
@@ -244,7 +252,32 @@ describe('debounce', () => {
 		expect(fn).toHaveBeenCalledTimes(1);
 
 		// A new call should now fire immediately again
-		debounced.call(null, null);
+		debounced();
+		expect(fn).toHaveBeenCalledTimes(2);
+	});
+
+	it('always returns undefined regardless of the wrapped function return value', async () => {
+		const debounced = debounce(() => 42, 100);
+
+		expect(debounced()).toBeUndefined();
+
+		// After the debounce period, calls should still return undefined
+		await new Promise((res) => setTimeout(res, 150));
+		expect(debounced()).toBeUndefined();
+	});
+
+	it('immediate=true with wait=0 re-arms after the timeout expires', async () => {
+		const fn = jest.fn();
+		const debounced = debounce(fn, 0, true);
+
+		debounced();
+		expect(fn).toHaveBeenCalledTimes(1);
+
+		// Wait for the 0ms timeout to fire and clear timeoutId
+		await new Promise((res) => setTimeout(res, 10));
+
+		// Window has elapsed, so next call fires immediately again
+		debounced();
 		expect(fn).toHaveBeenCalledTimes(2);
 	});
 });
