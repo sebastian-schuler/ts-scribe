@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from 'bun:test';
-import { memoize } from '../../src/async/index.js';
+import { memoize } from '../../src/core/index.js';
 
 describe('memoize', () => {
 	describe('Basic Functionality', () => {
