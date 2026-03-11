@@ -4,15 +4,15 @@ import { slugify } from '../../src/index.js';
 describe('slugify function', () => {
 	describe('slugify', () => {
 		it('should slugify a basic string', () => {
-			expect(slugify('Hello World')).toBe('Hello-World');
+			expect(slugify('Hello World')).toBe('hello-world');
 		});
 
 		it('should normalize accented characters', () => {
-			expect(slugify('Café Déjà Vu')).toBe('Cafe-Deja-Vu');
+			expect(slugify('Café Déjà Vu')).toBe('cafe-deja-vu');
 		});
 
 		it('should collapse multiple spaces', () => {
-			expect(slugify('This   is   spaced')).toBe('This-is-spaced');
+			expect(slugify('This   is   spaced')).toBe('this-is-spaced');
 		});
 
 		it('should handle empty string', () => {
@@ -20,11 +20,11 @@ describe('slugify function', () => {
 		});
 
 		it('should return string with only valid characters when strict', () => {
-			expect(slugify('!@#Hello*&^World', { strict: true })).toBe('Hello-World');
+			expect(slugify('!@#Hello*&^World', { strict: true })).toBe('hello-world');
 		});
 
 		it('should allow special characters when not strict', () => {
-			expect(slugify('Wow! Okay?', { strict: false })).toBe('Wow!-Okay?');
+			expect(slugify('Wow! Okay?', { strict: false })).toBe('wow!-okay?');
 		});
 
 		it('should collapse repeated replacement characters', () => {
@@ -63,7 +63,7 @@ describe('slugify function', () => {
 
 	describe('slugify - remove option', () => {
 		it('should remove characters by regex', () => {
-			expect(slugify('Remove 1234', { remove: /\d/g })).toBe('Remove');
+			expect(slugify('Remove 1234', { remove: /\d/g })).toBe('remove');
 		});
 
 		it('should combine remove and strict correctly', () => {
@@ -72,7 +72,7 @@ describe('slugify function', () => {
 					remove: /[\d%]/g,
 					strict: true,
 				}),
-			).toBe('Th-s-is-cool');
+			).toBe('th-s-is-cool');
 		});
 	});
 
@@ -82,7 +82,7 @@ describe('slugify function', () => {
 		});
 
 		it('should remove emojis', () => {
-			expect(slugify('Cool 😎 stuff!', { strict: true })).toBe('Cool-stuff');
+			expect(slugify('Cool 😎 stuff!', { strict: true })).toBe('cool-stuff');
 		});
 
 		it('should handle mixed languages with accents', () => {
