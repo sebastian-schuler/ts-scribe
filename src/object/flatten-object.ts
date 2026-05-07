@@ -36,8 +36,8 @@
  * //   '2.a': 4
  * // }
  */
-export const objectFlatten = <T>(object: Record<string, unknown>, prefix = ''): Record<string, T> => {
-	const acc: Record<string, T> = {};
+export const objectFlatten = (object: Record<string, unknown>, prefix = ''): Record<string, unknown> => {
+	const acc: Record<string, unknown> = {};
 
 	for (const key of Object.keys(object)) {
 		const value = object[key];
@@ -48,15 +48,15 @@ export const objectFlatten = <T>(object: Record<string, unknown>, prefix = ''): 
 		if (Array.isArray(value)) {
 			for (const [index, item] of value.entries()) {
 				if (typeof item === 'object' && item !== null) {
-					Object.assign(acc, objectFlatten(item as Record<string, unknown>, `${newKey}.${index}`)); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
+					Object.assign(acc, objectFlatten(item as Record<string, unknown>, `${newKey}.${index}`));
 				} else {
-					acc[`${newKey}.${index}`] = item as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
+					acc[`${newKey}.${index}`] = item;
 				}
 			}
 		} else if (value && typeof value === 'object') {
-			Object.assign(acc, objectFlatten(value as Record<string, unknown>, newKey)); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
+			Object.assign(acc, objectFlatten(value as Record<string, unknown>, newKey));
 		} else {
-			acc[newKey] = value as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
+			acc[newKey] = value;
 		}
 	}
 
