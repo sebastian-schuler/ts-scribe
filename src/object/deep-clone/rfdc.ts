@@ -18,9 +18,8 @@ function copyBuffer(cur: ArrayBufferView): ArrayBufferView {
 		return Buffer.from(cur);
 	}
 
-	// @ts-ignore - TypedArray constructor signature
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-	return new cur.constructor([...cur.buffer], cur.byteOffset, cur.length);
+	return new (cur.constructor as any)(cur.buffer.slice(cur.byteOffset, cur.byteOffset + cur.byteLength));
 }
 
 export function rfdc(options?: RfdcOptions): CloneFunction {

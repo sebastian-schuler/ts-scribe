@@ -45,4 +45,27 @@ describe('parseBoolean function', () => {
 	it('should return default value when value is an unsupported type and default value is provided', () => {
 		expect(parseBoolean(123, true)).toBe(true);
 	});
+
+	it('should return true for numeric value 1', () => {
+		expect(parseBoolean(1)).toBe(true);
+	});
+
+	it('should return false for numeric value 0', () => {
+		expect(parseBoolean(0)).toBe(false);
+	});
+
+	it('should return default value for numeric value 2 (not 0 or 1)', () => {
+		expect(parseBoolean(2)).toBe(false);
+		expect(parseBoolean(2, true)).toBe(true);
+	});
+
+	it('should return default value for negative numeric values', () => {
+		expect(parseBoolean(-1)).toBe(false);
+		expect(parseBoolean(-1, true)).toBe(true);
+	});
+
+	it('should return default value for NaN', () => {
+		expect(parseBoolean(Number.NaN)).toBe(false);
+		expect(parseBoolean(Number.NaN, true)).toBe(true);
+	});
 });

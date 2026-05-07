@@ -7,14 +7,7 @@ type Reference = Record<string, Nestable>;
  * Returns undefined if both values are objects (need further comparison).
  */
 function comparePrimitives(object1: Nestable, object2: Nestable): boolean | undefined {
-	if (
-		object1 === null ||
-		object2 === null ||
-		typeof object1 !== 'object' ||
-		typeof object2 !== 'object' ||
-		object1 === undefined ||
-		object2 === undefined
-	) {
+	if (object1 === null || object2 === null || typeof object1 !== 'object' || typeof object2 !== 'object') {
 		return object1 === object2;
 	}
 

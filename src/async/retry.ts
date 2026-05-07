@@ -1,3 +1,5 @@
+import { sleep } from './sleep.js';
+
 type RetryOptions = {
 	/**
 	 * Delay in milliseconds. May be an array to provide different delays for
@@ -84,17 +86,6 @@ function throwRetryError(lastError: unknown, signal?: AbortSignal): never {
 }
 
 /**
- * Sleep for the specified delay
- */
-async function sleep(delay: number): Promise<void> {
-	if (delay > 0) {
-		await new Promise((resolve) => {
-			setTimeout(resolve, delay);
-		});
-	}
-}
-
-/**
  * Retry `handler` while it throws.
  * Retries are based on the provided `options` which can define how many retries,
  * delays between retries, and whether retries should continue based on the error.
@@ -124,7 +115,8 @@ const retry = async <TypedValue>(
 				break;
 			}
 
-			const next = onRetry(error, (errorCount += 1)) ?? true;
+			errorCount += 1;
+			const next = onRetry(error, errorCount) ?? true;
 
 			if (next === false) {
 				break;

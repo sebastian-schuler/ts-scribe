@@ -24,4 +24,8 @@ describe('isDefined', () => {
 		expect(isDefined(null)).toBe(false);
 		expect(isDefined(undefined)).toBe(false);
 	});
+
+	it('should return false for NaN', () => {
+		expect(isDefined(Number.NaN)).toBe(false);
+	});
 });

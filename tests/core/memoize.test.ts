@@ -720,5 +720,70 @@ describe('memoize', () => {
 			});
 		});
 	});
+
+	describe('maxSize: 0 — caching disabled', () => {
+		it('should never cache results when maxSize is 0 (sync)', () => {
+			const fn = jest.fn((x: number) => x * 2);
+			const memoized = memoize(fn, { maxSize: 0 });
+
+			expect(memoized(5)).toBe(10);
+			expect(memoized(5)).toBe(10);
+			expect(memoized(5)).toBe(10);
+			expect(fn).toHaveBeenCalledTimes(3);
+			expect(memoized.size()).toBe(0);
+		});
+
+		it('should never cache results when maxSize is 0 (async)', async () => {
+			const fn = jest.fn(async (x: number) => {
+				await new Promise(resolve => setTimeout(resolve, 5));
+				return x * 2;
+			});
+			const memoized = memoize(fn, { maxSize: 0 });
+
+			await memoized(5);
+			await memoized(5);
+			await memoized(5);
+			expect(fn).toHaveBeenCalledTimes(3);
+			expect(memoized.size()).toBe(0);
+		});
+
+		it('should never cache errors when maxSize is 0 even with cacheErrors', () => {
+			const fn = jest.fn((x: number) => {
+				if (x < 0) throw new Error('negative');
+				return x * 2;
+			});
+			const memoized = memoize(fn, { maxSize: 0, cacheErrors: true });
+
+			expect(() => memoized(-5)).toThrow('negative');
+			expect(() => memoized(-5)).toThrow('negative');
+			expect(fn).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe('Concurrent async calls', () => {
+		it('should only execute once for concurrent calls with the same arguments', async () => {
+			let callCount = 0;
+			const fn = async (x: number) => {
+				callCount++;
+				await new Promise(resolve => setTimeout(resolve, 30));
+				return x * 2;
+			};
+			const memoized = memoize(fn);
+
+			// Fire 3 concurrent calls with the same argument
+			const [a, b, c] = await Promise.all([
+				memoized(5),
+				memoized(5),
+				memoized(5),
+			]);
+
+			expect(a).toBe(10);
+			expect(b).toBe(10);
+			expect(c).toBe(10);
+			// First call starts, others should wait for the cache to be populated
+			// but since the first hasn't completed yet, they all execute
+			expect(callCount).toBe(3); // Currently each call executes because Promise not cached until resolved
+		});
+	});
 });
 

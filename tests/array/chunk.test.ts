@@ -46,4 +46,24 @@ describe('arrayChunk', () => {
 		const result = arrayChunk(inputArray, size);
 		expect(result).toEqual(expectedOutput);
 	});
+
+	it('should throw a RangeError when size is 0', () => {
+		expect(() => arrayChunk([1, 2, 3], 0)).toThrowError(RangeError);
+	});
+
+	it('should throw a RangeError when size is negative', () => {
+		expect(() => arrayChunk([1, 2, 3], -1)).toThrowError(RangeError);
+	});
+
+	it('should throw a RangeError when size is not an integer', () => {
+		expect(() => arrayChunk([1, 2, 3], 1.5)).toThrowError(RangeError);
+	});
+
+	it('should throw a RangeError when size is NaN', () => {
+		expect(() => arrayChunk([1, 2, 3], Number.NaN)).toThrowError(RangeError);
+	});
+
+	it('should throw a RangeError when size is Infinity', () => {
+		expect(() => arrayChunk([1, 2, 3], Number.POSITIVE_INFINITY)).toThrowError(RangeError);
+	});
 });

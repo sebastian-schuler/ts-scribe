@@ -1,5 +1,8 @@
-import { describe } from 'bun:test';
+import { describe, expect, it } from 'bun:test';
+import { getEnvironment } from '../../src/system/index.js';
 
 describe('getEnvironment', () => {
-	// Not sure how to test this one
+	it('should detect Bun environment when running in Bun', () => {
+		expect(getEnvironment()).toBe('Bun');
+	});
 });

@@ -135,6 +135,11 @@ export function memoize<Args extends unknown[], ReturnType>(
 		return estimateSize(value) > maxEntrySize;
 	}
 
+	/**
+	 * Whether caching is enabled — `maxSize: 0` disables caching entirely.
+	 */
+	const cachingEnabled = maxSize !== 0;
+
 	const memoized = function (...args: Args): ReturnType {
 		const key = keyResolver(...args);
 
@@ -186,7 +191,7 @@ export function memoize<Args extends unknown[], ReturnType>(
 				return result.then(
 					(resolvedValue) => {
 						// Check if value exceeds max entry size
-						if (!exceedsMaxSize(resolvedValue)) {
+						if (cachingEnabled && !exceedsMaxSize(resolvedValue)) {
 							// Cache the successful result
 							evictLru();
 							cache.set(key, {
@@ -201,7 +206,7 @@ export function memoize<Args extends unknown[], ReturnType>(
 					},
 					(error: unknown) => {
 						// Cache errors if configured to do so
-						if (cacheErrors && !exceedsMaxSize(error)) {
+						if (cachingEnabled && cacheErrors && !exceedsMaxSize(error)) {
 							evictLru();
 							cache.set(key, {
 								value: error as ReturnType,
@@ -217,7 +222,7 @@ export function memoize<Args extends unknown[], ReturnType>(
 			}
 
 			// Cache synchronous results (if not too large)
-			if (!exceedsMaxSize(result)) {
+			if (cachingEnabled && !exceedsMaxSize(result)) {
 				evictLru();
 				cache.set(key, {
 					value: result,
@@ -230,7 +235,7 @@ export function memoize<Args extends unknown[], ReturnType>(
 			return result;
 		} catch (error) {
 			// Cache errors if configured to do so (and not too large)
-			if (cacheErrors && !exceedsMaxSize(error)) {
+			if (cachingEnabled && cacheErrors && !exceedsMaxSize(error)) {
 				evictLru();
 				cache.set(key, {
 					value: error as ReturnType,

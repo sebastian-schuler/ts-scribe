@@ -10,12 +10,18 @@ import { getGcd } from './greatest-common-divisor.js';
  * @param {...number[]} values - A list of numbers to find the SCM of.
  * @returns {number} The smallest common multiple of the provided numbers.
  *
+ * @throws {TypeError} If no values are provided.
+ *
  * @example
  * smallestCommonMultiple(4, 5, 6); // Returns 60
  * smallestCommonMultiple(3, 7, 9); // Returns 63
  * smallestCommonMultiple(12, 15, 20); // Returns 60
  */
 export const smallestCommonMultiple = (...values: number[]): number => {
+	if (values.length === 0) {
+		throw new TypeError('Reduce of empty array with no initial value');
+	}
+
 	let result = values[0];
 	for (const number_ of values.slice(1)) {
 		result = getScm(result, number_);
@@ -24,4 +30,9 @@ export const smallestCommonMultiple = (...values: number[]): number => {
 	return result;
 };
 
-export const getScm = (a: number, b: number): number => (a * b) / getGcd(a, b);
+export const getScm = (a: number, b: number): number => {
+	const gcd = getGcd(a, b);
+	// SCM(a, 0) = 0 and SCM(0, 0) = 0 — avoid 0/0
+	if (gcd === 0) return 0;
+	return (a * b) / gcd;
+};

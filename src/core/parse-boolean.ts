@@ -31,7 +31,7 @@ export function parseBoolean(value: string | boolean | number | null | undefined
 		if (value === 1) return true;
 	}
 
-	if (value === null || value === undefined) return defaultValue || false;
+	if (value === null || value === undefined) return defaultValue;
 
 	if (isString(value)) {
 		const formattedValue = value.trim().toLowerCase();

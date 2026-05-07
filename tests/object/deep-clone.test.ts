@@ -155,4 +155,26 @@ describe('deepClone', () => {
 		expect(clonedObject.nested).not.toBe(object.nested);
 		expect(clonedObject.date).not.toBe(object.date);
 	});
+
+	it('should clone Buffer objects', () => {
+		const original = Buffer.from('hello');
+		const object = { buf: original };
+		const clonedObject = objectDeepClone(object);
+
+		expect(clonedObject.buf).toEqual(original);
+		expect(clonedObject.buf).not.toBe(original);
+		expect(Buffer.isBuffer(clonedObject.buf)).toBe(true);
+		expect(clonedObject.buf.toString()).toBe('hello');
+	});
+
+	it('should clone TypedArray views', () => {
+		const original = new Uint8Array([1, 2, 3, 4]);
+		const object = { typed: original };
+		const clonedObject = objectDeepClone(object);
+
+		expect(clonedObject.typed).toEqual(original);
+		expect(clonedObject.typed).not.toBe(original);
+		expect(clonedObject.typed).toBeInstanceOf(Uint8Array);
+		expect([...clonedObject.typed]).toEqual([1, 2, 3, 4]);
+	});
 });
