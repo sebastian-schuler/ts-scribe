@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-type-assertion */
 import { estimateSize } from './estimate-size.js';
 import { memoizeSafeStringify } from './memoize-safe-stringify.js';
 import { type CacheEntry, type CacheStats, type MemoizedFunction, type MemoizeOptions } from './types.js';
@@ -182,7 +183,6 @@ export function memoize<Args extends unknown[], ReturnType>(
 
 			// Handle Promise results (async functions)
 			if (result instanceof Promise) {
-				// eslint-disable-next-line promise/prefer-await-to-then, promise/prefer-catch
 				return result.then(
 					(resolvedValue) => {
 						// Check if value exceeds max entry size

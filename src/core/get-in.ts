@@ -261,7 +261,7 @@ export function getIn(object: unknown, path: ReadonlyArray<string | number>, def
 			const idx = typeof key === 'number' ? key : Number(key);
 			current = array[idx < 0 ? array.length + idx : idx];
 		} else {
-			current = (current as Record<string | number, unknown>)[key];
+			current = (current as Record<string | number, unknown>)[key]; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		}
 	}
 

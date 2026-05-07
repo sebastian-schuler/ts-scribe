@@ -62,7 +62,7 @@ const defaults: Required<PruneObjectOptions> = {
  * objectPrune({ a: [1, undefined] }, { arrays: false }); // Returns: { a: [1, undefined] }
  */
 export const objectPrune = <T>(object: T, options?: PruneObjectOptions): T => {
-	return pruneValue(object, { ...defaults, ...options }) as T;
+	return pruneValue(object, { ...defaults, ...options }) as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 };
 
 const pruneValue = (value: unknown, options: Required<PruneObjectOptions>): unknown => {
@@ -88,7 +88,7 @@ const pruneValue = (value: unknown, options: Required<PruneObjectOptions>): unkn
 	// equivalent to for...in + hasOwn but without the prototype walk
 	const result: Record<string, unknown> = {};
 	for (const key of Object.keys(value)) {
-		const child = (value as Record<string, unknown>)[key];
+		const child = (value as Record<string, unknown>)[key]; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		const pruned = options.deep ? pruneValue(child, options) : child;
 		if (pruned !== undefined) {
 			result[key] = pruned;

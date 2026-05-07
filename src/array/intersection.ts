@@ -19,7 +19,7 @@ const intersectionInternal = <T>(deep = false, ...arrays: T[][]): T[] => {
 	const findIntersection = (array1: T[], array2: T[]): T[] => {
 		const intersection = array1.filter((value) => {
 			return array2.some((value2) => {
-				return deep ? objectDeepEquals(value as Nestable, value2 as Nestable) : value === value2;
+				return deep ? objectDeepEquals(value as Nestable, value2 as Nestable) : value === value2; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 			});
 		});
 		return [...new Set(intersection)];

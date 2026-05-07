@@ -31,7 +31,9 @@ function compareArrays(
 	otherRefs: Reference[],
 ): boolean {
 	// Check for circular references in arrays
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	const valueRefIndex = valueRefs.indexOf(array1 as unknown as Reference);
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	const otherRefIndex = otherRefs.indexOf(array2 as unknown as Reference);
 
 	if (valueRefIndex === otherRefIndex && valueRefIndex >= 0) {
@@ -39,7 +41,9 @@ function compareArrays(
 	}
 
 	// Add arrays to reference tracking
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	valueRefs.push(array1 as unknown as Reference);
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	otherRefs.push(array2 as unknown as Reference);
 
 	if (array1.length !== array2.length) {
@@ -136,6 +140,7 @@ function deepEqualsRecursive(object1: Nestable, object2: Nestable, valueRefs?: R
 	if (type !== '[object Object]') return false;
 
 	// Check for circular references
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	const circularResult = checkCircularReferences(object1 as Reference, object2 as Reference, valueRefs, otherRefs);
 	if (circularResult !== undefined) {
 		return circularResult;
@@ -149,6 +154,7 @@ function deepEqualsRecursive(object1: Nestable, object2: Nestable, valueRefs?: R
 	if (valueLength !== otherLength) return false;
 
 	// Compare properties
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	return compareObjectProperties(object1 as Reference, object2 as Reference, valueRefs, otherRefs);
 }
 

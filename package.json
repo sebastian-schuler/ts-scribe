@@ -28,6 +28,7 @@
     "docs": "typedoc",
     "docs:watch": "typedoc --watch",
     "lint": "xo",
+    "lint:fix": "xo --fix",
     "test": "bun test",
     "test:watch": "bun test --watch",
     "changeset": "bunx changeset",
@@ -56,10 +57,10 @@
   },
   "homepage": "https://sebastian-schuler.github.io/ts-scribe/",
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
+    "@changesets/cli": "^2.31.0",
     "bun-types": "latest",
-    "typedoc": "^0.28.17",
-    "typescript": "^5.9.3",
-    "xo": "^1.2.3"
+    "typedoc": "^0.28.19",
+    "typescript": "^6.0.3",
+    "xo": "^2.0.2"
   }
 }

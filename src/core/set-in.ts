@@ -230,7 +230,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 
 	const cloneObject = (object_: object): Record<string | number, unknown> => {
 		const prototype = Reflect.getPrototypeOf(object_);
-		const clone = Object.create(prototype) as Record<string | number, unknown>;
+		const clone = Object.create(prototype) as Record<string | number, unknown>; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		return Object.assign(clone, object_);
 	};
 
@@ -240,7 +240,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 			return normalized >= 0 ? normalized : null;
 		}
 
-		if (typeof key === 'string' && /^-?\d+$/.test(key)) {
+		if (typeof key === 'string' && /^-?\d+$/v.test(key)) {
 			const parsed = Number(key);
 			const normalized = parsed < 0 ? length + parsed : parsed;
 			return Number.isInteger(normalized) && normalized >= 0 ? normalized : null;
@@ -263,7 +263,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 		if (Array.isArray(current)) {
 			const source = current as unknown[];
 			const clone = [...source];
-			const recordClone = clone as unknown as Record<string | number, unknown>;
+			const recordClone = clone as unknown as Record<string | number, unknown>; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 			const idx = normalizeArrayIndex(key, clone.length);
 
 			if (idx === null) {
@@ -275,6 +275,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 			return clone;
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 		const writable = (
 			current !== null && typeof current === 'object' ? cloneObject(current) : createContainerForKey(key)
 		) as Record<string | number, unknown>;

@@ -48,15 +48,15 @@ export const objectFlatten = <T>(object: Record<string, unknown>, prefix = ''): 
 		if (Array.isArray(value)) {
 			for (const [index, item] of value.entries()) {
 				if (typeof item === 'object' && item !== null) {
-					Object.assign(acc, objectFlatten(item as Record<string, unknown>, `${newKey}.${index}`));
+					Object.assign(acc, objectFlatten(item as Record<string, unknown>, `${newKey}.${index}`)); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 				} else {
-					acc[`${newKey}.${index}`] = item as T;
+					acc[`${newKey}.${index}`] = item as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 				}
 			}
 		} else if (value && typeof value === 'object') {
-			Object.assign(acc, objectFlatten(value as Record<string, unknown>, newKey));
+			Object.assign(acc, objectFlatten(value as Record<string, unknown>, newKey)); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		} else {
-			acc[newKey] = value as T;
+			acc[newKey] = value as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		}
 	}
 

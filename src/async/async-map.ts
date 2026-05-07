@@ -52,7 +52,7 @@ export async function asyncMap<T, R, E = undefined>(
 		throw new Error('Input array must not be null or undefined');
 	}
 
-	const { concurrency = Infinity, continueOnError = false, errorValue = undefined as E } = options;
+	const { concurrency = Infinity, continueOnError = false, errorValue } = options;
 
 	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
 		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");

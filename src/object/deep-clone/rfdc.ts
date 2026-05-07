@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-type-assertion */
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable n/prefer-global/buffer */

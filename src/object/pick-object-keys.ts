@@ -21,7 +21,7 @@
  */
 export function objectPickKeys<T extends object, K extends keyof T>(object: T, keys: K[]): Pick<T, K> {
 	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-	const result: Pick<T, K> = {} as Pick<T, K>;
+	const result: Pick<T, K> = {} as Pick<T, K>; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 
 	// Loop through the provided keys and copy them to the new object
 	for (const key of keys) {

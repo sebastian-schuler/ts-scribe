@@ -48,6 +48,7 @@ export function safeJsonStringify(
 ): string {
 	const cleaned = ensureProperties(data);
 	try {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 		return JSON.stringify(cleaned, replacer as any, space);
 	} catch (error) {
 		// Fallback for edge cases (e.g., replacer throwing, unexpected serialization errors)
@@ -76,6 +77,7 @@ function formatThrowsMessage(error: unknown): string {
  */
 function safeGet(object: Record<string, unknown>, prop: PropertyKey): unknown {
 	try {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion, @typescript-eslint/no-unsafe-member-access
 		return (object as any)[prop];
 	} catch (error) {
 		return formatThrowsMessage(error);
@@ -97,17 +99,21 @@ function ensureProperties(value: unknown, visited: VisitedSet = new WeakSet()): 
 	}
 
 	// Handle circular reference
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	if (visited.has(value as Record<string, unknown>)) {
 		return '[Circular]';
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 	visited.add(value as Record<string, unknown>);
 
 	try {
 		// Handle toJSON (per JSON.stringify spec)
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion, @typescript-eslint/no-unsafe-member-access
 		if (typeof (value as any).toJSON === 'function') {
 			let jsonValue: unknown;
 			try {
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-type-assertion
 				jsonValue = (value as any).toJSON();
 			} catch (error) {
 				return formatThrowsMessage(error);
@@ -122,6 +128,7 @@ function ensureProperties(value: unknown, visited: VisitedSet = new WeakSet()): 
 			return value.map((item) => ensureProperties(item, visited));
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 		const object = value as Record<string, unknown>;
 
 		// Plain objects: iterate *own enumerable* properties (like JSON.stringify)
@@ -143,6 +150,7 @@ function ensureProperties(value: unknown, visited: VisitedSet = new WeakSet()): 
 
 		return result;
 	} finally {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 		visited.delete(value as Record<string, unknown>);
 	}
 }

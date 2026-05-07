@@ -7,7 +7,7 @@ export function estimateSize(value: unknown): number {
 	if (value === null || value === undefined) return 0;
 	if (type === 'boolean') return 4;
 	if (type === 'number') return 8;
-	if (type === 'string') return (value as string).length * 2; // UTF-16
+	if (type === 'string') return (value as string).length * 2; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 	if (type === 'bigint') return 8;
 
 	if (typeof value === 'object') {

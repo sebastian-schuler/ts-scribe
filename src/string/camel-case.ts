@@ -15,9 +15,9 @@ export function toCamelCase(text: string | undefined): string {
 	if (!text) return '';
 
 	return String(text)
-		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
-		.replaceAll(/[^A-Za-z\d]+/g, '$')
-		.replaceAll(/([a-z])([A-Z])/g, (m, a, b) => `${a}$${b}`)
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/gv, '')
+		.replaceAll(/[^A-Za-z\d]+/gv, '$')
+		.replaceAll(/([a-z])([A-Z])/gv, (m, a, b) => `${a}$${b}`)
 		.toLowerCase()
-		.replaceAll(/(\$)(\w)/g, (_m: string, _a: string, b: string) => b.toUpperCase());
+		.replaceAll(/(\$)(\w)/gv, (_m: string, _a: string, b: string) => b.toUpperCase());
 }
