@@ -34,12 +34,10 @@ describe('safeJsonParse', () => {
 	});
 
 	it('should run the onError function if parsing fails', () => {
-		// @ts-expect-error - Testing onError invocation on parse failure
 		const callbackMock = spyOn({ fn() {} }, 'fn');
 		const jsonString = '{invalid json}';
 		const fallbackValue = { name: 'Fallback', age: 0 };
 
-		// @ts-expect-error - Testing onError invocation on parse failure
 		safeJsonParse(jsonString, fallbackValue, { onError: callbackMock });
 
 		expect(callbackMock).toHaveBeenCalledTimes(1);
@@ -72,10 +70,8 @@ describe('safeJsonParse', () => {
 	});
 
 	it('should not call onError if parsing succeeds', () => {
-		// @ts-expect-error - Testing onError is not called on success
 		const onError = spyOn({ fn() {} }, 'fn');
 
-		// @ts-expect-error - Testing onError is not called on success
 		safeJsonParse('{"ok": true}', {}, { onError });
 
 		expect(onError).not.toHaveBeenCalled();
@@ -83,12 +79,10 @@ describe('safeJsonParse', () => {
 
 	it('should invoke both onError and log when both options are set and parsing fails', () => {
 		const consoleErrorMock = spyOn(console, 'error').mockImplementation(() => {});
-		// @ts-expect-error - Testing combined onError and logError
 		const onError = spyOn({ fn() {} }, 'fn');
 		const jsonString = '{bad}';
 		const fallbackValue = { x: 0 };
 
-		// @ts-expect-error - Testing combined onError and logError
 		safeJsonParse(jsonString, fallbackValue, { onError, logError: true });
 
 		expect(consoleErrorMock).toHaveBeenCalledTimes(1);

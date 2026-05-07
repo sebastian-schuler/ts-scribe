@@ -1,4 +1,4 @@
-export { objectDeepClone } from './deep-clone/deep-clone.js';
+export { objectDeepClone, type DeepCloneOptions } from './deep-clone.js';
 export { objectDeepEquals } from './deep-equals.js';
 export { objectDeepFreeze } from './deep-freeze.js';
 export { objectPrune, type PruneObjectOptions } from './prune-object.js';

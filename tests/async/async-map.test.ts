@@ -163,6 +163,7 @@ describe('asyncMap', () => {
 
 		// Type checking (this would cause TS errors if types were wrong)
 		for (const item of result) {
+			if (item === undefined) continue;
 			if (typeof item === 'number') {
 				const doubled = item * 2;
 			} else {
