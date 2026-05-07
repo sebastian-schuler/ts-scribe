@@ -48,12 +48,14 @@ export const objectFlatten = (object: Record<string, unknown>, prefix = ''): Rec
 		if (Array.isArray(value)) {
 			for (const [index, item] of value.entries()) {
 				if (typeof item === 'object' && item !== null) {
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 					Object.assign(acc, objectFlatten(item as Record<string, unknown>, `${newKey}.${index}`));
 				} else {
 					acc[`${newKey}.${index}`] = item;
 				}
 			}
 		} else if (value && typeof value === 'object') {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 			Object.assign(acc, objectFlatten(value as Record<string, unknown>, newKey));
 		} else {
 			acc[newKey] = value;
