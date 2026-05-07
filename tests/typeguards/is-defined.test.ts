@@ -13,6 +13,14 @@ describe('isDefined', () => {
 	});
 
 	it('should return false for null or undefined values', () => {
+		let value = 'hello' as string | null | undefined;
+
+		// @ts-expect-error - value can be null or undefined, so this should cause a TypeScript error
+		const t1 = value.toUpperCase();
+		if(isDefined(value)) {
+			const t = value.toUpperCase(); // This should not cause a TypeScript error since value is defined here
+		}
+
 		expect(isDefined(null)).toBe(false);
 		expect(isDefined(undefined)).toBe(false);
 	});
