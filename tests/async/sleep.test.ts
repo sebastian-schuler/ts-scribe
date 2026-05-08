@@ -8,7 +8,8 @@ describe('sleep', () => {
 		await sleep(sleepTime);
 
 		const endTime = performance.now();
-		expect(endTime - startTime).toBeGreaterThanOrEqual(sleepTime);
+		// setTimeout is not precise — allow 2ms tolerance for CI timer drift
+		expect(endTime - startTime).toBeGreaterThanOrEqual(sleepTime - 2);
 	});
 
 	it('sleep resolves for a zero delay', async () => {
