@@ -2,16 +2,21 @@ name: Release
 
 on:
   push:
-    branches: [ main, master ]
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+    branches: [ main ]
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -19,14 +24,7 @@ jobs:
 
       - run: bun install
 
-      - name: Create Release PR or Publish
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: bun run release
-          version: bun run version-packages
-          commit: "chore: version packages"
-          title: "chore: version packages"
+      - run: bunx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

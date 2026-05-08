@@ -1,74 +1,75 @@
-# Changesets — ts-scribe Release Guide
+# semantic-release — ts-scribe Release Guide
+
+Releases are **fully automated** via [semantic-release](https://semantic-release.gitbook.io/semantic-release).
+Pushing to `main` triggers CI which analyzes commit messages, bumps the version, generates the changelog, and publishes to npm.
 
 ## Quick Reference
 
 | Command | What it does |
 |---------|-------------|
-| `bun run changeset` | Interactively create a new changeset (describe your changes) |
-| `bun run version-packages` | Consume changesets, bump version, update CHANGELOG.md |
-| `bun run release` | Build and publish to npm |
-| `bun run lint` | Run the linter |
+| `bun run build` | Build the project |
 | `bun test` | Run all tests |
+| `bun run lint` | Run the linter |
+| `bun run docs` | Generate TypeDoc documentation |
 
-## Release Flow (CI — Recommended)
+## How Versioning Works
 
-```
-1.  Create a changeset
-    bun run changeset
-    → Choose the bump: patch / minor / major
-    → Write a summary of your changes
+The version bump is determined **automatically from your commit messages** using the [Conventional Commits](https://www.conventionalcommits.org/) spec:
 
-2.  Commit and push to development
-    git add . && git commit -m "feat: your feature"
-    git push origin development
+| Commit pattern | Bump | Example |
+|---------------|------|---------|
+| `fix:` | **patch** (0.6.4 → 0.6.5) | `fix: handle empty array in arrayChunk` |
+| `feat:` | **minor** (0.6.4 → 0.7.0) | `feat: add arrayPartition function` |
+| `BREAKING CHANGE:` or `!` | **major** (0.6.4 → 1.0.0) | `feat!: drop Node 16 support` |
 
-3.  Open a PR: development → main and merge it
+Commits with `chore:`, `docs:`, `style:`, `refactor:`, `test:`, `ci:`, `build:` do **not** trigger a release.
+If there are no `fix:` or `feat:` commits, no release happens.
 
-4.  CI on main detects the .changeset/ file
-    → Opens a "Version Packages" PR
-    → This PR shows the version bump + auto-generated CHANGELOG entry
-
-5.  Merge the "Version Packages" PR
-    → CI builds and publishes to npm automatically
-```
-
-## Release Flow (Manual)
+## Release Flow
 
 ```
-1.  Create a changeset
-    bun run changeset
+1.  Write code and commit using Conventional Commits
+    git commit -m "feat: add new utility function"
 
-2.  Bump version + update CHANGELOG
-    bun run version-packages
+2.  Push to a feature branch and open a PR
+    git push origin feature/my-feature
 
-3.  Commit the version bump
-    git add . && git commit -m "chore: version packages"
+3.  Merge the PR to main
 
-4.  Publish
-    bun run release
+4.  CI on main runs semantic-release automatically:
+    → Analyzes commits since last release
+    → Determines version bump (patch / minor / major)
+    → Generates and updates CHANGELOG.md
+    → Publishes to npm
+    → Creates a GitHub Release
+    → Commits the updated CHANGELOG.md back to main
+
+5.  Done — no manual steps needed
 ```
-
-## Version Bump Types
-
-| Type | Example | Use for |
-|------|---------|---------|
-| `patch` | `0.6.4` → `0.6.5` | Bug fixes, small improvements |
-| `minor` | `0.6.4` → `0.7.0` | New features, non-breaking |
-| `major` | `0.6.4` → `1.0.0` | Breaking changes |
-
-If multiple changeset files exist, the **highest** bump wins.
 
 ## Prerequisites for CI Publishing
 
 - `NPM_TOKEN` must be set as a [GitHub Actions secret](https://github.com/sebastian-schuler/ts-scribe/settings/secrets/actions)
 - The token must be an **Automation** type (bypasses 2FA)
+- `GITHUB_TOKEN` is provided automatically by GitHub Actions
 
-## File Structure
+## Configuration
 
+Release behavior is configured in `.releaserc`:
+
+```json
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/npm",
+    "@semantic-release/git",
+    "@semantic-release/github"
+  ]
+}
 ```
-.changeset/
-├── config.json              # Changesets configuration
-├── README.md                # This guide
-└── *.md                     # Pending changesets (auto-deleted on release)
-```
+
+The CI workflow lives in `.github/workflows/release.yml`.
 
