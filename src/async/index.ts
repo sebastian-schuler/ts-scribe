@@ -5,6 +5,7 @@ export { asyncFilter, asyncFilterSettled } from './async-filter.js';
 export type { AsyncFilterSettledResult } from './async-filter.js';
 export { asyncMap, asyncMapSettled } from './async-map.js';
 export type { AsyncErrorInfo, AsyncMapSettledResult } from './async-map.js';
+export { asyncPipe } from './async-pipe.js';
 export { debounce } from './debounce.js';
 export { maybe } from './maybe.js';
 export type { Maybe } from './maybe.js';

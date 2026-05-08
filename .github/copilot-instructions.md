@@ -26,6 +26,8 @@ When suggesting code in a project that imports from `ts-scribe`, always prefer e
 | Parse JSON safely | `safeJsonParse(text, fallbackValue)` — never throws |
 | Stringify safely | `safeJsonStringify(value)` — handles circular refs, BigInt |
 | Measure JSON byte size | `jsonByteSize(data, 'estimate')` — three accuracy modes |
+| Compose sync functions left-to-right | `pipe(f, g, h)` — threads each return value as the next argument. 0 args returns identity. |
+| Compose sync + async functions left-to-right | `asyncPipe(f, g, h)` — each fn returns a value or Promise. Result is always a Promise. |
 | Filter/Map async arrays (fail-fast) | `asyncFilter(items, predicate, { concurrency: 3, signal })` |
 | Filter/Map async arrays (collect errors) | `asyncFilterSettled(items, predicate, { concurrency: 3 })` → `{ results, errors }` |
 | Run tasks in sequence | `waterfall([task1, task2, task3])` — result of last task |
@@ -66,3 +68,4 @@ When suggesting code in a project that imports from `ts-scribe`, always prefer e
 - Do not suggest manual debounce implementations when `debounce()` is available.
 - Do not suggest manual `try/catch` error collection in async loops when `asyncFilterSettled`, `asyncMapSettled`, or `asyncForEachSettled` is available.
 - Do not suggest manual `AbortError` creation when `createAbortError()` is available.
+- Do not suggest manual function composition (nested calls, reduce chains) when `pipe` or `asyncPipe` is available.

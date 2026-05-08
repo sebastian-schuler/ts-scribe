@@ -24,6 +24,7 @@ export {
 	asyncFilterSettled,
 	asyncMap,
 	asyncMapSettled,
+	asyncPipe,
 	createAbortError,
 	debounce,
 	maybe,
@@ -45,6 +46,7 @@ export type {
 export {
 	parseBoolean,
 	parseNumber,
+	pipe,
 	run,
 	safeJsonParse,
 	safeJsonStringify,

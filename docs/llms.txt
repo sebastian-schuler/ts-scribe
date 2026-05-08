@@ -43,6 +43,11 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
 - `jsonByteSize(value: unknown, accuracy?: 'exact' | 'fast' | 'estimate')` — Measure JSON byte size.
 - `parseBoolean(value: string | boolean | number | null | undefined, defaultValue?: boolean)` — Coerce to boolean.
 - `parseNumber(value: string | number | null | undefined, defaultValue?: number)` — Coerce to number or undefined.
+- `pipe<A, B>(...fns: Function[]): (x: A) => B` — Compose functions left-to-right, threading each return value as the next argument. 0 args returns identity, 1 arg returns the function as-is. 6 typed overloads for full type inference.
+  ```ts
+  const add1ThenDouble = pipe((n: number) => n + 1, (n: number) => n * 2);
+  add1ThenDouble(3); // 8
+  ```
 - `run<T>(fn: () => T): T` — Immediately invoke a function (IIFE replacement).
 
 ## Array
@@ -73,6 +78,14 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
 - `asyncMapSettled<T, R, E>(array: T[], fn: (item, index) => Promise<R>, options?: { concurrency?: number; errorValue?: E; signal?: AbortSignal }): Promise<AsyncMapSettledResult<R, E>>` — Like `asyncMap` but collects errors and replaces failed items with `errorValue`. Returns `{ results, errors }`.
   ```ts
   const { results, errors } = await asyncMapSettled(ids, fetchUser, { errorValue: null });
+  ```
+- `asyncPipe<A, B>(...fns: Function[]): (x: A) => Promise<B>` — Compose sync and/or async functions left-to-right. Each function may return a value or a Promise — the result is always a Promise. 6 typed overloads for full type inference.
+  ```ts
+  const search = asyncPipe(
+    (s: string) => s.trim(),
+    async (q: string) => ({ results: [q] }),
+  );
+  await search('  hello  '); // { results: ['hello'] }
   ```
 - `createAbortError(reason: unknown): Error` — Create a standardized `AbortError` (name: `'AbortError'`, code: `20`).
 - `debounce<T, R>(fn: (...args: T) => R, wait: number, immediate?: boolean): (...args: T) => Promise<R | undefined>` — Debounced function, returns Promise.

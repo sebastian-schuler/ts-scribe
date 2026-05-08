@@ -33,6 +33,7 @@ bun add ts-scribe
 | `jsonByteSize(value, accuracy?)` | Measure the byte size of a value's JSON representation. Three accuracy modes: `'exact'`, `'fast'`, and `'estimate'`. |
 | `parseBoolean(value)` | Coerce strings, numbers, and other values to a boolean. |
 | `parseNumber(value)` | Coerce strings and other values to a number, or `undefined` if not parseable. |
+| `pipe(...fns)` | Compose functions left-to-right, threading the return value of each as the argument to the next. 0 args returns identity. |
 | `run(fn)` | Immediately invoke a function. Useful for scoping inline expressions. |
 
 ### Array
@@ -62,6 +63,7 @@ bun add ts-scribe
 | `asyncForEachSettled(array, fn, options?)` | Like `asyncForEach` but collects errors instead of throwing. Returns `{ errors }`. |
 | `asyncMap(array, fn, options?)` | Map an array through an async function. Fails fast on the first error. Supports concurrency control and `AbortSignal`. |
 | `asyncMapSettled(array, fn, options?)` | Like `asyncMap` but collects errors and replaces failed items with `errorValue`. Returns `{ results, errors }`. |
+| `asyncPipe(...fns)` | Compose sync and/or async functions left-to-right. Each function may return a value or a Promise — the result is always a Promise. |
 | `createAbortError(reason)` | Create a standardized `AbortError` (name: `'AbortError'`, code: `20`) from any value. |
 | `debounce(fn, delay)` | Create a debounced version of a function or promise. |
 | `maybe(value)` | Maybe monad for chaining operations on values that may be null or undefined. Supports `map`, `filter`, `else`, and `catch`. |
