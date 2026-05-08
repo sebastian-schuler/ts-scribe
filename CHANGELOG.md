@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/sebastian-schuler/ts-scribe/compare/v1.0.0...v1.0.1) (2026-05-08)
+
+
+### Bug Fixes
+
+* Configure semantic-release with exec and git user settings ([#3](https://github.com/sebastian-schuler/ts-scribe/issues/3)) ([1df338f](https://github.com/sebastian-schuler/ts-scribe/commit/1df338fcdfb77d7586249e4834914b87edba9ee7))
+
 # 1.0.0 (2026-05-08)
 
 
