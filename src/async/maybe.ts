@@ -323,9 +323,9 @@ const createEmpty = (error: NonNullish | undefined | null): MaybeNotOk<never> =>
  * maybe(undefined).empty; // true
  * ```
  */
-const maybe = <TypedValue>(
+export function maybe<TypedValue>(
 	init: Maybe<TypedValue> | TypedValue | (() => Maybe<TypedValue> | Nullish | TypedValue) | undefined,
-): Maybe<TypedValue> => {
+): Maybe<TypedValue> {
 	try {
 		const value = typeof init === 'function' ? (init as () => Maybe<TypedValue> | Nullish | TypedValue)() : init; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 
@@ -341,7 +341,7 @@ const maybe = <TypedValue>(
 	} catch (error) {
 		return maybe.error(error);
 	}
-};
+}
 
 /**
  * Create an `empty` monad carrying an error.
@@ -428,5 +428,5 @@ const isMaybe = (value: unknown): value is Maybe<unknown> => {
 	return Boolean((value as { [maybe$]?: unknown })?.[maybe$]); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 };
 
-export { isMaybe, maybe };
+export { isMaybe };
 export type { Maybe };

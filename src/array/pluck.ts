@@ -14,6 +14,6 @@
  * const names = arrayPluck(users, 'name');
  * console.log(names); // Output: ['Alice', 'Bob']
  */
-export const arrayPluck = <T, K extends keyof T>(array: T[], key: K): Array<T[K]> => {
+export function arrayPluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]> {
 	return array.map((item) => item[key]);
-};
+}

@@ -18,7 +18,7 @@
  * console.log(resultWithEmpty);
  * // Output: [ [], [ 1 ], [ 2 ], [ 3 ], [ 1, 2 ], [ 1, 3 ], [ 2, 3 ], [ 1, 2, 3 ] ]
  */
-export const arrayPowerset = <T>(array: T[], ignoreEmpty = true): T[][] => {
+export function arrayPowerset<T>(array: T[], ignoreEmpty = true): T[][] {
 	if (array.length === 0 && ignoreEmpty) return [];
 	const result: T[][] = [[]];
 
@@ -28,4 +28,4 @@ export const arrayPowerset = <T>(array: T[], ignoreEmpty = true): T[][] => {
 	}
 
 	return result.slice(ignoreEmpty ? 1 : 0);
-};
+}

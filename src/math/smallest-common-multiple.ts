@@ -17,7 +17,7 @@ import { getGcd } from './greatest-common-divisor.js';
  * smallestCommonMultiple(3, 7, 9); // Returns 63
  * smallestCommonMultiple(12, 15, 20); // Returns 60
  */
-export const smallestCommonMultiple = (...values: number[]): number => {
+export function smallestCommonMultiple(...values: number[]): number {
 	if (values.length === 0) {
 		throw new TypeError('Reduce of empty array with no initial value');
 	}
@@ -28,11 +28,11 @@ export const smallestCommonMultiple = (...values: number[]): number => {
 	}
 
 	return result;
-};
+}
 
-export const getScm = (a: number, b: number): number => {
+export function getScm(a: number, b: number): number {
 	const gcd = getGcd(a, b);
 	// SCM(a, 0) = 0 and SCM(0, 0) = 0 — avoid 0/0
 	if (gcd === 0) return 0;
 	return (a * b) / gcd;
-};
+}

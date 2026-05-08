@@ -96,10 +96,10 @@ function throwRetryError(lastError: unknown, signal?: AbortSignal): never {
  * @returns {Promise<TypedValue>} The result of the `handler` after it successfully completes.
  * @throws {Error} Throws the last error encountered if retries are exhausted or if aborted.
  */
-const retry = async <TypedValue>(
+export async function retry<TypedValue>(
 	handler: RetryHandler<TypedValue>,
 	options: RetryOptions = {},
-): Promise<TypedValue> => {
+): Promise<TypedValue> {
 	const { signal, delay: defaultDelay = 0, retries = 2, onRetry = onRetryDefault } = options;
 	let lastError: unknown;
 	let errorCount = 0;
@@ -130,7 +130,7 @@ const retry = async <TypedValue>(
 	}
 
 	throwRetryError(lastError, signal);
-};
+}
 
-export { onRetryDefault, retry };
+export { onRetryDefault };
 export type { RetryHandler, RetryOptions };

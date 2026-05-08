@@ -36,7 +36,7 @@
  * //   '2.a': 4
  * // }
  */
-export const objectFlatten = (object: Record<string, unknown>, prefix = ''): Record<string, unknown> => {
+export function objectFlatten(object: Record<string, unknown>, prefix = ''): Record<string, unknown> {
 	const acc: Record<string, unknown> = {};
 
 	for (const key of Object.keys(object)) {
@@ -63,4 +63,4 @@ export const objectFlatten = (object: Record<string, unknown>, prefix = ''): Rec
 	}
 
 	return acc;
-};
+}

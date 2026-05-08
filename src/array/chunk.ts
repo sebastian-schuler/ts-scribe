@@ -17,7 +17,7 @@
  * const chunked = arrayChunk(arr, 2);
  * console.log(chunked); // [[1, 2], [3, 4], [5, 6]]
  */
-export const arrayChunk = <T>(array: T[], size: number): T[][] => {
+export function arrayChunk<T>(array: T[], size: number): T[][] {
 	if (!Number.isInteger(size) || size < 1) {
 		throw new RangeError('size must be a positive integer.');
 	}
@@ -28,4 +28,4 @@ export const arrayChunk = <T>(array: T[], size: number): T[][] => {
 	}
 
 	return chunks;
-};
+}

@@ -61,9 +61,9 @@ const defaults: Required<PruneObjectOptions> = {
  *
  * objectPrune({ a: [1, undefined] }, { arrays: false }); // Returns: { a: [1, undefined] }
  */
-export const objectPrune = <T>(object: T, options?: PruneObjectOptions): T => {
+export function objectPrune<T>(object: T, options?: PruneObjectOptions): T {
 	return pruneValue(object, { ...defaults, ...options }) as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
-};
+}
 
 const pruneValue = (value: unknown, options: Required<PruneObjectOptions>): unknown => {
 	if (Array.isArray(value)) {
