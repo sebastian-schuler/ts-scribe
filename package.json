@@ -57,6 +57,7 @@
   "homepage": "https://sebastian-schuler.github.io/ts-scribe/",
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "bun-types": "latest",
     "semantic-release": "^25.0.3",
