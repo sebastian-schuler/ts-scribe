@@ -42,12 +42,12 @@ export function debounce<T extends unknown[], R>(
 	let timeoutId: NodeJS.Timeout | undefined;
 	let pendingResolver: ((value: R | undefined) => void) | undefined;
 
-	return function (this: unknown, ...args: T): Promise<R | undefined> {
+	return async function (this: unknown, ...args: T): Promise<R | undefined> {
 		return new Promise<R | undefined>((resolve) => {
 			const later = () => {
 				timeoutId = undefined;
 				if (!immediate && pendingResolver) {
-					pendingResolver(fn.apply(this, args) as R);
+					pendingResolver(fn.apply(this, args));
 					pendingResolver = undefined;
 				}
 			};
@@ -63,13 +63,13 @@ export function debounce<T extends unknown[], R>(
 			timeoutId = setTimeout(later, wait);
 
 			if (callNow) {
-				resolve(fn.apply(this, args) as R);
-			} else if (!immediate) {
-				// Trailing mode: save resolver for when the timer fires
-				pendingResolver = resolve;
-			} else {
+				resolve(fn.apply(this, args));
+			} else if (immediate) {
 				// Leading mode but within cooldown: call is suppressed
 				resolve(undefined);
+			} else {
+				// Trailing mode: save resolver for when the timer fires
+				pendingResolver = resolve;
 			}
 		});
 	};
