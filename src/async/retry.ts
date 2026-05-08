@@ -132,5 +132,4 @@ export async function retry<TypedValue>(
 	throwRetryError(lastError, signal);
 }
 
-export { onRetryDefault };
 export type { RetryHandler, RetryOptions };

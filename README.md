@@ -64,7 +64,7 @@ bun add ts-scribe
 | `retry(handler, options?)` | Retry a promise-returning function with configurable delays, retry count, and abort signal. |
 | `Semaphore` | Class that limits concurrent access to a resource. Acquire and release locks. |
 | `sleep(ms)` | Pause execution for a given number of milliseconds. |
-| `waterfall(tasks)` | Run an array of async tasks in sequence, passing each result to the next. |
+| `waterfall(tasks)` | Run an array of async tasks in sequence. Resolves with the result of the last task. |
 
 ### Development
 
