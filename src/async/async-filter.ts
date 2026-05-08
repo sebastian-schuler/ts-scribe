@@ -1,4 +1,5 @@
 import { isDefined } from '../typeguards/is-defined.js';
+import { runAsyncPool } from './async-pool.js';
 
 /**
  * Asynchronously filters an array based on an asynchronous predicate function.
@@ -70,21 +71,20 @@ export async function asyncFilter<T>(
 		return [];
 	}
 
+	// Unlimited concurrency — run all predicates in parallel
 	if (concurrency === Infinity || concurrency >= array.length) {
 		if (continueOnError) {
-			// Process all items, catching errors individually
 			const results = await Promise.all(
 				array.map(async (element, index, array_) => {
 					try {
 						const shouldInclude = await predicate(element, index, array_);
 						return { element, shouldInclude };
 					} catch {
-						// On error, exclude the element
 						return { element, shouldInclude: false };
 					}
 				}),
 			);
-			return results.filter((result) => result.shouldInclude).map((result) => result.element);
+			return results.filter((r) => r.shouldInclude).map((r) => r.element);
 		}
 
 		const results = await Promise.all(
@@ -93,42 +93,24 @@ export async function asyncFilter<T>(
 				return { element, shouldInclude };
 			}),
 		);
-		return results.filter((result) => result.shouldInclude).map((result) => result.element);
+		return results.filter((r) => r.shouldInclude).map((r) => r.element);
 	}
 
-	// For limited concurrency, use a worker-queue pattern
+	// Limited concurrency via shared worker pool
 	const results: Array<{ element: T; shouldInclude: boolean }> = Array.from({ length: array.length });
-	let currentIndex = 0;
 
-	async function processQueue(): Promise<void> {
-		const index = currentIndex++;
-
-		// Exit if all items processed
-		if (index >= array.length) {
-			return;
-		}
-
-		// Process current item with error handling
+	await runAsyncPool(array.length, concurrency, async (index) => {
 		try {
 			const shouldInclude = await predicate(array[index], index, array);
 			results[index] = { element: array[index], shouldInclude };
 		} catch (error) {
 			if (continueOnError) {
-				// On error, exclude the element
 				results[index] = { element: array[index], shouldInclude: false };
 			} else {
-				// If any promise rejects and we're not continuing on error, propagate
 				throw error;
 			}
 		}
+	});
 
-		return processQueue();
-	}
-
-	// Create initial batch of workers based on concurrency limit
-	const workers = Array.from({ length: Math.min(concurrency, array.length) }, async () => processQueue());
-
-	await Promise.all(workers);
-
-	return results.filter((result) => result.shouldInclude).map((result) => result.element);
+	return results.filter((r) => r.shouldInclude).map((r) => r.element);
 }

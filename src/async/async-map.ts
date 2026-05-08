@@ -1,4 +1,5 @@
 import { isDefined } from '../typeguards/is-defined.js';
+import { runAsyncPool } from './async-pool.js';
 
 /**
  * Maps over an array with an asynchronous callback function and returns a promise that resolves
@@ -62,9 +63,9 @@ export async function asyncMap<T, R, E = undefined>(
 		return [];
 	}
 
+	// Unlimited concurrency — run all callbacks in parallel
 	if (concurrency === Infinity || concurrency >= array.length) {
 		if (continueOnError) {
-			// Process all items, but catch errors individually
 			const promises = array.map(async (item, index, array_) => {
 				try {
 					return await callback(item, index, array_);
@@ -78,41 +79,20 @@ export async function asyncMap<T, R, E = undefined>(
 		return Promise.all(array.map(async (item, index, array_) => callback(item, index, array_)));
 	}
 
-	// For limited concurrency, process in batches
+	// Limited concurrency via shared worker pool
 	const results: Array<R | E | undefined> = Array.from({ length: array.length });
-	let currentIndex = 0;
 
-	// Process items in batches based on concurrency limit
-	async function processQueue(): Promise<void> {
-		const index = currentIndex++;
-
-		// Exit if all items processed
-		if (index >= array.length) {
-			return;
-		}
-
-		// Process current item with error handling
+	await runAsyncPool(array.length, concurrency, async (index) => {
 		try {
 			results[index] = await callback(array[index], index, array);
 		} catch (error) {
 			if (continueOnError) {
-				// Use the specified error value
 				results[index] = errorValue;
 			} else {
-				// If any promise rejects and we're not continuing on error, propagate
 				throw error;
 			}
 		}
-
-		return processQueue();
-	}
-
-	// Create initial batch of promises based on concurrency limit
-	const workers = Array.from({ length: Math.min(concurrency, array.length) })
-		.fill(null)
-		.map(async () => processQueue());
-
-	await Promise.all(workers);
+	});
 
 	return results;
 }

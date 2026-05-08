@@ -1,4 +1,5 @@
 import { isDefined } from '../typeguards/is-defined.js';
+import { runAsyncPool } from './async-pool.js';
 
 /**
  * Asynchronously iterates over an array, executing a provided `callback` function for each element.
@@ -60,6 +61,7 @@ export async function asyncForEach<T>(
 		return;
 	}
 
+	// Unlimited concurrency — run all callbacks in parallel
 	if (concurrency === Infinity || concurrency >= array.length) {
 		if (continueOnError) {
 			await Promise.all(
@@ -78,16 +80,8 @@ export async function asyncForEach<T>(
 		return;
 	}
 
-	// For limited concurrency, use a worker-queue so slots are filled as soon as one finishes
-	let currentIndex = 0;
-
-	async function processQueue(): Promise<void> {
-		const index = currentIndex++;
-
-		if (index >= array.length) {
-			return;
-		}
-
+	// Limited concurrency via shared worker pool
+	await runAsyncPool(array.length, concurrency, async (index) => {
 		try {
 			await callback(array[index], index, array);
 		} catch (error) {
@@ -95,10 +89,5 @@ export async function asyncForEach<T>(
 				throw error;
 			}
 		}
-
-		return processQueue();
-	}
-
-	const workers = Array.from({ length: Math.min(concurrency, array.length) }, async () => processQueue());
-	await Promise.all(workers);
+	});
 }
