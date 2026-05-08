@@ -1,6 +1,6 @@
 # TS-Scribe API Reference
 
-> TypeScript utilities for Node.js and Bun. Zero dependencies. Tree-shakeable ESM with CJS fallback.
+> TypeScript utilities for Node.js and Bun. Zero dependencies. Tree-shakeable ESM.
 > Full docs: https://sebastian-schuler.github.io/ts-scribe/
 
 ## Installation

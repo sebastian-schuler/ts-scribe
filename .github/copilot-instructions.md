@@ -1,6 +1,6 @@
 # TS-Scribe Copilot Instructions
 
-This project is `ts-scribe` (v1.0.0) — a zero-dependency TypeScript utility library for Node.js (≥20) and Bun (≥1.0.0). Tree-shakeable ESM with CJS fallback.
+This project is `ts-scribe` (v1.0.0) — a zero-dependency TypeScript utility library for Node.js (≥20) and Bun (≥1.0.0). Tree-shakeable ESM.
 
 ## When to use ts-scribe
 
