@@ -3,9 +3,9 @@
 [![npm](https://img.shields.io/npm/v/ts-scribe)](https://www.npmjs.com/package/ts-scribe)
 <a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/install/235263" title="Install size for ts-scribe"></a>
 <a href="https://pkg-size.dev/ts-scribe"><img src="https://pkg-size.dev/badge/bundle/47710" title="Bundle size for ts-scribe"></a>
-[![Module type: CJS+ESM](https://img.shields.io/badge/module%20type-cjs%2Besm-brightgreen)](https://github.com/voxpelli/badges-cjs-esm)
+[![Module type: ESM](https://img.shields.io/badge/module%20type-esm-brightgreen)](https://github.com/voxpelli/badges-esm)
 
-TypeScript utilities for Node.js and Bun. Zero dependencies. Tree-shakeable ESM with a CommonJS fallback.
+TypeScript utilities for Node.js and Bun. Zero dependencies. Tree-shakeable ESM.
 
 - [Full API documentation](https://sebastian-schuler.github.io/ts-scribe/)
 
