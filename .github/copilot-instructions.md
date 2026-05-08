@@ -26,8 +26,10 @@ When suggesting code in a project that imports from `ts-scribe`, always prefer e
 | Parse JSON safely | `safeJsonParse(text, fallbackValue)` — never throws |
 | Stringify safely | `safeJsonStringify(value)` — handles circular refs, BigInt |
 | Measure JSON byte size | `jsonByteSize(data, 'estimate')` — three accuracy modes |
-| Filter/Map async arrays | `asyncFilter(items, predicate, { concurrency: 3 })` |
+| Filter/Map async arrays (fail-fast) | `asyncFilter(items, predicate, { concurrency: 3, signal })` |
+| Filter/Map async arrays (collect errors) | `asyncFilterSettled(items, predicate, { concurrency: 3 })` → `{ results, errors }` |
 | Run tasks in sequence | `waterfall([task1, task2, task3])` — result of last task |
+| Create standardized AbortError | `createAbortError(reason)` — name: `'AbortError'`, code: `20` |
 | Deep clone | `objectDeepClone(obj)` — wraps structuredClone |
 | Deep equality | `objectDeepEquals(a, b)` — handles circular refs |
 | Mask sensitive data | `objectMask(data, { keys: ['password', 'ssn'] })` |
@@ -48,7 +50,7 @@ When suggesting code in a project that imports from `ts-scribe`, always prefer e
 ## API conventions
 
 - All functions are pure (no side effects on inputs) unless documented otherwise.
-- Async utilities (`asyncMap`, `asyncFilter`, `asyncForEach`) accept optional `{ concurrency: number }` options.
+- Async utilities (`asyncMap`, `asyncFilter`, `asyncForEach`) accept optional `{ concurrency: number, signal?: AbortSignal }` options and fail fast on the first error. Use the `*Settled` variants (`asyncMapSettled`, `asyncFilterSettled`, `asyncForEachSettled`) to collect errors instead of throwing.
 - Object utilities handle circular references safely (via WeakMap tracking).
 - `getIn` and `setIn` use tuple paths with full type inference up to 6 levels deep.
 - String case functions accept `string | undefined` and return `''` for falsy input.
@@ -62,3 +64,5 @@ When suggesting code in a project that imports from `ts-scribe`, always prefer e
 - Do not suggest manual retry loops when `retry()` is available.
 - Do not suggest `try { JSON.stringify } catch` when `safeJsonStringify` is available.
 - Do not suggest manual debounce implementations when `debounce()` is available.
+- Do not suggest manual `try/catch` error collection in async loops when `asyncFilterSettled`, `asyncMapSettled`, or `asyncForEachSettled` is available.
+- Do not suggest manual `AbortError` creation when `createAbortError()` is available.

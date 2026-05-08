@@ -19,8 +19,12 @@ export {
 // Async
 export {
 	asyncForEach,
+	asyncForEachSettled,
 	asyncFilter,
+	asyncFilterSettled,
 	asyncMap,
+	asyncMapSettled,
+	createAbortError,
 	debounce,
 	maybe,
 	retry,
@@ -29,7 +33,13 @@ export {
 	Semaphore,
 	SemaphoreLock,
 } from './async/index.js';
-export type { Maybe } from './async/index.js';
+export type {
+	AsyncErrorInfo,
+	AsyncFilterSettledResult,
+	AsyncForEachSettledResult,
+	AsyncMapSettledResult,
+	Maybe,
+} from './async/index.js';
 
 // Core
 export {

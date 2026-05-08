@@ -1,12 +1,22 @@
 import { isDefined } from '../typeguards/is-defined.js';
-import { runAsyncPool } from './async-pool.js';
+import { runAsyncPool } from './utils/async-pool.js';
+import type { AsyncErrorInfo } from './async-map.js';
+
+/**
+ * Return type of {@link asyncForEachSettled}.
+ *
+ * @category Async
+ */
+export type AsyncForEachSettledResult = {
+	/** Errors collected during processing, in the order they were discovered. */
+	errors: AsyncErrorInfo[];
+};
 
 /**
  * Asynchronously iterates over an array, executing a provided `callback` function for each element.
- * The function allows limiting the number of concurrently executed tasks, making it useful for managing
- * concurrency in asynchronous operations (e.g., network requests, file operations).
+ * Rejects on the first error.
  *
- * The function waits for all asynchronous operations to complete before resolving.
+ * For collecting errors instead of failing fast, use {@link asyncForEachSettled}.
  *
  * @category Async
  * @template T - The type of elements in the input array
@@ -16,8 +26,13 @@ import { runAsyncPool } from './async-pool.js';
  * that will be executed for each element.
  * @param {Object} [options] - Optional configuration
  * @param {number} [options.concurrency=Infinity] - Maximum number of concurrent operations
- * @param {boolean} [options.continueOnError=false] - Whether to continue iterating when a callback throws
+ * @param {AbortSignal} [options.signal] - AbortSignal to cancel processing.
  * @returns {Promise<void>} A Promise that resolves when all elements have been processed.
+ *
+ * @throws {RangeError} If concurrency is not a positive integer.
+ * @throws {Error} If the input array is null or undefined.
+ * @throws {AbortError} If the signal is aborted.
+ * @throws The first error thrown by the callback.
  *
  * @example
  * // Basic usage
@@ -30,28 +45,26 @@ import { runAsyncPool } from './async-pool.js';
  * // With limited concurrency
  * const urls = ['url1', 'url2', 'url3', 'url4', 'url5'];
  * await asyncForEach(urls, fetchAndSave, { concurrency: 2 });
- * // Only 2 requests will run at a time
  *
  * @example
- * // With error handling
- * await asyncForEach(ids, processItem, {
- *   continueOnError: true,
- * });
- * // If processItem throws for any id, iteration continues for the remaining items
+ * // With AbortSignal
+ * const controller = new AbortController();
+ * setTimeout(() => controller.abort(), 5000);
+ * await asyncForEach(items, processItem, { signal: controller.signal });
  */
 export async function asyncForEach<T>(
 	array: T[],
 	callback: (element: T, index: number, array: T[]) => Promise<void>,
 	options: {
 		concurrency?: number;
-		continueOnError?: boolean;
+		signal?: AbortSignal;
 	} = {},
 ): Promise<void> {
 	if (!isDefined(array)) {
 		throw new Error('Input array must not be null or undefined');
 	}
 
-	const { concurrency = Infinity, continueOnError = false } = options;
+	const { concurrency = Infinity, signal } = options;
 
 	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
 		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");
@@ -61,33 +74,80 @@ export async function asyncForEach<T>(
 		return;
 	}
 
-	// Unlimited concurrency — run all callbacks in parallel
-	if (concurrency === Infinity || concurrency >= array.length) {
-		if (continueOnError) {
-			await Promise.all(
-				array.map(async (element, index, array_) => {
-					try {
-						await callback(element, index, array_);
-					} catch {
-						// Continue on error
-					}
-				}),
-			);
-		} else {
-			await Promise.all(array.map(async (element, index, array_) => callback(element, index, array_)));
-		}
+	await runAsyncPool(
+		array.length,
+		concurrency,
+		async (index) => {
+			await callback(array[index], index, array);
+		},
+		{ signal },
+	);
+}
 
-		return;
+/**
+ * Asynchronously iterates over an array, collecting errors without throwing.
+ * Unlike {@link asyncForEach}, this function never throws due to callback errors —
+ * all items are processed and errors are collected in the returned `errors` array.
+ *
+ * Use this when you want all items processed regardless of individual failures.
+ *
+ * @category Async
+ * @template T - The type of elements in the input array
+ *
+ * @param {T[]} array - The array of elements to iterate over.
+ * @param {(element: T, index: number, array: T[]) => Promise<void>} callback - The asynchronous callback function.
+ * @param {Object} [options] - Optional configuration
+ * @param {number} [options.concurrency=Infinity] - Maximum number of concurrent operations
+ * @param {AbortSignal} [options.signal] - AbortSignal to cancel processing.
+ * @returns {Promise<AsyncForEachSettledResult>} Promise resolving to an object with collected `errors`.
+ *
+ * @throws {RangeError} If concurrency is not a positive integer.
+ * @throws {Error} If the input array is null or undefined.
+ * @throws {AbortError} If the signal is aborted.
+ *
+ * @example
+ * const { errors } = await asyncForEachSettled(items, processItem);
+ * if (errors.length > 0) {
+ *   console.error('Some items failed:', errors);
+ * }
+ */
+export async function asyncForEachSettled<T>(
+	array: T[],
+	callback: (element: T, index: number, array: T[]) => Promise<void>,
+	options: {
+		concurrency?: number;
+		signal?: AbortSignal;
+	} = {},
+): Promise<AsyncForEachSettledResult> {
+	if (!isDefined(array)) {
+		throw new Error('Input array must not be null or undefined');
 	}
 
-	// Limited concurrency via shared worker pool
-	await runAsyncPool(array.length, concurrency, async (index) => {
-		try {
+	const { concurrency = Infinity, signal } = options;
+
+	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
+		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");
+	}
+
+	const errors: AsyncErrorInfo[] = [];
+
+	if (array.length === 0) {
+		return { errors };
+	}
+
+	await runAsyncPool(
+		array.length,
+		concurrency,
+		async (index) => {
 			await callback(array[index], index, array);
-		} catch (error) {
-			if (!continueOnError) {
-				throw error;
-			}
-		}
-	});
+		},
+		{
+			signal,
+			onError(error, index) {
+				errors.push({ index, error });
+			},
+		},
+	);
+
+	return { errors };
 }

@@ -1,3 +1,4 @@
+import { createAbortError } from './utils/abort-error.js';
 import { sleep } from './sleep.js';
 
 type RetryOptions = {
@@ -59,14 +60,6 @@ function calculateDelay(
 	}
 
 	return defaultDelay[errorCount - 1] ?? defaultDelay.at(-1) ?? 0;
-}
-
-/**
- * Create an AbortError from the given error
- */
-function createAbortError(lastError: unknown): Error {
-	const errorToThrow = lastError instanceof Error ? lastError : new Error('ABORT_ERR');
-	return Object.assign(errorToThrow, { code: 20, name: 'AbortError' });
 }
 
 /**

@@ -62,9 +62,19 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
 
 ## Async
 
-- `asyncForEach<T>(array: T[], fn: (item, index) => Promise<void>, options?: { concurrency?: number })` — Async forEach with concurrency control.
-- `asyncFilter<T>(array: T[], fn: (item, index) => Promise<boolean>, options?: { concurrency?: number })` — Async filter with concurrency control.
-- `asyncMap<T, R>(array: T[], fn: (item, index) => Promise<R>, options?: { concurrency?: number })` — Async map with concurrency control.
+- `asyncForEach<T>(array: T[], fn: (item, index) => Promise<void>, options?: { concurrency?: number; signal?: AbortSignal })` — Async forEach with concurrency control. Fails fast on first error.
+- `asyncForEachSettled<T>(array: T[], fn: (item, index) => Promise<void>, options?: { concurrency?: number; signal?: AbortSignal }): Promise<AsyncForEachSettledResult>` — Like `asyncForEach` but collects errors instead of throwing. Returns `{ errors }`.
+- `asyncFilter<T>(array: T[], fn: (item, index) => Promise<boolean>, options?: { concurrency?: number; signal?: AbortSignal })` — Async filter with concurrency control. Fails fast on first error.
+- `asyncFilterSettled<T>(array: T[], fn: (item, index) => Promise<boolean>, options?: { concurrency?: number; signal?: AbortSignal }): Promise<AsyncFilterSettledResult<T>>` — Like `asyncFilter` but collects errors instead of throwing. Returns `{ results, errors }`.
+  ```ts
+  const { results, errors } = await asyncFilterSettled(urls, checkUrl);
+  ```
+- `asyncMap<T, R>(array: T[], fn: (item, index) => Promise<R>, options?: { concurrency?: number; signal?: AbortSignal })` — Async map with concurrency control. Fails fast on first error.
+- `asyncMapSettled<T, R, E>(array: T[], fn: (item, index) => Promise<R>, options?: { concurrency?: number; errorValue?: E; signal?: AbortSignal }): Promise<AsyncMapSettledResult<R, E>>` — Like `asyncMap` but collects errors and replaces failed items with `errorValue`. Returns `{ results, errors }`.
+  ```ts
+  const { results, errors } = await asyncMapSettled(ids, fetchUser, { errorValue: null });
+  ```
+- `createAbortError(reason: unknown): Error` — Create a standardized `AbortError` (name: `'AbortError'`, code: `20`).
 - `debounce<T, R>(fn: (...args: T) => R, wait: number, immediate?: boolean): (...args: T) => Promise<R | undefined>` — Debounced function, returns Promise.
   ```ts
   const search = debounce((term: string) => api.search(term), 300);

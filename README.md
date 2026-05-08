@@ -56,9 +56,13 @@ bun add ts-scribe
 
 | Export | Description |
 |---|---|
-| `asyncFilter(array, fn, options?)` | Filter an array with an async predicate. Supports concurrency limiting. |
-| `asyncForEach(array, fn, options?)` | Run an async function over each array element in parallel with concurrency control. |
-| `asyncMap(array, fn, options?)` | Map an array through an async function with concurrency control. |
+| `asyncFilter(array, fn, options?)` | Filter an array with an async predicate. Fails fast on the first error. Supports concurrency limiting and `AbortSignal`. |
+| `asyncFilterSettled(array, fn, options?)` | Like `asyncFilter` but collects errors instead of throwing. Returns `{ results, errors }`. |
+| `asyncForEach(array, fn, options?)` | Run an async function over each array element in parallel. Fails fast on the first error. Supports concurrency control and `AbortSignal`. |
+| `asyncForEachSettled(array, fn, options?)` | Like `asyncForEach` but collects errors instead of throwing. Returns `{ errors }`. |
+| `asyncMap(array, fn, options?)` | Map an array through an async function. Fails fast on the first error. Supports concurrency control and `AbortSignal`. |
+| `asyncMapSettled(array, fn, options?)` | Like `asyncMap` but collects errors and replaces failed items with `errorValue`. Returns `{ results, errors }`. |
+| `createAbortError(reason)` | Create a standardized `AbortError` (name: `'AbortError'`, code: `20`) from any value. |
 | `debounce(fn, delay)` | Create a debounced version of a function or promise. |
 | `maybe(value)` | Maybe monad for chaining operations on values that may be null or undefined. Supports `map`, `filter`, `else`, and `catch`. |
 | `retry(handler, options?)` | Retry a promise-returning function with configurable delays, retry count, and abort signal. |
