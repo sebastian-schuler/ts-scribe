@@ -1,3 +1,5 @@
+import { toSeparatorCase } from './utils/case-helpers.js';
+
 /**
  * Converts a given string to snake_case.
  * @category String
@@ -11,11 +13,5 @@
  * toSnakeCase(undefined);             // ""
  */
 export function toSnakeCase(text: string | undefined): string {
-	if (!text) return '';
-
-	return String(text)
-		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/gv, '')
-		.replaceAll(/([a-z])([A-Z])/gv, (m: string, a: string, b: string) => a + '_' + b.toLowerCase())
-		.replaceAll(/[^A-Za-z\d]+|_+/gv, '_')
-		.toLowerCase();
+	return toSeparatorCase(text, '_');
 }
