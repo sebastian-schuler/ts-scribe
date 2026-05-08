@@ -19,7 +19,31 @@ type SortedListOptions<ValueType> = {
 /**
  * A binary sorted list.
  * This list keeps items sorted according to a custom compare function or the default comparison (based on string value).
+ *
  * @category List
+ *
+ * @example
+ * // Default string-comparison sorting
+ * const list = new SortedList<string>();
+ * list.add('banana');
+ * list.add('apple');
+ * list.add('cherry');
+ * console.log(list.values()); // ['apple', 'banana', 'cherry']
+ *
+ * @example
+ * // Custom numeric comparator with duplicate allowance
+ * const nums = new SortedList<number>({ compare: (a, b) => a - b, allowDuplicates: true });
+ * nums.add(5);
+ * nums.add(2);
+ * nums.add(5);
+ * console.log(nums.values()); // [2, 5, 5]
+ *
+ * @example
+ * // Check existence and delete
+ * const list = new SortedList(['alice', 'bob'], { allowDuplicates: false });
+ * console.log(list.has('alice')); // true
+ * list.delete('alice');
+ * console.log(list.has('alice')); // false
  */
 class SortedList<ValueType> {
 	public static readonly defaultCompare = (a_: any, b_: any): number => {

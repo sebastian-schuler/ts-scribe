@@ -63,7 +63,7 @@
     },
     "searchInComments": true,
     "searchInDocuments": true,
-    "cleanOutputDir": true,
+    "cleanOutputDir": false,
     "navigation": {
         "includeCategories": true,
         "includeGroups": true,

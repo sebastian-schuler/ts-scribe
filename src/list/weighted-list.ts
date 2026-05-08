@@ -11,7 +11,31 @@ type InputEntry<T> = {
 
 /**
  * A WeightedList can be used as an easy way to calculate probabilities based on weights, relative to other items inside the list.
+ *
  * @category List
+ *
+ * @example
+ * // Weighted random selection — higher weight = more likely
+ * const loot = new WeightedList<string>();
+ * loot.push(
+ *   { data: 'Common Sword', weight: 70 },
+ *   { data: 'Rare Shield', weight: 25 },
+ *   { data: 'Legendary Bow', weight: 5 }
+ * );
+ * const drop = loot.random(); // 'Common Sword' ~70% of the time
+ *
+ * @example
+ * // Remove and return a random item (like drawing from a deck)
+ * const deck = new WeightedList<string>();
+ * deck.push({ data: 'Ace', weight: 1 }, { data: 'King', weight: 1 });
+ * const drawn = deck.popRandom(); // removes and returns one card
+ *
+ * @example
+ * // Check probabilities
+ * const list = new WeightedList<string>();
+ * list.push({ data: 'A', weight: 1 }, { data: 'B', weight: 3 });
+ * console.log(list.probability(0)); // 0.25 (A: 1/4 total weight)
+ * console.log(list.probability(1)); // 0.75 (B: 3/4 total weight)
  */
 export class WeightedList<T> {
 	private entries: Array<Entry<T>> = [];
