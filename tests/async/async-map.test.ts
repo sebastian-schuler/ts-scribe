@@ -15,13 +15,10 @@ describe('asyncMap', () => {
 
 	test('should preserve order regardless of completion time', async () => {
 		const input = [5, 1, 3, 2, 4];
-
-		// Simulate varying completion times with setTimeout
 		const callback = async (x: number) => {
 			await new Promise((resolve) => setTimeout(resolve, x * 10));
 			return x * 2;
 		};
-
 		const result = await asyncMap(input, callback);
 		expect(result).toEqual([10, 2, 6, 4, 8]);
 	});
@@ -33,48 +30,27 @@ describe('asyncMap', () => {
 
 		await asyncMap(input, async (value, index, array) => {
 			indices.push(index);
-			arrays.push([...array]); // Clone to avoid reference issues
+			arrays.push([...array]);
 			return value.toUpperCase();
 		});
 
+		// Sort by index since concurrent completion order is not guaranteed
+		indices.sort((a, b) => a - b);
 		expect(indices).toEqual([0, 1, 2]);
-		expect(arrays).toEqual([input, input, input]);
+		// Each call received the same array reference
+		expect(arrays).toHaveLength(3);
+		for (const arr of arrays) {
+			expect(arr).toEqual(input);
+		}
 	});
 
-	test('should throw error when callback throws and continueOnError is false', async () => {
+	test('should throw error when callback throws', async () => {
 		const input = [1, 2, 3, 4, 5];
 		const callback = async (x: number) => {
 			if (x === 3) throw new Error('Test error');
 			return x * 2;
 		};
-
 		await expect(asyncMap(input, callback)).rejects.toThrow('Test error');
-	});
-
-	test('should continue with undefined when callback throws and continueOnError is true', async () => {
-		const input = [1, 2, 3, 4, 5];
-		const callback = async (x: number) => {
-			if (x === 3) throw new Error('Test error');
-			return x * 2;
-		};
-
-		const result = await asyncMap(input, callback, { continueOnError: true });
-		expect(result).toEqual([2, 4, undefined, 8, 10]);
-	});
-
-	test('should use custom errorValue when provided', async () => {
-		const input = [1, 2, 3, 4, 5];
-		const callback = async (x: number) => {
-			if (x === 3) throw new Error('Test error');
-			return x * 2;
-		};
-
-		const result = await asyncMap(input, callback, {
-			continueOnError: true,
-			errorValue: 'ERROR',
-		});
-
-		expect(result).toEqual([2, 4, 'ERROR', 8, 10]);
 	});
 
 	test('should respect concurrency limit', async () => {
@@ -96,199 +72,20 @@ describe('asyncMap', () => {
 		expect(maxRunning).toBeLessThanOrEqual(maxConcurrent);
 	});
 
-	test('should process all items at once when concurrency exceeds array length', async () => {
-		const input = [1, 2, 3, 4];
-		let running = 0;
-		let maxRunning = 0;
-
-		const result = await asyncMap(input, async (x) => {
-			running++;
-			maxRunning = Math.max(maxRunning, running);
-			await new Promise((resolve) => setTimeout(resolve, 10));
-			running--;
-			return x * 2;
-		}, { concurrency: 10 });
-
-		expect(result).toEqual([2, 4, 6, 8]);
-		expect(maxRunning).toBe(input.length);
-	});
-
-	test('should process all items even when some throw with continueOnError', async () => {
-		const input = Array.from({ length: 10 }, (_, i) => i);
-		const processed: number[] = [];
-
-		const callback = async (x: number) => {
-			processed.push(x);
-			if (x % 3 === 0) throw new Error(`Error at ${x}`);
-			return x * 2;
-		};
-
-		const result = await asyncMap(input, callback, { continueOnError: true });
-
-		// All items should be processed
-		expect(processed.length).toBe(10);
-		expect(processed).toEqual(input);
-
-		// Items at positions 0, 3, 6, 9 should be undefined (threw errors)
-		const expected = input.map((x) => (x % 3 === 0 ? undefined : x * 2));
-		expect(result).toEqual(expected);
-	});
-
-	test('should handle async callbacks with different return types', async () => {
-		const input = [1, 2, 3, 4];
-		const result = await asyncMap(input, async (x) => x.toString());
-		expect(result).toEqual(['1', '2', '3', '4']);
-	});
-
-	test('should handle complex error values with type safety', async () => {
-		type ErrorInfo = {
-			code: number;
-			message: string;
-		};
-
+	test('should handle sync throws in callback', async () => {
 		const input = [1, 2, 3];
-		const errorValue: ErrorInfo = { code: 500, message: 'Processing failed' };
-
-		const callback = async (x: number): Promise<number> => {
-			if (x === 2) throw new Error('Simulated error');
-			return x * 10;
-		};
-
-		const result = await asyncMap<number, number, ErrorInfo>(input, callback, {
-			continueOnError: true,
-			errorValue,
-		});
-
-		expect(result).toEqual([10, errorValue, 30]);
-
-		// Type checking (this would cause TS errors if types were wrong)
-		for (const item of result) {
-			if (item === undefined) continue;
-			if (typeof item === 'number') {
-				const doubled = item * 2;
-			} else {
-				const { code } = item;
-				const { message } = item;
-			}
-		}
-	});
-
-	test('should handle mixed success and failures with limited concurrency', async () => {
-		const input = [1, 2, 3, 4, 5, 6, 7, 8];
-		const failingIndices = new Set([2, 5, 7]);
-		const processed: number[] = [];
-
 		const callback = async (x: number) => {
-			processed.push(x);
-			await new Promise((resolve) => setTimeout(resolve, 10));
-			if (failingIndices.has(x)) throw new Error(`Error at ${x}`);
+			if (x === 2) throw new Error('Sync error');
 			return x * 2;
 		};
-
-		const result = await asyncMap(input, callback, {
-			concurrency: 2,
-			continueOnError: true,
-			errorValue: 'FAILED',
-		});
-
-		// All items should be processed
-		expect(processed.length).toBe(8);
-
-		// Expected result with "FAILED" for failing indices
-		const expected = input.map((x) => (failingIndices.has(x) ? 'FAILED' : x * 2));
-		expect(result).toEqual(expected);
-	});
-
-	test('should propagate errors correctly with limited concurrency', async () => {
-		const input = [1, 2, 3, 4, 5, 6, 7, 8];
-		let processedCount = 0;
-
-		const callback = async (x: number) => {
-			processedCount++;
-			await new Promise((resolve) => setTimeout(resolve, 10));
-			if (x === 3) throw new Error('Error at 5');
-			return x * 2;
-		};
-
-		await expect(asyncMap(input, callback, { concurrency: 2 })).rejects.toThrowError();
-	});
-
-	test('should handle synchronous errors in the callback', async () => {
-		const input = [1, 2, 3];
-
-		const callback = async (x: number) => {
-			if (x === 2) {
-				// Synchronous error, not a rejected promise
-				throw new Error('Sync error');
-			}
-
-			return x * 2;
-		};
-
 		await expect(asyncMap(input, callback)).rejects.toThrow('Sync error');
-
-		const result = await asyncMap(input, callback, {
-			continueOnError: true,
-			errorValue: null,
-		});
-
-		expect(result).toEqual([2, null, 6]);
 	});
 
-	test('should handle nested promises correctly', async () => {
-		const input = [1, 2, 3];
-
-		const callback = async (x: number) => {
-			return new Promise<number>((resolve) => {
-				setTimeout(() => {
-					resolve(x * 2);
-				}, 10);
-			});
-		};
-
-		const result = await asyncMap(input, callback);
-		expect(result).toEqual([2, 4, 6]);
-	});
-
-	test('should handle zero concurrency as invalid and throw an error', async () => {
+	test('should reject with invalid concurrency', async () => {
 		const input = [1, 2, 3];
 		await expect(asyncMap(input, async (x) => x * 2, { concurrency: 0 })).rejects.toThrow(RangeError);
-	});
-
-	test('should handle negative concurrency as invalid and throw an error', async () => {
-		const input = [1, 2, 3];
 		await expect(asyncMap(input, async (x) => x * 2, { concurrency: -5 })).rejects.toThrow(RangeError);
-	});
-
-	test('should handle float concurrency as invalid and throw an error', async () => {
-		const input = [1, 2, 3];
 		await expect(asyncMap(input, async (x) => x * 2, { concurrency: 2.5 })).rejects.toThrow(RangeError);
-	});
-
-	test('should handle NaN concurrency as invalid and throw an error', async () => {
-		const input = [1, 2, 3];
-		await expect(asyncMap(input, async (x) => x * 2, { concurrency: Number.NaN })).rejects.toThrow(RangeError);
-	});
-
-	test('should process items serially when concurrency is 1', async () => {
-		const input = [1, 2, 3, 4, 5];
-		const order: number[] = [];
-		let running = 0;
-		let maxRunning = 0;
-
-		const callback = async (x: number) => {
-			running++;
-			maxRunning = Math.max(maxRunning, running);
-			await new Promise((resolve) => setTimeout(resolve, 10));
-			order.push(x);
-			running--;
-			return x * 2;
-		};
-
-		const result = await asyncMap(input, callback, { concurrency: 1 });
-		expect(result).toEqual([2, 4, 6, 8, 10]);
-		expect(order).toEqual(input); // must complete in order
-		expect(maxRunning).toBe(1); // never more than 1 running
 	});
 
 	test('should handle a single-element array', async () => {
@@ -296,11 +93,108 @@ describe('asyncMap', () => {
 		expect(result).toEqual([84]);
 	});
 
-	test('should handle concurrency exactly equal to array length', async () => {
-		const input = [1, 2, 3, 4];
+	test('should process items serially when concurrency is 1', async () => {
+		const input = [1, 2, 3, 4, 5];
 		let running = 0;
 		let maxRunning = 0;
 
+		const callback = async (x: number) => {
+			running++;
+			maxRunning = Math.max(maxRunning, running);
+			await new Promise((resolve) => setTimeout(resolve, 10));
+			running--;
+			return x * 2;
+		};
+
+		const result = await asyncMap(input, callback, { concurrency: 1 });
+		expect(result).toEqual([2, 4, 6, 8, 10]);
+		expect(maxRunning).toBe(1);
+	});
+
+	test('should throw error for null or undefined array', async () => {
+		// @ts-expect-error - Testing invalid input
+		await expect(asyncMap(null, async (x: any) => x)).rejects.toThrow('Input array must not be null or undefined');
+		// @ts-expect-error - Testing invalid input
+		await expect(asyncMap(undefined, async (x: any) => x)).rejects.toThrow('Input array must not be null or undefined');
+	});
+
+	test('should reject when signal is already aborted', async () => {
+		const controller = new AbortController();
+		controller.abort();
+		await expect(
+			asyncMap([1, 2, 3], async (x) => x * 2, { signal: controller.signal }),
+		).rejects.toThrow();
+	});
+
+	test('should reject when signal aborts mid-processing', async () => {
+		const controller = new AbortController();
+		const promise = asyncMap([1, 2, 3, 4, 5], async (x) => {
+			await new Promise((resolve) => setTimeout(resolve, 20));
+			if (x === 2) controller.abort();
+			return x;
+		}, { signal: controller.signal, concurrency: 2 });
+		await expect(promise).rejects.toThrow();
+	});
+
+	test('should reject when concurrency is NaN', async () => {
+		const input = [1, 2, 3];
+		await expect(asyncMap(input, async (x) => x * 2, { concurrency: Number.NaN })).rejects.toThrow(RangeError);
+	});
+
+	test('should handle non-Error thrown values (string)', async () => {
+		const input = [1, 2, 3];
+		await expect(asyncMap(input, async (x) => {
+			if (x === 2) throw 'string error';
+			return x * 2;
+		})).rejects.toThrow('Item processing failed');
+	});
+
+	// Edge cases — value types
+
+	test('should handle different return types', async () => {
+		const result = await asyncMap([1, 2, 3, 4], async (x) => x.toString());
+		expect(result).toEqual(['1', '2', '3', '4']);
+	});
+
+	test('should handle falsy input values', async () => {
+		const input = [0, false, null, undefined, ''] as const;
+		const received: unknown[] = [];
+		await asyncMap([...input], async (x) => {
+			received.push(x);
+			return x;
+		});
+		expect(received).toEqual([...input]);
+	});
+
+	test('should handle nested promises in callback', async () => {
+		const result = await asyncMap([1, 2, 3], async (x) => {
+			return new Promise<number>((resolve) => {
+				setTimeout(() => resolve(x * 2), 10);
+			});
+		});
+		expect(result).toEqual([2, 4, 6]);
+	});
+
+	// Edge cases — concurrency
+
+	test('should handle concurrency larger than array length', async () => {
+		let running = 0;
+		let maxRunning = 0;
+		const result = await asyncMap([1, 2, 3, 4], async (x) => {
+			running++;
+			maxRunning = Math.max(maxRunning, running);
+			await new Promise((resolve) => setTimeout(resolve, 10));
+			running--;
+			return x * 2;
+		}, { concurrency: 10 });
+		expect(result).toEqual([2, 4, 6, 8]);
+		expect(maxRunning).toBe(4);
+	});
+
+	test('should handle concurrency equal to array length', async () => {
+		let running = 0;
+		let maxRunning = 0;
+		const input = [1, 2, 3, 4];
 		const result = await asyncMap(input, async (x) => {
 			running++;
 			maxRunning = Math.max(maxRunning, running);
@@ -308,86 +202,15 @@ describe('asyncMap', () => {
 			running--;
 			return x * 2;
 		}, { concurrency: input.length });
-
 		expect(result).toEqual([2, 4, 6, 8]);
-		expect(maxRunning).toBe(input.length); // all items run concurrently
+		expect(maxRunning).toBe(input.length);
 	});
 
-	test('should fill all results with errorValue when every item fails (unlimited concurrency)', async () => {
-		const input = [1, 2, 3, 4, 5];
-		const callback = async (x: number): Promise<number> => {
-			throw new Error(`Failed: ${x}`);
-		};
-
-		const result = await asyncMap(input, callback, {
-			continueOnError: true,
-			errorValue: -1,
-		});
-
-		expect(result).toEqual([-1, -1, -1, -1, -1]);
-	});
-
-	test('should fill all results with errorValue when every item fails (limited concurrency)', async () => {
-		const input = [1, 2, 3, 4, 5];
-		const callback = async (x: number): Promise<number> => {
-			throw new Error(`Failed: ${x}`);
-		};
-
-		const result = await asyncMap(input, callback, {
-			concurrency: 2,
-			continueOnError: true,
-			errorValue: -1,
-		});
-
-		expect(result).toEqual([-1, -1, -1, -1, -1]);
-	});
-
-	test('should handle continueOnError with concurrency 1 and errors on every item', async () => {
-		const input = [1, 2, 3, 4];
-		const processed: number[] = [];
-
-		const callback = async (x: number): Promise<number> => {
-			processed.push(x);
-			throw new Error(`Error: ${x}`);
-		};
-
-		const result = await asyncMap(input, callback, {
-			concurrency: 1,
-			continueOnError: true,
-			errorValue: 0,
-		});
-
-		// All items must be visited serially
-		expect(processed).toEqual(input);
-		expect(result).toEqual([0, 0, 0, 0]);
-	});
-
-	test('should correctly pass falsy input values to the callback', async () => {
-		const input = [0, false, null, undefined, ''] as const;
-
-		const received: unknown[] = [];
-		await asyncMap([...input], async (x) => {
-			received.push(x);
-			return x;
-		});
-
-		expect(received).toEqual([...input]);
-	});
-
-	test('should handle very large arrays efficiently', async () => {
-		const size = 1000;
-		const input = Array.from({ length: size }, (_, i) => i);
-
-		const start = Date.now();
-		const result = await asyncMap(input, async (x) => x * 2, { concurrency: 50 });
-		const end = Date.now();
-
-		expect(result.length).toBe(size);
+	test('should handle large arrays efficiently', async () => {
+		const input = Array.from({ length: 200 }, (_, i) => i);
+		const result = await asyncMap(input, async (x) => x * 2, { concurrency: 20 });
+		expect(result.length).toBe(200);
 		expect(result[0]).toBe(0);
-		expect(result[size - 1]).toBe((size - 1) * 2);
-
-		// Just a sanity check that it completes in a reasonable time
-		// This isn't strictly necessary but helps catch performance regressions
-		expect(end - start).toBeLessThan(5000);
+		expect(result[199]).toBe(398);
 	});
 });

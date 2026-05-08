@@ -13,7 +13,7 @@
  * randomSample([1, 2, 3, 4, 5], 2); // might return [3, 1]
  * randomSample(['a', 'b', 'c']);   // returns one random element, e.g. ['b']
  */
-export const randomSample = <T>(array: T[], size = 1): T[] => {
+export function randomSample<T>(array: T[], size = 1): T[] {
 	if (size < 0) return [];
 	if (size > array.length) return [...array];
 	const result = [];
@@ -25,4 +25,4 @@ export const randomSample = <T>(array: T[], size = 1): T[] => {
 	}
 
 	return result;
-};
+}

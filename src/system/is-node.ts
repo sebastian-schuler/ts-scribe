@@ -13,4 +13,6 @@
  * @example
  * isNode(); // true in Node.js, false in browsers or other non-Node environments
  */
-export const isNode = (): boolean => typeof process !== 'undefined' && process.versions?.node != null;
+export function isNode(): boolean {
+	return typeof process !== 'undefined' && process.versions?.node != null;
+}

@@ -17,14 +17,6 @@ export type DeepCloneOptions = {
  * `Date`, `RegExp`, `Map`, `Set`, `ArrayBuffer`, typed arrays, and circular
  * references.
  *
- * ---
- * Example:
- * ```ts
- * const obj = { a: 1, b: { c: 2 } };
- * const clone = objectDeepClone(obj);
- * console.log(clone); // { a: 1, b: { c: 2 } }
- * ```
- *
  * @category Object
  * @param object - The value to deep clone.
  * @param options - Optional configuration.
@@ -32,6 +24,26 @@ export type DeepCloneOptions = {
  *
  * @throws {Error} If the value contains non-cloneable data (functions, symbols,
  *   or DOM nodes) that `structuredClone` cannot handle.
+ *
+ * @example
+ * const obj = { a: 1, b: { c: 2 } };
+ * const clone = objectDeepClone(obj);
+ * console.log(clone); // { a: 1, b: { c: 2 } }
+ * console.log(clone === obj); // false (different reference)
+ * console.log(clone.b === obj.b); // false (deep cloned)
+ *
+ * @example
+ * // Clone complex types
+ * const data = {
+ *   date: new Date('2025-01-01'),
+ *   pattern: /hello/i,
+ *   map: new Map([['key', 'value']]),
+ *   set: new Set([1, 2, 3])
+ * };
+ * const cloned = objectDeepClone(data);
+ * console.log(cloned.date instanceof Date); // true
+ * console.log(cloned.pattern instanceof RegExp); // true
+ * console.log(cloned.map.get('key')); // 'value'
  */
 export function objectDeepClone<T>(object: T, options?: DeepCloneOptions): T {
 	// Primitives and null are returned as-is (identity clone).

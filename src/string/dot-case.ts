@@ -1,3 +1,5 @@
+import { toSeparatorCase } from './utils/case-helpers.js';
+
 /**
  * Converts a given string to dot.case format.
  *
@@ -12,11 +14,5 @@
  * toDotCase(undefined);            // ""
  */
 export function toDotCase(text: string | undefined): string {
-	if (!text) return '';
-
-	return String(text)
-		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/gv, '')
-		.replaceAll(/([a-z])([A-Z])/gv, '$1_$2')
-		.replaceAll(/[^A-Za-z\d]+|_+/gv, '.')
-		.toLowerCase();
+	return toSeparatorCase(text, '.');
 }

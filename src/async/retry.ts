@@ -1,3 +1,4 @@
+import { createAbortError } from './utils/abort-error.js';
 import { sleep } from './sleep.js';
 
 type RetryOptions = {
@@ -62,14 +63,6 @@ function calculateDelay(
 }
 
 /**
- * Create an AbortError from the given error
- */
-function createAbortError(lastError: unknown): Error {
-	const errorToThrow = lastError instanceof Error ? lastError : new Error('ABORT_ERR');
-	return Object.assign(errorToThrow, { code: 20, name: 'AbortError' });
-}
-
-/**
  * Handle final error throwing
  */
 function throwRetryError(lastError: unknown, signal?: AbortSignal): never {
@@ -95,11 +88,40 @@ function throwRetryError(lastError: unknown, signal?: AbortSignal): never {
  * @param options - The configuration options for retrying.
  * @returns {Promise<TypedValue>} The result of the `handler` after it successfully completes.
  * @throws {Error} Throws the last error encountered if retries are exhausted or if aborted.
+ *
+ * @example
+ * // Basic retry with default options (2 retries, no delay)
+ * const data = await retry(() => fetch('/api').then(r => r.json()));
+ *
+ * @example
+ * // Retry with custom delays and max retries
+ * const data = await retry(
+ *   () => fetch('/api').then(r => r.json()),
+ *   { retries: 3, delay: [100, 500, 1000] }
+ * );
+ *
+ * @example
+ * // Retry with an AbortSignal to cancel
+ * const controller = new AbortController();
+ * const data = await retry(
+ *   () => fetch('/api', { signal: controller.signal }).then(r => r.json()),
+ *   { retries: 5, signal: controller.signal }
+ * );
+ *
+ * @example
+ * // Custom onRetry logic — skip retry for certain errors
+ * const data = await retry(() => fetch('/api'), {
+ *   retries: 3,
+ *   onRetry: (error, count) => {
+ *     if (error instanceof TypeError) return false; // don't retry network errors
+ *     return count < 3; // retry up to 3 times for other errors
+ *   }
+ * });
  */
-const retry = async <TypedValue>(
+export async function retry<TypedValue>(
 	handler: RetryHandler<TypedValue>,
 	options: RetryOptions = {},
-): Promise<TypedValue> => {
+): Promise<TypedValue> {
 	const { signal, delay: defaultDelay = 0, retries = 2, onRetry = onRetryDefault } = options;
 	let lastError: unknown;
 	let errorCount = 0;
@@ -130,7 +152,6 @@ const retry = async <TypedValue>(
 	}
 
 	throwRetryError(lastError, signal);
-};
+}
 
-export { onRetryDefault, retry };
 export type { RetryHandler, RetryOptions };

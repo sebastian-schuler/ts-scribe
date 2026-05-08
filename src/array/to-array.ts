@@ -19,9 +19,9 @@
  * const arr3 = toArray(42);
  * console.log(arr3); // [42]
  */
-export const toArray = <T>(
+export function toArray<T>(
 	value: T,
-): Array<T extends ArrayLike<infer TElement> | Iterable<infer TElement> ? TElement : T> => {
+): Array<T extends ArrayLike<infer TElement> | Iterable<infer TElement> ? TElement : T> {
 	if (value === null || value === undefined) return [];
 	if (
 		typeof value === 'object' &&
@@ -35,4 +35,4 @@ export const toArray = <T>(
 
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-type-assertion
 	return [value as any];
-};
+}

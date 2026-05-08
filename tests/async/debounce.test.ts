@@ -256,14 +256,40 @@ describe('debounce', () => {
 		expect(fn).toHaveBeenCalledTimes(2);
 	});
 
-	it('always returns undefined regardless of the wrapped function return value', async () => {
+	it('returns a Promise that resolves with the function result when the call leads to execution', async () => {
 		const debounced = debounce(() => 42, 100);
 
-		expect(debounced()).toBeUndefined();
+		const result = await debounced();
+		expect(result).toBe(42);
+	});
 
-		// After the debounce period, calls should still return undefined
-		await new Promise((res) => setTimeout(res, 150));
-		expect(debounced()).toBeUndefined();
+	it('resolves cancelled calls with undefined', async () => {
+		const fn = jest.fn((x: number) => x);
+		const debounced = debounce(fn, 100);
+
+		// Only the last call in rapid succession should return the value
+		const p1 = debounced(1);
+		const p2 = debounced(2);
+		const p3 = debounced(3);
+
+		expect(await p1).toBeUndefined();
+		expect(await p2).toBeUndefined();
+		expect(await p3).toBe(3);
+		expect(fn).toHaveBeenCalledTimes(1);
+	});
+
+	it('immediate=true returns the result of the leading call and undefined for trailing calls', async () => {
+		const fn = jest.fn((x: number) => x * 2);
+		const debounced = debounce(fn, 100, true);
+
+		const p1 = debounced(5);
+		expect(await p1).toBe(10);
+
+		// Still within cooldown — these resolve to undefined
+		const p2 = debounced(10);
+		expect(await p2).toBeUndefined();
+
+		expect(fn).toHaveBeenCalledTimes(1);
 	});
 
 	it('immediate=true with wait=0 re-arms after the timeout expires', async () => {

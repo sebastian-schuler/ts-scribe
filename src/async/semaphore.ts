@@ -8,6 +8,15 @@
  * and allow the next waiting operation to proceed.
  *
  * @category Async
+ *
+ * @example
+ * const semaphore = new Semaphore(3);
+ * const lock = await semaphore.acquire();
+ * try {
+ *   // ... do concurrent-limited work ...
+ * } finally {
+ *   lock.release(); // always release, even on error
+ * }
  */
 export class SemaphoreLock {
 	#released = false;

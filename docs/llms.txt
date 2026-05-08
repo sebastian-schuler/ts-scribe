@@ -1,0 +1,210 @@
+# TS-Scribe API Reference
+
+> TypeScript utilities for Node.js and Bun. Zero dependencies. Tree-shakeable ESM with CJS fallback.
+> Full docs: https://sebastian-schuler.github.io/ts-scribe/
+
+## Installation
+
+```bash
+npm install ts-scribe
+```
+
+## Import
+
+```ts
+import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
+```
+
+## Core
+
+- `getIn<T>(object: T, path: [], defaultValue?: D)` — Safely read nested values via path array. Supports objects, Maps, Arrays with full type inference up to 6 levels deep.
+  ```ts
+  getIn({ user: { name: 'Alice' } }, ['user', 'name']) // 'Alice'
+  getIn([10, 20, 30], [-1]) // 30 (negative index)
+  getIn(new Map([['a', 1]]), ['a']) // 1
+  ```
+- `setIn<T, V>(object: T, path: [...], value: V)` — Immutably set nested values, creating missing containers.
+  ```ts
+  setIn({}, ['user', 'name'], 'Alice') // { user: { name: 'Alice' } }
+  ```
+- `memoize<Args, R>(fn: Function, options?: MemoizeOptions)` — Wrap a function with LRU cache. Supports TTL, maxSize, error caching, and stats.
+  ```ts
+  const cached = memoize(expensiveFn, { maxSize: 100, ttl: 60_000 });
+  ```
+- `safeJsonParse<T>(text: string, fallback?: T)` — Parse JSON without throwing.
+  ```ts
+  safeJsonParse('{"a":1}') // { a: 1 }
+  safeJsonParse('bad', {}) // {}
+  ```
+- `safeJsonStringify(value: unknown, fallback?: string)` — Stringify without throwing. Handles circular refs, BigInt.
+  ```ts
+  safeJsonStringify({ a: 1n }) // '{"a":"1n"}'
+  ```
+- `jsonByteSize(value: unknown, accuracy?: 'exact' | 'fast' | 'estimate')` — Measure JSON byte size.
+- `parseBoolean(value: string | boolean | number | null | undefined, defaultValue?: boolean)` — Coerce to boolean.
+- `parseNumber(value: string | number | null | undefined, defaultValue?: number)` — Coerce to number or undefined.
+- `run<T>(fn: () => T): T` — Immediately invoke a function (IIFE replacement).
+
+## Array
+
+- `arrayChunk<T>(array: T[], size: number): T[][]` — Split into fixed-size chunks. `arrayChunk([1,2,3,4,5], 2)` → `[[1,2],[3,4],[5]]`
+- `arrayDifference<T>(...arrays: T[][]): T[]` — Elements in first not present in rest. `arrayDifference([1,2,3], [2,3,4])` → `[1]`
+- `arrayGroupBy<T>(array: T[], key: string | Function): Record<string, T[]>` — Group by property or function.
+- `arrayIntersection<T>(...arrays: T[][]): T[]` — Elements present in all arrays.
+- `arrayIntersectionDeep<T>(...arrays: T[][]): T[]` — Deep equality intersection for arrays of objects.
+- `arrayPartition<T>(array: T[], predicate: Function): [T[], T[]]` — Split into matching/non-matching. Supports type guard narrowing.
+- `arrayPluck<T, K>(array: T[], key: K): T[K][]` — Extract property from each object.
+- `arrayPowerset<T>(array: T[], ignoreEmpty?: boolean): T[][]` — All possible subsets.
+- `arrayShuffle<T>(array: T[]): T[]` — Fisher-Yates shuffle in-place.
+- `arrayUnique<T>(array: T[]): T[]` — Remove duplicate primitives.
+- `arrayUniqueBy<T, K>(array: T[], key: string | Function): T[]` — Remove duplicate objects by property.
+- `toArray<T>(value: T | T[] | Iterable<T>): T[]` — Normalize to array.
+
+## Async
+
+- `asyncForEach<T>(array: T[], fn: (item, index) => Promise<void>, options?: { concurrency?: number; signal?: AbortSignal })` — Async forEach with concurrency control. Fails fast on first error.
+- `asyncForEachSettled<T>(array: T[], fn: (item, index) => Promise<void>, options?: { concurrency?: number; signal?: AbortSignal }): Promise<AsyncForEachSettledResult>` — Like `asyncForEach` but collects errors instead of throwing. Returns `{ errors }`.
+- `asyncFilter<T>(array: T[], fn: (item, index) => Promise<boolean>, options?: { concurrency?: number; signal?: AbortSignal })` — Async filter with concurrency control. Fails fast on first error.
+- `asyncFilterSettled<T>(array: T[], fn: (item, index) => Promise<boolean>, options?: { concurrency?: number; signal?: AbortSignal }): Promise<AsyncFilterSettledResult<T>>` — Like `asyncFilter` but collects errors instead of throwing. Returns `{ results, errors }`.
+  ```ts
+  const { results, errors } = await asyncFilterSettled(urls, checkUrl);
+  ```
+- `asyncMap<T, R>(array: T[], fn: (item, index) => Promise<R>, options?: { concurrency?: number; signal?: AbortSignal })` — Async map with concurrency control. Fails fast on first error.
+- `asyncMapSettled<T, R, E>(array: T[], fn: (item, index) => Promise<R>, options?: { concurrency?: number; errorValue?: E; signal?: AbortSignal }): Promise<AsyncMapSettledResult<R, E>>` — Like `asyncMap` but collects errors and replaces failed items with `errorValue`. Returns `{ results, errors }`.
+  ```ts
+  const { results, errors } = await asyncMapSettled(ids, fetchUser, { errorValue: null });
+  ```
+- `createAbortError(reason: unknown): Error` — Create a standardized `AbortError` (name: `'AbortError'`, code: `20`).
+- `debounce<T, R>(fn: (...args: T) => R, wait: number, immediate?: boolean): (...args: T) => Promise<R | undefined>` — Debounced function, returns Promise.
+  ```ts
+  const search = debounce((term: string) => api.search(term), 300);
+  await search('hello');
+  ```
+- `maybe<T>(value: T | null | undefined): Maybe<T>` — Maybe monad for safe nullish chaining.
+  ```ts
+  maybe(user).map(u => u.name).else('Anonymous')
+  maybe(data).filter(d => d.valid).map(process).catch(e => handleError(e))
+  ```
+- `retry<T>(handler: () => Promise<T>, options?: RetryOptions): Promise<T>` — Retry with configurable delays and abort signal.
+  ```ts
+  retry(() => fetch('/api'), { retries: 3, delay: [100, 500, 1000] })
+  ```
+- `Semaphore` — Concurrency limiter class.
+  ```ts
+  const sem = new Semaphore(5);
+  const lock = await sem.acquire();
+  // ... do work ...
+  lock.release();
+  ```
+- `sleep(ms: number): Promise<void>` — Pause for ms. `await sleep(1000)`
+- `waterfall<T>(tasks: Array<() => Promise<T>>): Promise<T>` — Run tasks in sequence, returns last result.
+
+## Object
+
+- `objectDeepClone<T>(object: T, options?: DeepCloneOptions): T` — Deep clone via structuredClone with fallback.
+  ```ts
+  const clone = objectDeepClone({ a: 1, b: { c: 2 } });
+  ```
+- `objectDeepEquals(a: unknown, b: unknown): boolean` — Deep equality with circular ref handling.
+- `objectDeepFreeze<T>(object: T): DeepReadonly<T>` — Recursively Object.freeze.
+- `objectFlatten(object: Record<string, unknown>, prefix?: string): Record<string, unknown>` — Flatten to dot-notation keys.
+- `objectMask<T>(object: T, options: MaskObjectOptions): T` — Replace sensitive values with masking character.
+  ```ts
+  objectMask({ user: 'alice', password: 'secret' }, { keys: ['password'] })
+  // { user: 'alice', password: '******' }
+  ```
+- `objectOmitKeys<T, K>(object: T, keys: K[]): Omit<T, K>` — Shallow copy without specified keys.
+- `objectPickKeys<T, K>(object: T, keys: K[]): Pick<T, K>` — Shallow copy with only specified keys.
+- `objectPrune<T>(object: T, options?: PruneObjectOptions): T` — Remove undefined values recursively.
+
+## String
+
+- `toCamelCase(text: string | undefined): string` — `'hello world'` → `'helloWorld'`
+- `toKebabCase(text: string | undefined): string` — `'helloWorld'` → `'hello-world'`
+- `toSnakeCase(text: string | undefined): string` — `'helloWorld'` → `'hello_world'`
+- `toPascalCase(text: string | undefined): string` — `'hello world'` → `'HelloWorld'`
+- `toDotCase(text: string | undefined): string` — `'helloWorld'` → `'hello.world'`
+- `toHeaderCase(text: string | undefined): string` — `'helloWorld'` → `'Hello-World'`
+- `slugify(input: string, options?: SlugifyOptions): string` — URL-friendly slug. `slugify('Hello World!')` → `'hello-world'`
+- `interpolateString<T>(template: T, data: Record<string, unknown>, options?: InterpolateOptions): string` — Replace `{placeholders}` with values.
+  ```ts
+  interpolateString('Hello {name}', { name: 'World' }) // 'Hello World'
+  ```
+- `truncate(text: string, maxLength: number, options?: { ellipsis?: string, preserveWords?: boolean }): string` — Truncate with configurable ellipsis.
+
+## Math
+
+- `clamp(value: number, min: number, max: number): number` — Constrain to range. `clamp(5, 0, 10)` → `5`
+- `greatestCommonDivisor(...values: number[]): number` — GCD of one or more integers.
+- `smallestCommonMultiple(...values: number[]): number` — LCM of one or more integers.
+
+## Random
+
+- `randomInt(min: number, max: number): number` — Inclusive random integer.
+- `randomBool(probability?: number): boolean` — Random boolean with optional bias (0-1).
+- `randomString(length: number, options?: { includeNumbers?: boolean, includeSymbols?: boolean }): string` — Random alphanumeric string.
+- `randomSample<T>(array: T[], size?: number): T[]` — Random unique elements without replacement.
+
+## System
+
+- `getEnvironment(): 'Browser' | 'Node' | 'Bun' | 'Unknown'` — Detect runtime.
+  ```ts
+  if (getEnvironment() === 'Node') { /* ... */ }
+  ```
+- `isNode(): boolean` — True in Node.js.
+- `isBrowser(): boolean` — True in browser.
+
+## Typeguards
+
+- `isDefined<T>(arg: T): arg is Exclude<T, null | undefined>` — Not null, undefined, or NaN.
+- `isEmptyObject(value: unknown): boolean` — Object with no own enumerable keys.
+- `isEmptyValue(value: unknown): boolean` — Null, undefined, NaN, empty string/array/object.
+- `isNumber(value: unknown): value is number | string` — Finite number or numeric string.
+- `isString(value: unknown): value is string` — String primitive or String object.
+
+## Classes
+
+### Semaphore
+- `new Semaphore(size: number)` — Create concurrency limiter.
+- `semaphore.acquire(): Promise<SemaphoreLock>` — Acquire a lock, blocks until available.
+- `lock.release(): void` — Release the lock.
+- `semaphore.size: number` — Configured concurrency limit.
+- `semaphore.available: number` — Currently available slots.
+- `semaphore.waiting: number` — Number of waiting operations.
+
+### SortedList
+- `new SortedList<T>(options?: { compare?, allowDuplicates? })` — Binary-sorted list.
+- `sortedList.add(value: T): void` — Insert maintaining sort order.
+- `sortedList.delete(value: T): boolean` — Remove by value.
+- `sortedList.has(value: T): boolean` — Check existence.
+- `sortedList.values(): T[]` — All values in sorted order.
+
+### WeightedList
+- `new WeightedList<T>(list?: WeightedList<T>)` — Weighted random selection.
+- `weightedList.push(...items: Array<{ data: T, weight: number }>)` — Add weighted items.
+- `weightedList.random(): T | undefined` — Pick random by weight.
+- `weightedList.popRandom(): { data: T, weight: number } | undefined` — Remove and return random item.
+
+## Development
+
+- `benchmark<T>(fn: () => T | Promise<T>, options?: BenchmarkOptions<T>): T | Promise<T>` — Measure execution time.
+  ```ts
+  benchmark(() => heavyComputation(), { iterations: 100, log: true })
+  ```
+- `createPerfTimer(options?: CreatePerfTimerOptions): PerfTimer` — High-res timer with lap support.
+- `traceFunction<Args, Return>(fn: Function, options?: TraceOptions): TracedFunction` — Log calls, args, returns, and timing.
+
+## Types
+
+- `DeepPartial<T>` — Recursively make all properties optional.
+- `DeepReadonly<T>` — Recursively make all properties readonly.
+- `DeepGet<T, P>` — Resolve type at end of a path tuple.
+- `Mandatory<T>` — Strip null and undefined from properties.
+- `Nestable` — Recursive primitive/object/array type.
+- `NonNullish` — Exclude null and undefined.
+- `Nullish` — null | undefined | void.
+- `Primitive` — bigint | boolean | number | string | symbol | undefined.
+- `Serializable` — JSON-serializable values.
+- `Simplify<T>` — Flatten intersection types for better IDE display.
+- `SmartPartial<T>` — Make properties optional only if they already include undefined.
+- `UnionToIntersection<U>` — Convert union to intersection type.

@@ -25,7 +25,7 @@
  * const result = arrayDifference(arr1, arr2);
  * console.log(result); // [1]
  */
-export const arrayDifference = <T>(...arrays: T[][]): T[] => {
+export function arrayDifference<T>(...arrays: T[][]): T[] {
 	let result = arrays[0] ?? [];
 
 	for (const array of arrays.slice(1)) {
@@ -33,4 +33,4 @@ export const arrayDifference = <T>(...arrays: T[][]): T[] => {
 	}
 
 	return result;
-};
+}

@@ -15,6 +15,6 @@
  * clamp(-1, 0, 10); // Returns 0
  * clamp(15, 0, 10); // Returns 10
  */
-export const clamp = (value: number, min: number, max: number): number => {
+export function clamp(value: number, min: number, max: number): number {
 	return Math.max(min, Math.min(max, value));
-};
+}

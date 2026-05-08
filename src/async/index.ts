@@ -1,6 +1,10 @@
-export { asyncForEach } from './async-for-each.js';
-export { asyncFilter } from './async-filter.js';
-export { asyncMap } from './async-map.js';
+export { createAbortError } from './utils/abort-error.js';
+export { asyncForEach, asyncForEachSettled } from './async-for-each.js';
+export type { AsyncForEachSettledResult } from './async-for-each.js';
+export { asyncFilter, asyncFilterSettled } from './async-filter.js';
+export type { AsyncFilterSettledResult } from './async-filter.js';
+export { asyncMap, asyncMapSettled } from './async-map.js';
+export type { AsyncErrorInfo, AsyncMapSettledResult } from './async-map.js';
 export { debounce } from './debounce.js';
 export { maybe } from './maybe.js';
 export type { Maybe } from './maybe.js';

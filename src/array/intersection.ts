@@ -54,7 +54,9 @@ const intersectionInternal = <T>(deep = false, ...arrays: T[][]): T[] => {
  * const result = arrayIntersection([1, 2, 3], [2, 3, 4], [3, 2, 5]);
  * console.log(result); // Output: [2, 3]
  */
-export const arrayIntersection = <T>(...arrays: T[][]): T[] => intersectionInternal(false, ...arrays);
+export function arrayIntersection<T>(...arrays: T[][]): T[] {
+	return intersectionInternal(false, ...arrays);
+}
 
 /**
  * Find the intersection of multiple arrays using deep equality comparison.
@@ -71,4 +73,6 @@ export const arrayIntersection = <T>(...arrays: T[][]): T[] => intersectionInter
  * const result = arrayIntersectionDeep([{ id: 1 }, { id: 2 }], [{ id: 2 }, { id: 3 }], [{ id: 2 }]);
  * console.log(result); // Output: [{ id: 2 }]
  */
-export const arrayIntersectionDeep = <T>(...arrays: T[][]): T[] => intersectionInternal(true, ...arrays);
+export function arrayIntersectionDeep<T>(...arrays: T[][]): T[] {
+	return intersectionInternal(true, ...arrays);
+}
