@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/sebastian-schuler/ts-scribe/compare/v1.1.0...v1.1.1) (2026-05-08)
+
+
+### Bug Fixes
+
+* Drop commonjs support; Only ESM from now on ([#5](https://github.com/sebastian-schuler/ts-scribe/issues/5)) ([5a26c6e](https://github.com/sebastian-schuler/ts-scribe/commit/5a26c6e79760f29d75b19f4d7b33363aaeb3aa82))
+
 # [1.1.0](https://github.com/sebastian-schuler/ts-scribe/compare/v1.0.1...v1.1.0) (2026-05-08)
 
 
