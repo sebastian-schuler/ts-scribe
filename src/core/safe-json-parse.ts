@@ -38,7 +38,7 @@ export function safeJsonParse<T>(
 	const { onError, reviver, logError } = options ?? {};
 
 	try {
-		return JSON.parse(text, reviver) as T;
+		return JSON.parse(text, reviver) as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 	} catch (error) {
 		if (logError) {
 			console.error('Failed to parse JSON:', error, 'Input string:', text);

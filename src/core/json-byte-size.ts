@@ -107,8 +107,10 @@ function approximateWalkObject(value: object, measureString: (s: string) => numb
 	}
 
 	// Call toJSON() if enabled (e.g. Date → ISO string)
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion, @typescript-eslint/no-unsafe-member-access
 	if (callToJson && typeof (value as any).toJSON === 'function') {
 		try {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion, @typescript-eslint/no-unsafe-member-access
 			return approximateWalk((value as any).toJSON(), measureString, callToJson);
 		} catch {
 			// Ignore throwing toJSON and fall through to plain-object handling
@@ -121,6 +123,7 @@ function approximateWalkObject(value: object, measureString: (s: string) => numb
 	for (const key of Object.keys(value)) {
 		let propValue: unknown;
 		try {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 			propValue = (value as Record<string, unknown>)[key];
 		} catch {
 			continue; // Skip keys with throwing getters

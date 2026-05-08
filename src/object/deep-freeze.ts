@@ -30,7 +30,7 @@ export function objectDeepFreeze<T extends Record<string, unknown>>(object: T): 
 
 		// Freeze prop if it's an object
 		if (typeof prop === 'object' && prop !== null && prop !== undefined) {
-			objectDeepFreeze(prop as Record<string, unknown>);
+			objectDeepFreeze(prop as Record<string, unknown>); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		}
 	}
 

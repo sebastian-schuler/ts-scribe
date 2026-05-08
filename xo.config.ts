@@ -17,7 +17,8 @@ export default [
 	{
 		prettier: true,
 		rules: {
-			"@typescript-eslint/no-restricted-types": "off"
+			"@typescript-eslint/no-restricted-types": "off",
+			"unicorn/no-array-sort": "off",
 		}
 	},
 ] satisfies FlatXoConfig;

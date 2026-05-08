@@ -10,9 +10,8 @@ describe('randomInt', () => {
 		expect(result).toBeLessThanOrEqual(max);
 	});
 
-	it('should return NaN if min is greater than max', () => {
-		const result = randomInt(10, 5);
-		expect(result).toBeNaN();
+	it('should throw a RangeError if min is greater than max', () => {
+		expect(() => randomInt(10, 5)).toThrowError(RangeError);
 	});
 
 	it('should return the only possible value when min equals max', () => {

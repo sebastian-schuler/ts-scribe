@@ -13,7 +13,8 @@ export function getEnvironment(): 'Browser' | 'Node' | 'Bun' | 'Unknown' {
 	}
 
 	// Check if in a Bun environment
-	if (typeof Bun !== 'undefined' && Bun.version !== undefined) {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-type-assertion, unicorn/no-typeof-undefined
+	if (typeof (globalThis as any).Bun !== 'undefined' && (globalThis as any).Bun?.version !== undefined) {
 		return 'Bun';
 	}
 

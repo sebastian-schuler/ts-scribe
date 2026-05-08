@@ -26,12 +26,13 @@ export const toArray = <T>(
 	if (
 		typeof value === 'object' &&
 		value !== null && // Use Array.from for array-like objects or iterables
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion, @typescript-eslint/no-unsafe-member-access
 		(Symbol.iterator in value || typeof (value as any).length === 'number')
 	) {
-		// eslint-disable-next-line unicorn/prefer-spread, @typescript-eslint/no-unsafe-argument
+		// eslint-disable-next-line unicorn/prefer-spread, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-type-assertion
 		return Array.from(value as any);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-type-assertion
 	return [value as any];
 };

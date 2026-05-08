@@ -144,7 +144,9 @@ export function createPerfTimer(options: CreatePerfTimerOptions = {}): PerfTimer
 			if (onLap) {
 				try {
 					onLap(entry);
-				} catch {}
+				} catch { // eslint-disable-line prettier/prettier
+					
+				}
 			}
 
 			if (log) {
@@ -163,7 +165,9 @@ export function createPerfTimer(options: CreatePerfTimerOptions = {}): PerfTimer
 			if (onStop) {
 				try {
 					onStop(result);
-				} catch {}
+				} catch { // eslint-disable-line prettier/prettier
+
+				}
 			}
 
 			if (log) {

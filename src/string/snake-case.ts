@@ -14,8 +14,8 @@ export function toSnakeCase(text: string | undefined): string {
 	if (!text) return '';
 
 	return String(text)
-		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
-		.replaceAll(/([a-z])([A-Z])/g, (m: string, a: string, b: string) => a + '_' + b.toLowerCase())
-		.replaceAll(/[^A-Za-z\d]+|_+/g, '_')
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/gv, '')
+		.replaceAll(/([a-z])([A-Z])/gv, (m: string, a: string, b: string) => a + '_' + b.toLowerCase())
+		.replaceAll(/[^A-Za-z\d]+|_+/gv, '_')
 		.toLowerCase();
 }

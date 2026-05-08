@@ -47,7 +47,7 @@ export function memoizeSafeStringify(value: unknown, maxDepth = 10): string {
 						continue;
 					}
 
-					const value = (value_ as Record<string, unknown>)[key];
+					const value = (value_ as Record<string, unknown>)[key]; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 					pairs.push(`"${key}":${stringify(value, depth + 1)}`);
 				}
 			}

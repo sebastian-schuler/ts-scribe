@@ -1,7 +1,7 @@
 export { asyncForEach } from './async-for-each.js';
 export { asyncFilter } from './async-filter.js';
 export { asyncMap } from './async-map.js';
-export { debounce } from './debounced.js';
+export { debounce } from './debounce.js';
 export { maybe } from './maybe.js';
 export type { Maybe } from './maybe.js';
 export { retry } from './retry.js';

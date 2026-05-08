@@ -14,9 +14,9 @@ export function toPascalCase(text: string | undefined): string {
 	if (!text) return '';
 
 	return String(text)
-		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '$')
-		.replaceAll(/[^A-Za-z\d]+/g, '$')
-		.replaceAll(/([a-z])([A-Z])/g, (m: string, a: string, b: string) => `${a}$${b}`)
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/gv, '$')
+		.replaceAll(/[^A-Za-z\d]+/gv, '$')
+		.replaceAll(/([a-z])([A-Z])/gv, (m: string, a: string, b: string) => `${a}$${b}`)
 		.toLowerCase()
-		.replaceAll(/(\$)(\w?)/g, (m: string, a: string, b: string): string => b.toUpperCase());
+		.replaceAll(/(\$)(\w?)/gv, (m: string, a: string, b: string): string => b.toUpperCase());
 }

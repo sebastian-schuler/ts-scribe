@@ -150,7 +150,7 @@ export function benchmark<T>(fn: () => T | Promise<T>, options: BenchmarkOptions
 			for (let i = 1; i < count; i++) {
 				const start = performance.now();
 				// eslint-disable-next-line no-await-in-loop
-				lastResult = await (fn() as Promise<T>);
+				lastResult = await (fn() as Promise<T>); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 				durations.push(performance.now() - start);
 			}
 
@@ -164,7 +164,7 @@ export function benchmark<T>(fn: () => T | Promise<T>, options: BenchmarkOptions
 
 	for (let i = 1; i < count; i++) {
 		const start = performance.now();
-		lastResult = fn() as T;
+		lastResult = fn() as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		durations.push(performance.now() - start);
 	}
 

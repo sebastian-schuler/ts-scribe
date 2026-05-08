@@ -1,57 +1,13 @@
-/** @internal */
-type PathKey<T> = T extends null | undefined
-	? never
-	: NonNullable<T> extends readonly unknown[]
-		? number
-		: NonNullable<T> extends ReadonlyMap<infer K extends string | number, unknown>
-			? K
-			: NonNullable<T> extends object
-				? keyof NonNullable<T> & (string | number)
-				: never;
-
-/** @internal */
-type Step<T, K extends string | number> = T extends null | undefined
-	? undefined
-	: NonNullable<T> extends ReadonlyArray<infer Item>
-		? K extends number
-			? Item | undefined
-			: undefined
-		: NonNullable<T> extends ReadonlyMap<unknown, infer V>
-			? V | undefined
-			: K extends keyof NonNullable<T>
-				? NonNullable<T>[K]
-				: undefined;
-
-type Reach1<T, K0 extends string | number> = Step<T, K0>;
-type Reach2<T, K0 extends string | number, K1 extends string | number> = Step<Reach1<T, K0>, K1>;
-type Reach3<T, K0 extends string | number, K1 extends string | number, K2 extends string | number> = Step<
-	Reach2<T, K0, K1>,
-	K2
->;
-type Reach4<
-	T,
-	K0 extends string | number,
-	K1 extends string | number,
-	K2 extends string | number,
-	K3 extends string | number,
-> = Step<Reach3<T, K0, K1, K2>, K3>;
-type Reach5<
-	T,
-	K0 extends string | number,
-	K1 extends string | number,
-	K2 extends string | number,
-	K3 extends string | number,
-	K4 extends string | number,
-> = Step<Reach4<T, K0, K1, K2, K3>, K4>;
-type Reach6<
-	T,
-	K0 extends string | number,
-	K1 extends string | number,
-	K2 extends string | number,
-	K3 extends string | number,
-	K4 extends string | number,
-	K5 extends string | number,
-> = Step<Reach5<T, K0, K1, K2, K3, K4>, K5>;
+import {
+	type PathKey,
+	type Reach1,
+	type Reach2,
+	type Reach3,
+	type Reach4,
+	type Reach5,
+	type Reach6,
+	type Step,
+} from './path-types.js';
 
 /**
  * Resolves the type produced by immutably setting value `V` at path `P` in `T`.
@@ -230,7 +186,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 
 	const cloneObject = (object_: object): Record<string | number, unknown> => {
 		const prototype = Reflect.getPrototypeOf(object_);
-		const clone = Object.create(prototype) as Record<string | number, unknown>;
+		const clone = Object.create(prototype) as Record<string | number, unknown>; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		return Object.assign(clone, object_);
 	};
 
@@ -240,7 +196,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 			return normalized >= 0 ? normalized : null;
 		}
 
-		if (typeof key === 'string' && /^-?\d+$/.test(key)) {
+		if (typeof key === 'string' && /^-?\d+$/v.test(key)) {
 			const parsed = Number(key);
 			const normalized = parsed < 0 ? length + parsed : parsed;
 			return Number.isInteger(normalized) && normalized >= 0 ? normalized : null;
@@ -263,7 +219,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 		if (Array.isArray(current)) {
 			const source = current as unknown[];
 			const clone = [...source];
-			const recordClone = clone as unknown as Record<string | number, unknown>;
+			const recordClone = clone as unknown as Record<string | number, unknown>; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 			const idx = normalizeArrayIndex(key, clone.length);
 
 			if (idx === null) {
@@ -275,6 +231,7 @@ export function setIn(object: unknown, path: ReadonlyArray<string | number>, val
 			return clone;
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 		const writable = (
 			current !== null && typeof current === 'object' ? cloneObject(current) : createContainerForKey(key)
 		) as Record<string | number, unknown>;

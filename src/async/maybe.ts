@@ -327,7 +327,7 @@ const maybe = <TypedValue>(
 	init: Maybe<TypedValue> | TypedValue | (() => Maybe<TypedValue> | Nullish | TypedValue) | undefined,
 ): Maybe<TypedValue> => {
 	try {
-		const value = typeof init === 'function' ? (init as () => Maybe<TypedValue> | Nullish | TypedValue)() : init;
+		const value = typeof init === 'function' ? (init as () => Maybe<TypedValue> | Nullish | TypedValue)() : init; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 
 		if (isMaybe(value)) {
 			return value;
@@ -337,7 +337,7 @@ const maybe = <TypedValue>(
 			return maybe.empty();
 		}
 
-		return createOk(value as Mandatory<TypedValue>);
+		return createOk(value as Mandatory<TypedValue>); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 	} catch (error) {
 		return maybe.error(error);
 	}
@@ -371,7 +371,7 @@ const maybe = <TypedValue>(
  * ```
  */
 maybe.error = <TypedValue = never>(error?: unknown): Maybe<TypedValue> => {
-	return createEmpty((error ?? new Error('unknown')) as NonNullish);
+	return createEmpty((error ?? new Error('unknown')) as NonNullish); // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
 };
 
 /**
@@ -425,7 +425,7 @@ const empty = createEmpty(null);
  * ```
  */
 const isMaybe = (value: unknown): value is Maybe<unknown> => {
-	return Boolean((value as { [maybe$]?: unknown })?.[maybe$]);
+	return Boolean((value as { [maybe$]?: unknown })?.[maybe$]); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 };
 
 export { isMaybe, maybe };

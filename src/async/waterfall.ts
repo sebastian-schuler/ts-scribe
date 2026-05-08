@@ -51,5 +51,5 @@ export async function waterfall<T>(tasks: Array<Task<T>>): Promise<T> {
 		result = await task();
 	}
 
-	return result as T;
+	return result as T; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 }

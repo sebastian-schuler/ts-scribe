@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-type-assertion */
 import { safeJsonStringify } from '../core/safe-json-stringify.js';
 
 /**

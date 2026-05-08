@@ -152,6 +152,23 @@ describe('objectFlatten', () => {
 		expect(objectFlatten(input)).toEqual(expectedOutput);
 	});
 
+	it('should handle deeply nested arrays (3+ levels)', () => {
+		const input = {
+			matrix: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+		};
+		const expectedOutput = {
+			'matrix.0.0.0': 1,
+			'matrix.0.0.1': 2,
+			'matrix.0.1.0': 3,
+			'matrix.0.1.1': 4,
+			'matrix.1.0.0': 5,
+			'matrix.1.0.1': 6,
+			'matrix.1.1.0': 7,
+			'matrix.1.1.1': 8,
+		};
+		expect(objectFlatten(input)).toEqual(expectedOutput);
+	});
+
 	it('should handle objects with function values', () => {
 		const fn = () => 'test';
 		const input = {

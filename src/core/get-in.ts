@@ -1,59 +1,13 @@
-/** @internal */
-type PathKey<T> = T extends null | undefined
-	? never
-	: NonNullable<T> extends readonly unknown[]
-		? number
-		: NonNullable<T> extends ReadonlyMap<infer K extends string | number, unknown>
-			? K
-			: NonNullable<T> extends object
-				? keyof NonNullable<T> & (string | number)
-				: never;
-
-/** @internal */
-type Step<T, K extends string | number> = T extends null | undefined
-	? undefined
-	: NonNullable<T> extends ReadonlyArray<infer Item>
-		? K extends number
-			? Item | undefined
-			: undefined
-		: NonNullable<T> extends ReadonlyMap<unknown, infer V>
-			? V | undefined
-			: K extends keyof NonNullable<T>
-				? NonNullable<T>[K]
-				: undefined;
-
-// Value type after following the first N keys from T.
-// Keeping these aliases short is what makes the per-length overload signatures readable.
-type Reach1<T, K0 extends string | number> = Step<T, K0>;
-type Reach2<T, K0 extends string | number, K1 extends string | number> = Step<Reach1<T, K0>, K1>;
-type Reach3<T, K0 extends string | number, K1 extends string | number, K2 extends string | number> = Step<
-	Reach2<T, K0, K1>,
-	K2
->;
-type Reach4<
-	T,
-	K0 extends string | number,
-	K1 extends string | number,
-	K2 extends string | number,
-	K3 extends string | number,
-> = Step<Reach3<T, K0, K1, K2>, K3>;
-type Reach5<
-	T,
-	K0 extends string | number,
-	K1 extends string | number,
-	K2 extends string | number,
-	K3 extends string | number,
-	K4 extends string | number,
-> = Step<Reach4<T, K0, K1, K2, K3>, K4>;
-type Reach6<
-	T,
-	K0 extends string | number,
-	K1 extends string | number,
-	K2 extends string | number,
-	K3 extends string | number,
-	K4 extends string | number,
-	K5 extends string | number,
-> = Step<Reach5<T, K0, K1, K2, K3, K4>, K5>;
+import {
+	type PathKey,
+	type Reach1,
+	type Reach2,
+	type Reach3,
+	type Reach4,
+	type Reach5,
+	type Reach6,
+	type Step,
+} from './path-types.js';
 
 /**
  * Resolves the type at the end of a path tuple `P` walked into `T`.
@@ -261,7 +215,7 @@ export function getIn(object: unknown, path: ReadonlyArray<string | number>, def
 			const idx = typeof key === 'number' ? key : Number(key);
 			current = array[idx < 0 ? array.length + idx : idx];
 		} else {
-			current = (current as Record<string | number, unknown>)[key];
+			current = (current as Record<string | number, unknown>)[key]; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		}
 	}
 

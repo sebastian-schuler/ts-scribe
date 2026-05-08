@@ -16,7 +16,7 @@ import { isDefined } from '../typeguards/is-defined.js';
  * @param {boolean} [options.continueOnError=false] - Whether to continue execution when a callback throws
  * @param {E} [options.errorValue=undefined] - Value to use when an error occurs and continueOnError is true
  *
- * @returns {Promise<(R|E)[]>} Promise resolving to an array of results or error values
+ * @returns {Promise<(R|E|undefined)[]>} Promise resolving to an array of results or error values
  *
  * @example
  * // Basic usage
@@ -47,12 +47,12 @@ export async function asyncMap<T, R, E = undefined>(
 		continueOnError?: boolean;
 		errorValue?: E;
 	} = {},
-): Promise<Array<R | E>> {
+): Promise<Array<R | E | undefined>> {
 	if (!isDefined(array)) {
 		throw new Error('Input array must not be null or undefined');
 	}
 
-	const { concurrency = Infinity, continueOnError = false, errorValue = undefined as E } = options;
+	const { concurrency = Infinity, continueOnError = false, errorValue } = options;
 
 	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
 		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");
@@ -79,7 +79,7 @@ export async function asyncMap<T, R, E = undefined>(
 	}
 
 	// For limited concurrency, process in batches
-	const results: Array<R | E> = Array.from({ length: array.length });
+	const results: Array<R | E | undefined> = Array.from({ length: array.length });
 	let currentIndex = 0;
 
 	// Process items in batches based on concurrency limit

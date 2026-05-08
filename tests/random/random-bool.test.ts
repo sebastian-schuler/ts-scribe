@@ -36,4 +36,28 @@ describe('randomBool', () => {
 		// Check if observed probability is close to the provided probability
 		expect(observedProbability).toBeCloseTo(probability, 1); // Allow a 1% margin of error
 	});
+
+	it('should always return true when probability is 1', () => {
+		for (let i = 0; i < 100; i++) {
+			expect(randomBool(1)).toBe(true);
+		}
+	});
+
+	it('should always return false when probability is 0', () => {
+		for (let i = 0; i < 100; i++) {
+			expect(randomBool(0)).toBe(false);
+		}
+	});
+
+	it('should always return false when probability is negative', () => {
+		for (let i = 0; i < 100; i++) {
+			expect(randomBool(-1)).toBe(false);
+		}
+	});
+
+	it('should always return true when probability is greater than 1', () => {
+		for (let i = 0; i < 100; i++) {
+			expect(randomBool(2)).toBe(true);
+		}
+	});
 });

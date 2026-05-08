@@ -36,4 +36,16 @@ describe('randomSample', () => {
 		expect(sample).toHaveLength(array.length);
 		expect(sample.sort()).toEqual(array.sort());
 	});
+
+	it('should return an empty array when size is 0', () => {
+		const array = [1, 2, 3];
+		const sample = randomSample(array, 0);
+		expect(sample).toHaveLength(0);
+	});
+
+	it('should return an empty array when size is negative', () => {
+		const array = [1, 2, 3];
+		const sample = randomSample(array, -1);
+		expect(sample).toHaveLength(0);
+	});
 });

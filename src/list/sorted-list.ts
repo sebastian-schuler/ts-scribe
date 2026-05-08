@@ -57,8 +57,8 @@ class SortedList<ValueType> {
 	) {
 		const [values, options = {}] =
 			args[0] && Symbol.iterator in args[0]
-				? (args as [values: Iterable<ValueType>, options?: SortedListOptions<ValueType>])
-				: [[], ...(args as [options?: SortedListOptions<ValueType>])];
+				? (args as [values: Iterable<ValueType>, options?: SortedListOptions<ValueType>]) // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
+				: [[], ...(args as [options?: SortedListOptions<ValueType>])]; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		const { compare = SortedList.defaultCompare, allowDuplicates = false } =
 			typeof options === 'function' ? { compare: options } : options;
 
@@ -68,7 +68,6 @@ class SortedList<ValueType> {
 			? [...values].sort(compare)
 			: [...values]
 					.sort(compare)
-
 					.filter((value, index, array) => index === 0 || this.#compare(value, array[index - 1]) !== 0);
 	}
 

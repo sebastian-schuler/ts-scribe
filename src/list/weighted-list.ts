@@ -14,10 +14,15 @@ type InputEntry<T> = {
  * @category List
  */
 export class WeightedList<T> {
-	public length = 0;
-
 	private entries: Array<Entry<T>> = [];
 	private totalWeight = 0;
+
+	/**
+	 * The number of entries in the list.
+	 */
+	public get length(): number {
+		return this.entries.length;
+	}
 
 	/**
 	 * Optionally merge with an existing WeightedList.
@@ -27,7 +32,6 @@ export class WeightedList<T> {
 		if (list !== undefined) {
 			this.entries = [...list.entries];
 			this.totalWeight = list.totalWeight;
-			this.length = this.entries.length;
 		}
 	}
 
@@ -43,7 +47,6 @@ export class WeightedList<T> {
 				weightIndex: this.totalWeight,
 				weight: item.weight,
 			});
-			this.length++;
 		}
 	}
 
@@ -97,8 +100,8 @@ export class WeightedList<T> {
 	 * @returns The probability of the item, or undefined if the index is invalid.
 	 */
 	probability(index: number) {
-		const item = this.entries.at(index);
-		if (item === undefined) return undefined;
+		if (index < 0 || index >= this.entries.length) return undefined;
+		const item = this.entries[index];
 		return item.weight / this.totalWeight;
 	}
 
@@ -117,7 +120,6 @@ export class WeightedList<T> {
 		if (result === undefined) return undefined;
 
 		this.entries.splice(index, 1);
-		this.length--;
 
 		this.totalWeight -= result.weight;
 		return { data: result.data, weight: result.weight };
@@ -129,7 +131,6 @@ export class WeightedList<T> {
 	clear() {
 		this.entries = [];
 		this.totalWeight = 0;
-		this.length = 0;
 	}
 
 	/**

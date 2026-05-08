@@ -66,7 +66,7 @@ type InterpolateData<T extends string> = [TopLevelKey<ExtractKeys<T>>] extends [
 	: Partial<Record<TopLevelKey<ExtractKeys<T>>, unknown>> | unknown[];
 
 function escapeRegex(s: string): string {
-	return s.replaceAll(/[$()*+.?[\\\]^{|}]/g, String.raw`\$&`);
+	return s.replaceAll(/[$\(\)*+.?\[\\\]^\{\|\}]/gv, String.raw`\$&`);
 }
 
 function resolveDotPath(object: Record<string, unknown>, path: string): unknown {
@@ -74,7 +74,7 @@ function resolveDotPath(object: Record<string, unknown>, path: string): unknown 
 
 	for (const segment of path.split('.')) {
 		if (current === null || typeof current !== 'object') return undefined;
-		current = (current as Record<string, unknown>)[segment];
+		current = (current as Record<string, unknown>)[segment]; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 	}
 
 	return current;
@@ -174,7 +174,7 @@ export function interpolateString<T extends string>(
 		throw new Error('Interpolation delimiters must be non-empty strings.');
 	}
 
-	const pattern = new RegExp(`${escapeRegex(open)}([\\s\\S]+?)${escapeRegex(close)}`, 'g');
+	const pattern = new RegExp(String.raw`${escapeRegex(open)}([\s\S]+?)${escapeRegex(close)}`, 'gv');
 
 	return template.replaceAll(pattern, (match, rawKey: string) => {
 		const key = rawKey.trim();
@@ -184,7 +184,7 @@ export function interpolateString<T extends string>(
 			const index = Number(key);
 			value = Number.isInteger(index) && index >= 0 && index < data.length ? data[index] : undefined;
 		} else {
-			value = resolveDotPath(data as Record<string, unknown>, key);
+			value = resolveDotPath(data, key);
 		}
 
 		if (value === undefined || value === null) {

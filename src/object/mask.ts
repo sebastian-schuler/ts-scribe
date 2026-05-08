@@ -330,7 +330,7 @@ export function objectMask(object: any, options: MaskObjectOptions = {}): any {
 				continue;
 			}
 
-			const propertyValue = (value as Record<string, unknown>)[key];
+			const propertyValue = (value as Record<string, unknown>)[key]; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 			const propertyPath = path ? `${path}.${key}` : key;
 
 			result[key] = processProperty(key, propertyValue, propertyPath, depth);
