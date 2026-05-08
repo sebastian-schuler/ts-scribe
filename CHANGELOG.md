@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/sebastian-schuler/ts-scribe/compare/v1.0.1...v1.1.0) (2026-05-08)
+
+
+### Features
+
+* Enhance async utilities and improve documentation clarity ([#4](https://github.com/sebastian-schuler/ts-scribe/issues/4)) ([e17aa50](https://github.com/sebastian-schuler/ts-scribe/commit/e17aa501a1d50591ff26f27d26804cebb8d9612f))
+
 ## [1.0.1](https://github.com/sebastian-schuler/ts-scribe/compare/v1.0.0...v1.0.1) (2026-05-08)
 
 
