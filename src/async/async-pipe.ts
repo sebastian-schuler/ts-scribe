@@ -39,6 +39,8 @@
  * await search('  hello  '); // { results: ['hello'] }
  */
 
+// 0 functions — returns async identity
+export function asyncPipe(): <T>(x: T) => Promise<T>;
 // 1 function
 export function asyncPipe<A, B>(f1: (x: A) => B | Promise<B>): (x: A) => Promise<B>;
 // 2 functions

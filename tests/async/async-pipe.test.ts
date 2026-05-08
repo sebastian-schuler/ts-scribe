@@ -153,6 +153,38 @@ describe('asyncPipe', () => {
 		expect(calls).toEqual(['a', 'b']); // c never called
 	});
 
+	it('rejects when the first function throws (sync)', async () => {
+		const explode = (_x: number): number => {
+			throw new Error('first fails');
+		};
+
+		const add1 = (n: number) => n + 1;
+		const pipeline = asyncPipe(explode, add1);
+
+		await expect(pipeline(1)).rejects.toThrow('first fails');
+	});
+
+	it('rejects when the first function rejects (async)', async () => {
+		const explode = async (_x: number): Promise<number> => {
+			throw new Error('first async fails');
+		};
+
+		const add1 = (n: number) => n + 1;
+		const pipeline = asyncPipe(explode, add1);
+
+		await expect(pipeline(1)).rejects.toThrow('first async fails');
+	});
+
+	it('rejects with non-Error values', async () => {
+		const throwString = (_x: number): number => {
+			throw 'string error';
+		};
+
+		const pipeline = asyncPipe(throwString);
+
+		await expect(pipeline(1)).rejects.toThrow('string error');
+	});
+
 	// --- Type transformations ---
 
 	it('handles type transformations across the pipeline', async () => {

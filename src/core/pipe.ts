@@ -39,6 +39,8 @@
  * normalize('  Hello World  '); // 'helloWorld'
  */
 
+// 0 functions — returns identity
+export function pipe(): <T>(x: T) => T;
 // 1 function
 export function pipe<A, B>(f1: (x: A) => B): (x: A) => B;
 // 2 functions

@@ -121,6 +121,27 @@ describe('pipe', () => {
 		expect(calls).toEqual(['a', 'b']); // c never called
 	});
 
+	it('propagates error when the first function throws', () => {
+		const explode = (_x: number): number => {
+			throw new Error('first fails');
+		};
+
+		const add1 = (n: number) => n + 1;
+		const pipeline = pipe(explode, add1);
+
+		expect(() => pipeline(1)).toThrow('first fails');
+	});
+
+	it('propagates non-Error throws through the pipeline', () => {
+		const throwString = (_x: number): number => {
+			throw 'string error';
+		};
+
+		const pipeline = pipe(throwString);
+
+		expect(() => pipeline(1)).toThrow('string error');
+	});
+
 	// --- Type transformations ---
 
 	it('handles type transformations across the pipeline', () => {
@@ -222,5 +243,22 @@ describe('pipe', () => {
 
 		expect(pipeline(Infinity)).toBe(Infinity);
 		expect(pipeline(-Infinity)).toBe(-Infinity);
+	});
+
+	// --- Promise passthrough (pipe does NOT await) ---
+
+	it('passes a Promise through as-is without awaiting', () => {
+		const returnPromise = (n: number) => Promise.resolve(n * 2);
+		const inspect = (x: unknown) => {
+			expect(x).toBeInstanceOf(Promise);
+			return x;
+		};
+
+		const pipeline = pipe(returnPromise, inspect);
+
+		const result = pipeline(5);
+		// The final return is still a Promise (the one from returnPromise),
+		// not double-wrapped — pipe just threads values.
+		expect(result).toBeInstanceOf(Promise);
 	});
 });
