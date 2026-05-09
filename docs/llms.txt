@@ -119,6 +119,16 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
   const clone = objectDeepClone({ a: 1, b: { c: 2 } });
   ```
 - `objectDeepEquals(a: unknown, b: unknown): boolean` — Deep equality with circular ref handling.
+- `objectDeepMerge<T>(...objects: T[]): DeepMergeTuple<T>` — Deeply merge two or more objects left-to-right. Primitives, arrays (replace by default), and special types (`Date`, `RegExp`, `Map`, `Set`, `ArrayBuffer`, `SharedArrayBuffer`, typed arrays, `Error`) are overwritten atomically by the right-hand value. Use `objectDeepMerge.withOptions({ arrayMerge: 'concat', maxDepth: 50 })` for custom behaviour. Handles circular references. Inputs are never mutated.
+  ```ts
+  const a = { name: 'Alice', meta: { visits: 1 }, tags: ['js'] };
+  const b = { meta: { lastSeen: new Date() }, age: 30, tags: ['ts'] };
+  objectDeepMerge(a, b);
+  // { name: 'Alice', meta: { visits: 1, lastSeen: ... }, age: 30, tags: ['ts'] }
+
+  const merge = objectDeepMerge.withOptions({ arrayMerge: 'concat' });
+  merge(a, b); // tags: ['js', 'ts']
+  ```
 - `objectDeepFreeze<T>(object: T): DeepReadonly<T>` — Recursively Object.freeze.
 - `objectFlatten(object: Record<string, unknown>, prefix?: string): Record<string, unknown>` — Flatten to dot-notation keys.
 - `objectMask<T>(object: T, options: MaskObjectOptions): T` — Replace sensitive values with masking character.

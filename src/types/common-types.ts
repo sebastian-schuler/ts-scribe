@@ -192,3 +192,67 @@ export type DeepPartial<T> = T extends Record<string, unknown> ? { [P in keyof T
  * };
  */
 export type Serializable = string | number | boolean | undefined | Serializable[] | { [key: string]: Serializable };
+
+/**
+ * Deeply merge two types recursively, with `B` taking precedence over `A`.
+ *
+ * - **Primitives** (including `Date`, `RegExp`, `Map`, `Set`, etc.): `B` overwrites `A`.
+ * - **Arrays**: element types are merged via `DeepMerge` and wrapped in `Array<>`.
+ *   This is safe for both the `'replace'` and `'concat'` array strategies at runtime.
+ * - **Plain objects**: properties are recursively merged. Keys present only in `A`
+ *   keep their original type; keys present only in `B` use `B`'s type; overlapping
+ *   keys are deeply merged with `B`'s property taking precedence.
+ * - **Mixed types** (e.g. `A` is an object, `B` is a primitive): `B` wins.
+ *
+ * @category Utility Types
+ * @template A - The base type (lower precedence).
+ * @template B - The overriding type (higher precedence).
+ *
+ * @example
+ * type User = { name: string; meta: { visits: number } };
+ * type Patch = { meta: { lastSeen: Date }; age: number };
+ * type Merged = DeepMerge<User, Patch>;
+ * // Merged = { name: string; meta: { visits: number; lastSeen: Date }; age: number }
+ */
+export type DeepMerge<A, B> =
+	// Both arrays: recursively merge element types.
+	A extends ReadonlyArray<infer AItem>
+		? B extends ReadonlyArray<infer BItem>
+			? Array<DeepMerge<AItem, BItem>>
+			: B
+		: // A is not an array. If B is an array, B wins (mixed-type).
+			B extends readonly any[]
+			? B
+			: // Both are plain objects: recursive property merge.
+				A extends Record<string, any>
+				? B extends Record<string, any>
+					? Simplify<
+							Omit<A, keyof B> & {
+								[K in keyof B]: K extends keyof A ? DeepMerge<A[K], B[K]> : B[K];
+							}
+						>
+					: B
+				: B;
+
+/**
+ * Folds {@link DeepMerge} over a tuple of types, merging them left-to-right.
+ *
+ * `DeepMergeTuple<[A, B, C]>` is equivalent to `DeepMerge<DeepMerge<A, B>, C>`.
+ * An empty tuple resolves to `unknown`; a single-element tuple resolves to
+ * that element unchanged.
+ *
+ * @category Utility Types
+ * @template T - A tuple of types to merge in order.
+ *
+ * @example
+ * type A = { x: number };
+ * type B = { y: string };
+ * type C = { z: boolean };
+ * type Merged = DeepMergeTuple<[A, B, C]>;
+ * // Merged = { x: number; y: string; z: boolean }
+ */
+export type DeepMergeTuple<T extends any[]> = T extends [infer First, ...infer Rest]
+	? Rest extends []
+		? First
+		: DeepMerge<First, DeepMergeTuple<Rest>>
+	: unknown;

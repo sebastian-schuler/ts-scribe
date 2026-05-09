@@ -101,6 +101,7 @@ bun add ts-scribe
 |---|---|
 | `objectDeepClone(value, options?)` | Deep clone using `structuredClone` with a fallback. Handles Date, RegExp, Map, Set, and circular references. |
 | `objectDeepEquals(a, b)` | Deep equality comparison for objects and arrays. Handles circular references. |
+| `objectDeepMerge(...objects)` | Deeply merge two or more objects left-to-right into a new object. Plain objects are merged recursively; primitives, arrays (by default), and special types (`Date`, `RegExp`, `Map`, `Set`, `ArrayBuffer`, `SharedArrayBuffer`, typed arrays, `Error`, etc.) are overwritten by the right-hand value. Use `objectDeepMerge.withOptions({ arrayMerge: 'concat' })` to concatenate arrays instead of replacing them. `maxDepth` (default 50) prevents stack overflow. Handles circular references safely. Fully typed with `DeepMerge<A, B>`. |
 | `objectDeepFreeze(value)` | Recursively `Object.freeze` an object and all its nested properties. |
 | `objectFlatten(value, prefix?)` | Flatten a nested object into dot-notation keys. |
 | `objectMask(value, options)` | Recursively replace sensitive values with a masking character. Supports key-based rules, custom predicates, depth limits, and custom mask functions. Handles circular references and special types. |
@@ -155,6 +156,8 @@ Utility types are exported alongside functions and require no additional import 
 
 | Type | Description |
 |---|---|
+| `DeepMerge<A, B>` | Deeply merge two types, with `B` taking precedence. Objects merge recursively; arrays have element types unioned. |
+| `DeepMergeTuple<T>` | Fold `DeepMerge` over a tuple of types left-to-right. |
 | `DeepPartial<T>` | Recursively make all properties optional. |
 | `DeepReadonly<T>` | Recursively make all properties readonly. |
 | `GenericFunction` | Type for any callable function. |
