@@ -13,4 +13,6 @@ export { retry } from './retry.js';
 export type { RetryHandler, RetryOptions } from './retry.js';
 export { Semaphore, SemaphoreLock } from './semaphore.js';
 export { sleep } from './sleep.js';
+export { timeout } from './timeout.js';
+export type { TimeoutOptions } from './timeout.js';
 export { waterfall } from './waterfall.js';

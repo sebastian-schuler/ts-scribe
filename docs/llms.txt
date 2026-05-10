@@ -110,6 +110,12 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
   lock.release();
   ```
 - `sleep(ms: number): Promise<void>` — Pause for ms. `await sleep(1000)`
+- `timeout<T>(promise: PromiseLike<T>, ms: number, options?: { signal?: AbortSignal; message?: string }): Promise<T>` — Wrap a promise with a rejection deadline. Rejects with an `AbortError` (name: `'AbortError'`, code: `20`) after `ms` milliseconds. Clears the timer automatically on settle. If a signal is provided and already aborted, rejects immediately.
+  ```ts
+  const data = await timeout(fetch('/api/data'), 5_000);
+  const result = await timeout(expensiveQuery(), 3_000, { message: 'Query timed out' });
+  const value = await timeout(work(), 10_000, { signal: controller.signal });
+  ```
 - `waterfall<T>(tasks: Array<() => Promise<T>>): Promise<T>` — Run tasks in sequence, returns last result.
 
 ## Object

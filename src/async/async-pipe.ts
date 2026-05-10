@@ -94,9 +94,10 @@ export function asyncPipe(...fns: Array<(x: any) => any>): (x: any) => Promise<a
 	return async (x) => {
 		let result = x;
 		for (const fn of fns) {
-			const value = fn(result);
+			// Promise.resolve() assimilates thenables and cross-realm Promises
+			// (which fail instanceof Promise), unlike a raw instanceof check.
 			// eslint-disable-next-line no-await-in-loop -- Sequential execution is the point
-			result = value instanceof Promise ? await value : value;
+			result = await Promise.resolve(fn(result));
 		}
 
 		return result;

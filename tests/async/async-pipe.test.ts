@@ -289,36 +289,33 @@ describe('asyncPipe', () => {
 		await expect(pipeline(Infinity)).resolves.toBe(Infinity);
 	});
 
-	// --- Coverage: non-Promise thenable (instanceof Promise contract) ---
+	// --- Coverage: non-Promise thenable and cross-realm Promise handling ---
 
-	it('passes non-Promise thenables through as-is (not awaited)', async () => {
-		const makeThenable = (value: number) => {
-			let captured: any;
-			const passthrough = (next: (x: any) => any) => {
-				captured = next;
-				return passthrough;
-			};
+	it('awaits non-Promise thenables returned by a stage', async () => {
+		// With Promise.resolve(), any thenable is assimilated — the next stage receives
+		// the resolved value, not the thenable object itself.
+		const f = (x: number) => ({ then: (resolve: (v: number) => void) => resolve(x * 2) });
+		const double = (n: number) => n * 2;
+		const pipeline = asyncPipe(f, double);
 
-			return (next: (x: any) => any) => {
-				const thenable = { then: (resolve: any) => resolve(value) };
-				const result = next(thenable);
+		// f(5) → thenable resolving to 10 → double(10) → 20
+		await expect(pipeline(5)).resolves.toBe(20);
+	});
 
-				return result;
-			};
-		};
+	it('awaits cross-realm-like Promises that fail instanceof Promise', async () => {
+		// Cross-realm Promises (e.g. from vm contexts or iframes) are thenables that
+		// do NOT pass `instanceof Promise`. The pipeline must still await them correctly.
+		const crossRealmLike = <T>(value: T) => ({
+			then: (resolve: (v: T) => void) => resolve(value),
+		});
 
-		// Function returns a thenable (not a real Promise)
-		const f = (x: number) => ({ then: (resolve: any) => resolve(x * 2) });
-		const g = (x: any) => {
-			// The thenable arrives as-is (not resolved)
-			expect(x).toHaveProperty('then');
-			expect(x instanceof Promise).toBe(false);
+		const pipeline = asyncPipe(
+			(n: number) => crossRealmLike(n * 2), // returns a non-instanceof-Promise thenable
+			(n: number) => n + 1,                 // must receive the resolved value, not the object
+		);
 
-			return 42;
-		};
-
-		const pipeline = asyncPipe(f, g);
-		await expect(pipeline(5)).resolves.toBe(42);
+		// crossRealmLike(42 * 2) resolves to 84 → 84 + 1 = 85
+		await expect(pipeline(42)).resolves.toBe(85);
 	});
 
 	it('works with six functions', async () => {

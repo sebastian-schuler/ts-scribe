@@ -30,6 +30,7 @@ export {
 	maybe,
 	retry,
 	sleep,
+	timeout,
 	waterfall,
 	Semaphore,
 	SemaphoreLock,
@@ -40,6 +41,7 @@ export type {
 	AsyncForEachSettledResult,
 	AsyncMapSettledResult,
 	Maybe,
+	TimeoutOptions,
 } from './async/index.js';
 
 // Core

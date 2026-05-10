@@ -1,5 +1,5 @@
-import { isDefined } from '../typeguards/is-defined.js';
 import { runAsyncPool } from './utils/async-pool.js';
+import { validateAsyncArgs } from './utils/validate-args.js';
 
 /**
  * Info about a single item error collected by the `*Settled` variants.
@@ -76,15 +76,8 @@ export async function asyncMap<T, R>(
 		signal?: AbortSignal;
 	} = {},
 ): Promise<R[]> {
-	if (!isDefined(array)) {
-		throw new Error('Input array must not be null or undefined');
-	}
-
 	const { concurrency = Infinity, signal } = options;
-
-	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
-		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");
-	}
+	validateAsyncArgs(array, concurrency);
 
 	if (array.length === 0) {
 		return [];
@@ -151,15 +144,8 @@ export async function asyncMapSettled<T, R, E = undefined>(
 		signal?: AbortSignal;
 	} = {},
 ): Promise<AsyncMapSettledResult<R, E>> {
-	if (!isDefined(array)) {
-		throw new Error('Input array must not be null or undefined');
-	}
-
 	const { concurrency = Infinity, errorValue, signal } = options;
-
-	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
-		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");
-	}
+	validateAsyncArgs(array, concurrency);
 
 	const results: Array<R | E> = Array.from({ length: array.length });
 	const errors: AsyncErrorInfo[] = [];
