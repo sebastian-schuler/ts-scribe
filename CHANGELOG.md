@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/sebastian-schuler/ts-scribe/compare/v1.1.1...v1.2.0) (2026-05-11)
+
+
+### Features
+
+* Enhance async utilities, improve documentation, and streamline ESM support ([#6](https://github.com/sebastian-schuler/ts-scribe/issues/6)) ([e13e453](https://github.com/sebastian-schuler/ts-scribe/commit/e13e4538f796310c5bd36e19e64f5a50622e6029))
+
 ## [1.1.1](https://github.com/sebastian-schuler/ts-scribe/compare/v1.1.0...v1.1.1) (2026-05-08)
 
 
