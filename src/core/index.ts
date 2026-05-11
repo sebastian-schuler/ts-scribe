@@ -6,6 +6,7 @@ export { jsonByteSize } from './json-byte-size.js';
 export type { JsonByteSizeAccuracy } from './json-byte-size.js';
 export { parseBoolean } from './parse-boolean.js';
 export { parseNumber } from './parse-number.js';
+export { pipe } from './pipe.js';
 export { run } from './run.js';
 export { safeJsonParse } from './safe-json-parse.js';
 export { safeJsonStringify } from './safe-json-stringify.js';

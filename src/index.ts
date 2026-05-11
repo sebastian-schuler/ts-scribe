@@ -24,11 +24,13 @@ export {
 	asyncFilterSettled,
 	asyncMap,
 	asyncMapSettled,
+	asyncPipe,
 	createAbortError,
 	debounce,
 	maybe,
 	retry,
 	sleep,
+	timeout,
 	waterfall,
 	Semaphore,
 	SemaphoreLock,
@@ -39,12 +41,14 @@ export type {
 	AsyncForEachSettledResult,
 	AsyncMapSettledResult,
 	Maybe,
+	TimeoutOptions,
 } from './async/index.js';
 
 // Core
 export {
 	parseBoolean,
 	parseNumber,
+	pipe,
 	run,
 	safeJsonParse,
 	safeJsonStringify,
@@ -87,13 +91,14 @@ export {
 	objectDeepClone,
 	objectDeepEquals,
 	objectDeepFreeze,
+	objectDeepMerge,
 	objectFlatten,
 	objectPrune,
 	objectPickKeys,
 	objectOmitKeys,
 	objectMask,
 } from './object/index.js';
-export type { DeepCloneOptions, MaskObjectOptions, PruneObjectOptions } from './object/index.js';
+export type { DeepCloneOptions, DeepMergeOptions, MaskObjectOptions, PruneObjectOptions } from './object/index.js';
 
 // Random
 export { randomBool, randomInt, randomSample, randomString } from './random/index.js';
@@ -119,6 +124,8 @@ export { isDefined, isEmptyObject, isEmptyValue, isNumber, isString } from './ty
 
 // Custom Types
 export type {
+	DeepMerge,
+	DeepMergeTuple,
 	DeepPartial,
 	DeepReadonly,
 	GenericFunction,

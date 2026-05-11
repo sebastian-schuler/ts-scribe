@@ -67,7 +67,9 @@ export async function runAsyncPool(
 			// Check abort signal before picking up each new item
 			if (signal?.aborted) {
 				aborted = true;
-				firstError = signal.reason;
+				// Do NOT overwrite firstError here — signal.reason is always available
+				// via signal.reason at finalization, and overwriting would mask any
+				// callback error that already set firstError.
 				return;
 			}
 
@@ -111,11 +113,14 @@ export async function runAsyncPool(
 	// Use allSettled so no rejections escape — we handle errors explicitly
 	await Promise.allSettled(workers);
 
-	if (signal?.aborted) {
-		throw createAbortError(firstError ?? signal.reason);
-	}
-
+	// Callback/predicate errors take precedence over an external signal abort.
+	// signal.reason is always available directly, so there is no need to store it
+	// in firstError — checking signal.aborted last avoids masking real errors.
 	if (firstError !== undefined) {
 		throw firstError instanceof Error ? firstError : new Error('Item processing failed', { cause: firstError });
+	}
+
+	if (signal?.aborted) {
+		throw createAbortError(signal.reason);
 	}
 }

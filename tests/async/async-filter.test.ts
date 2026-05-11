@@ -170,6 +170,28 @@ describe('asyncFilter', () => {
 		await expect(promise).rejects.toThrow();
 	});
 
+	test('should throw predicate error when signal aborts at the same time', async () => {
+		// Regression: when a predicate throws AND the signal is aborted concurrently,
+		// the predicate error must not be masked by an AbortError.
+		const controller = new AbortController();
+		const predicateError = new Error('predicate failed');
+
+		const promise = asyncFilter([1, 2], async (x) => {
+			if (x === 1) {
+				// Abort the signal and immediately throw in the same microtask.
+				controller.abort('external abort');
+				throw predicateError;
+			}
+
+			await new Promise((resolve) => setTimeout(resolve, 20));
+			return true;
+		}, { signal: controller.signal, concurrency: 2 });
+
+		const err = await promise.catch((e: unknown) => e);
+		expect(err).toBe(predicateError);
+		expect((err as Error).name).not.toBe('AbortError');
+	});
+
 	test('should reject when concurrency is NaN', async () => {
 		await expect(asyncFilter([1,2,3], async (x) => x > 0, { concurrency: Number.NaN })).rejects.toThrow(RangeError);
 	});

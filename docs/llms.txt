@@ -43,6 +43,11 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
 - `jsonByteSize(value: unknown, accuracy?: 'exact' | 'fast' | 'estimate')` — Measure JSON byte size.
 - `parseBoolean(value: string | boolean | number | null | undefined, defaultValue?: boolean)` — Coerce to boolean.
 - `parseNumber(value: string | number | null | undefined, defaultValue?: number)` — Coerce to number or undefined.
+- `pipe<A, B>(...fns: Function[]): (x: A) => B` — Compose functions left-to-right, threading each return value as the next argument. 0 args returns identity, 1 arg returns the function as-is. 6 typed overloads for full type inference.
+  ```ts
+  const add1ThenDouble = pipe((n: number) => n + 1, (n: number) => n * 2);
+  add1ThenDouble(3); // 8
+  ```
 - `run<T>(fn: () => T): T` — Immediately invoke a function (IIFE replacement).
 
 ## Array
@@ -74,6 +79,14 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
   ```ts
   const { results, errors } = await asyncMapSettled(ids, fetchUser, { errorValue: null });
   ```
+- `asyncPipe<A, B>(...fns: Function[]): (x: A) => Promise<B>` — Compose sync and/or async functions left-to-right. Each function may return a value or a Promise — the result is always a Promise. 6 typed overloads for full type inference.
+  ```ts
+  const search = asyncPipe(
+    (s: string) => s.trim(),
+    async (q: string) => ({ results: [q] }),
+  );
+  await search('  hello  '); // { results: ['hello'] }
+  ```
 - `createAbortError(reason: unknown): Error` — Create a standardized `AbortError` (name: `'AbortError'`, code: `20`).
 - `debounce<T, R>(fn: (...args: T) => R, wait: number, immediate?: boolean): (...args: T) => Promise<R | undefined>` — Debounced function, returns Promise.
   ```ts
@@ -97,6 +110,12 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
   lock.release();
   ```
 - `sleep(ms: number): Promise<void>` — Pause for ms. `await sleep(1000)`
+- `timeout<T>(promise: PromiseLike<T>, ms: number, options?: { signal?: AbortSignal; message?: string }): Promise<T>` — Wrap a promise with a rejection deadline. Rejects with an `AbortError` (name: `'AbortError'`, code: `20`) after `ms` milliseconds. Clears the timer automatically on settle. If a signal is provided and already aborted, rejects immediately.
+  ```ts
+  const data = await timeout(fetch('/api/data'), 5_000);
+  const result = await timeout(expensiveQuery(), 3_000, { message: 'Query timed out' });
+  const value = await timeout(work(), 10_000, { signal: controller.signal });
+  ```
 - `waterfall<T>(tasks: Array<() => Promise<T>>): Promise<T>` — Run tasks in sequence, returns last result.
 
 ## Object
@@ -106,6 +125,16 @@ import { getIn, debounce, memoize, type DeepGet } from 'ts-scribe';
   const clone = objectDeepClone({ a: 1, b: { c: 2 } });
   ```
 - `objectDeepEquals(a: unknown, b: unknown): boolean` — Deep equality with circular ref handling.
+- `objectDeepMerge<T>(...objects: T[]): DeepMergeTuple<T>` — Deeply merge two or more objects left-to-right. Primitives, arrays (replace by default), and special types (`Date`, `RegExp`, `Map`, `Set`, `ArrayBuffer`, `SharedArrayBuffer`, typed arrays, `Error`) are overwritten atomically by the right-hand value. Use `objectDeepMerge.withOptions({ arrayMerge: 'concat', maxDepth: 50 })` for custom behaviour. Handles circular references. Inputs are never mutated.
+  ```ts
+  const a = { name: 'Alice', meta: { visits: 1 }, tags: ['js'] };
+  const b = { meta: { lastSeen: new Date() }, age: 30, tags: ['ts'] };
+  objectDeepMerge(a, b);
+  // { name: 'Alice', meta: { visits: 1, lastSeen: ... }, age: 30, tags: ['ts'] }
+
+  const merge = objectDeepMerge.withOptions({ arrayMerge: 'concat' });
+  merge(a, b); // tags: ['js', 'ts']
+  ```
 - `objectDeepFreeze<T>(object: T): DeepReadonly<T>` — Recursively Object.freeze.
 - `objectFlatten(object: Record<string, unknown>, prefix?: string): Record<string, unknown>` — Flatten to dot-notation keys.
 - `objectMask<T>(object: T, options: MaskObjectOptions): T` — Replace sensitive values with masking character.

@@ -1,5 +1,5 @@
-import { isDefined } from '../typeguards/is-defined.js';
 import { runAsyncPool } from './utils/async-pool.js';
+import { validateAsyncArgs } from './utils/validate-args.js';
 import type { AsyncErrorInfo } from './async-map.js';
 
 /**
@@ -63,15 +63,8 @@ export async function asyncFilter<T>(
 		signal?: AbortSignal;
 	} = {},
 ): Promise<T[]> {
-	if (!isDefined(array)) {
-		throw new Error('Input array must not be null or undefined');
-	}
-
 	const { concurrency = Infinity, signal } = options;
-
-	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
-		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");
-	}
+	validateAsyncArgs(array, concurrency);
 
 	if (array.length === 0) {
 		return [];
@@ -138,15 +131,8 @@ export async function asyncFilterSettled<T>(
 		signal?: AbortSignal;
 	} = {},
 ): Promise<AsyncFilterSettledResult<T>> {
-	if (!isDefined(array)) {
-		throw new Error('Input array must not be null or undefined');
-	}
-
 	const { concurrency = Infinity, signal } = options;
-
-	if (concurrency !== Infinity && (!Number.isInteger(concurrency) || concurrency <= 0)) {
-		throw new RangeError("Option 'concurrency' must be a positive integer greater than 0.");
-	}
+	validateAsyncArgs(array, concurrency);
 
 	const include = Array.from({ length: array.length });
 	const errors: AsyncErrorInfo[] = [];

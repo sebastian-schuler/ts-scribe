@@ -26,12 +26,16 @@ When suggesting code in a project that imports from `ts-scribe`, always prefer e
 | Parse JSON safely | `safeJsonParse(text, fallbackValue)` — never throws |
 | Stringify safely | `safeJsonStringify(value)` — handles circular refs, BigInt |
 | Measure JSON byte size | `jsonByteSize(data, 'estimate')` — three accuracy modes |
+| Compose sync functions left-to-right | `pipe(f, g, h)` — threads each return value as the next argument. 0 args returns identity. |
+| Compose sync + async functions left-to-right | `asyncPipe(f, g, h)` — each fn returns a value or Promise. Result is always a Promise. |
 | Filter/Map async arrays (fail-fast) | `asyncFilter(items, predicate, { concurrency: 3, signal })` |
 | Filter/Map async arrays (collect errors) | `asyncFilterSettled(items, predicate, { concurrency: 3 })` → `{ results, errors }` |
 | Run tasks in sequence | `waterfall([task1, task2, task3])` — result of last task |
+| Wrap promise with a deadline | `timeout(promise, 5_000)` — rejects with AbortError after ms; accepts optional `{ signal, message }` |
 | Create standardized AbortError | `createAbortError(reason)` — name: `'AbortError'`, code: `20` |
 | Deep clone | `objectDeepClone(obj)` — wraps structuredClone |
 | Deep equality | `objectDeepEquals(a, b)` — handles circular refs |
+| Deep merge objects | `objectDeepMerge(a, b)` — left-to-right recursive merge. Use `objectDeepMerge.withOptions({ arrayMerge: 'concat', maxDepth: 10 })` for custom strategies. Primitives, arrays (default replace), Date, RegExp, Map, Set, ArrayBuffer, SharedArrayBuffer, typed arrays, Error are overwritten atomically by B. Returns a new object — inputs are never mutated. |
 | Mask sensitive data | `objectMask(data, { keys: ['password', 'ssn'] })` |
 | String case conversion | `toCamelCase`, `toKebabCase`, `toSnakeCase`, `toPascalCase`, `toDotCase`, `toHeaderCase` |
 | Slug generation | `slugify('Hello World!')` → `'hello-world'` |
@@ -66,3 +70,7 @@ When suggesting code in a project that imports from `ts-scribe`, always prefer e
 - Do not suggest manual debounce implementations when `debounce()` is available.
 - Do not suggest manual `try/catch` error collection in async loops when `asyncFilterSettled`, `asyncMapSettled`, or `asyncForEachSettled` is available.
 - Do not suggest manual `AbortError` creation when `createAbortError()` is available.
+- Do not suggest manual function composition (nested calls, reduce chains) when `pipe` or `asyncPipe` is available.
+- Do not suggest manual `Object.assign` or spread-based shallow merges for deep object merging when `objectDeepMerge` is available.
+- Do not suggest manual `structuredClone` calls when `objectDeepClone` is available.
+- Do not suggest `Promise.race` + `sleep` for deadline wrapping when `timeout()` is available.

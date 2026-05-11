@@ -142,6 +142,27 @@ describe('asyncForEach', () => {
 		await expect(promise).rejects.toThrow();
 	});
 
+	it('should throw callback error when signal aborts at the same time', async () => {
+		// Regression: when a callback throws AND the signal is aborted concurrently,
+		// the callback error must not be masked by an AbortError.
+		const controller = new AbortController();
+		const callbackError = new Error('callback failed');
+
+		const promise = asyncForEach([1, 2], async (x) => {
+			if (x === 1) {
+				// Abort the signal and immediately throw in the same microtask.
+				controller.abort('external abort');
+				throw callbackError;
+			}
+
+			await new Promise((resolve) => setTimeout(resolve, 20));
+		}, { signal: controller.signal, concurrency: 2 });
+
+		const err = await promise.catch((e: unknown) => e);
+		expect(err).toBe(callbackError);
+		expect((err as Error).name).not.toBe('AbortError');
+	});
+
 	it('should reject when concurrency is NaN', async () => {
 		await expect(asyncForEach([1,2,3], async () => {}, { concurrency: Number.NaN })).rejects.toThrow(RangeError);
 	});
