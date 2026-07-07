@@ -15,12 +15,12 @@ export function toHeaderCase(text: string | undefined): string {
 	if (!text) return '';
 
 	return String(text)
-		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/gv, '')
-		.replaceAll(/([a-z])([A-Z])/gv, (m: string, a: string, b: string) => `${a}_${b.toLowerCase()}`)
-		.replaceAll(/[^A-Za-z\d]+|_+/gv, ' ')
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
+		.replaceAll(/([a-z])([A-Z])/g, (m: string, a: string, b: string) => `${a}_${b.toLowerCase()}`)
+		.replaceAll(/[^A-Za-z\d]+|_+/g, ' ')
 		.toLowerCase()
 		.replaceAll(
-			/( ?)(\w+)( ?)/gv,
+			/( ?)(\w+)( ?)/g,
 			(m: string, a: string, b: string, c: string) => a + b.charAt(0).toUpperCase() + b.slice(1) + c,
 		);
 }

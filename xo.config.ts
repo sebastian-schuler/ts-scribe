@@ -19,6 +19,7 @@ export default [
 		rules: {
 			"@typescript-eslint/no-restricted-types": "off",
 			"unicorn/no-array-sort": "off",
+			"require-unicode-regexp": "off",
 		}
 	},
 ] satisfies FlatXoConfig;

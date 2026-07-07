@@ -66,7 +66,7 @@ type InterpolateData<T extends string> = [TopLevelKey<ExtractKeys<T>>] extends [
 	: Partial<Record<TopLevelKey<ExtractKeys<T>>, unknown>> | unknown[];
 
 function escapeRegex(s: string): string {
-	return s.replaceAll(/[$\(\)*+.?\[\\\]^\{\|\}]/gv, String.raw`\$&`);
+	return s.replaceAll(/[$()*+.?[\\\]^{|}]/g, String.raw`\$&`);
 }
 
 function resolveDotPath(object: Record<string, unknown>, path: string): unknown {
@@ -174,7 +174,7 @@ export function interpolateString<T extends string>(
 		throw new Error('Interpolation delimiters must be non-empty strings.');
 	}
 
-	const pattern = new RegExp(String.raw`${escapeRegex(open)}([\s\S]+?)${escapeRegex(close)}`, 'gv');
+	const pattern = new RegExp(String.raw`${escapeRegex(open)}([\s\S]+?)${escapeRegex(close)}`, 'g');
 
 	return template.replaceAll(pattern, (match, rawKey: string) => {
 		const key = rawKey.trim();

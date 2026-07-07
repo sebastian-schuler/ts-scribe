@@ -66,29 +66,29 @@ type SlugifyOptions = {
 export function slugify(input: string, options: SlugifyOptions = {}): string {
 	const { replacement = '-', remove, lowercase = true, strict = true } = options;
 
-	let slug = input.normalize('NFKD').replaceAll(/[\u0300-\u036F]/gv, ''); // Remove accents
+	let slug = input.normalize('NFKD').replaceAll(/[\u0300-\u036F]/g, ''); // Remove accents
 
 	if (remove) {
 		slug = slug.replace(remove, '');
 	}
 
 	// For strict mode, only allow URL path-safe chars
-	const allowed = strict ? /[^\w.~-]+/gv : /\s+/gv;
+	const allowed = strict ? /[^\w.~-]+/g : /\s+/g;
 
 	// Replace any characters not allowed with the replacement
 	slug = slug.replace(allowed, replacement);
 
 	// Replace multiple consecutive replacement chars with a single one
-	const multiReplacement = new RegExp(`${escapeRegex(replacement)}{2,}`, 'gv');
+	const multiReplacement = new RegExp(`${escapeRegex(replacement)}{2,}`, 'g');
 	slug = slug.replace(multiReplacement, replacement);
 
 	// Trim leading or trailing replacement chars
-	const boundary = new RegExp(`^${escapeRegex(replacement)}+|${escapeRegex(replacement)}+$`, 'gv');
+	const boundary = new RegExp(`^${escapeRegex(replacement)}+|${escapeRegex(replacement)}+$`, 'g');
 	slug = slug.replace(boundary, '');
 
 	return lowercase ? slug.toLowerCase() : slug;
 }
 
 function escapeRegex(string_: string): string {
-	return string_.replaceAll(/[\\^$*+?.\(\)\|\[\]\{\}]/gv, String.raw`\$&`);
+	return string_.replaceAll(/[\\^$*+?.()|[\]{}]/g, String.raw`\$&`);
 }

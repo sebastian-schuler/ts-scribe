@@ -13,8 +13,8 @@ export function toSeparatorCase(text: string | undefined, separator: string): st
 	if (!text) return '';
 
 	return String(text)
-		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/gv, '')
-		.replaceAll(/([a-z])([A-Z])/gv, '$1_$2')
-		.replaceAll(/[^A-Za-z\d]+|_+/gv, separator)
+		.replaceAll(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
+		.replaceAll(/([a-z])([A-Z])/g, '$1_$2')
+		.replaceAll(/[^A-Za-z\d]+|_+/g, separator)
 		.toLowerCase();
 }
